@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>你的名字 - 个人主页</title>
+    <title>Cool Hotdog - 个人主页</title>
     <link rel="stylesheet" href="css/style.css">
     <!-- 引入Font Awesome图标 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -12,11 +12,17 @@
     <!-- 导航栏 -->
     <nav class="navbar">
         <div class="container">
-            <a href="#" class="logo">你的名字</a>
+            <a href="#" class="logo">Cool Hotdog's Link</a>
             <ul class="nav-links">
-                <li><a href="#about">关于我</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">技能</a></li>
                 <li><a href="#projects">项目</a></li>
-                <li><a href="#contact">联系</a></li>
+                <li>
+                    <button id="theme-toggle" class="theme-toggle" aria-label="切换主题">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </li>
+                <li><span class="built-with">Built With Kimi V2.6 💗</span></li>
             </ul>
         </div>
     </nav>
@@ -26,87 +32,127 @@
         <div class="container">
             <div class="profile">
                 <img src="images/avatar.jpg" alt="头像" class="avatar">
-                <h1>你好，我是 <span class="highlight">凉凉的热狗</span></h1>
+                <div class="social-links">
+                    <a href="https://github.com/cool-hotdog" target="_blank" class="github-link">
+                        <i class="fab fa-github"></i> GitHub
+                    </a>
+                </div>
+                <h1><span class="highlight">Cool Hotdog</span></h1>
                 <p class="bio">
                     PKU 25'<br>
-                    Double Major in Econ & Math<br>
-                    持续学习、脚踏实地、专注于AI for Fintech
+                    Major in Econ & Math<br>
+                    Interested in AI & Math & Fintech
                 </p>
-                <div class="social-links">
-                    <a href="https://github.com/cool-hotdog" target="_blank" class="btn btn-primary">
-                        <i class="fab fa-github"></i> GitHub
+                
+                <div class="about-btn">
+                    <a href="about-cn.html" class="btn btn-about">
+                        <i class="fas fa-user"></i> More About Me
                     </a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- GitHub项目展示 -->
-    <section id="projects" class="projects">
+    <!-- 技术栈 -->
+    <section id="skills" class="content-section">
         <div class="container">
-            <h2 class="section-title">开源项目</h2>
+            <h2 class="section-title">技能</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <h3><i class="fas fa-code"></i> 计算机</h3>
+                    <ul>
+                        <li>Python</li> 
+                        <li>C</li>  
+                        <li>HTML</li>
+                        <li>CSS</li>
+                        <li>JavaScript</li>
+                    </ul>
+                </div>
+                <div class="skill-card">
+                    <h3><i class="fas fa-chart-line"></i> 数据科学</h3>
+                    <ul>
+                        <li>Jupyter Notebook</li>
+                        <li>pandas, numpy</li>
+                        <li>matplotlib, seaborn</li>
+                        <li>sk-learn</li>
+                    </ul>
+                </div>
+                <div class="skill-card">
+                    <h3><i class="fas fa-coins"></i> 金融 & 经济</h3>
+                    <ul>
+                        <li>金融模型</li>
+                        <li>财务会计</li>
+                        <li>量化投资</li>
+                    </ul>
+                </div>
+                <div class="skill-card">
+                    <h3><i class="fas fa-tools"></i> 其他</h3>
+                    <ul>
+                        <li>Git</li>
+                        <li>LaTeX</li>
+                        <li>Markdown</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GitHub项目展示 -->
+    <section id="projects" class="content-section">
+        <div class="container">
+            <h2 class="section-title">项目</h2>
             <div class="projects-grid" id="projects-container">
                 <!-- 项目卡片将通过JS动态加载，或手动写死 -->
                 
-                <!-- 示例项目1 -->
+                <!-- 项目1 -->
                 <div class="project-card">
                     <div class="project-header">
                         <i class="fab fa-github project-icon"></i>
                         <div class="project-links">
-                            <a href="https://github.com/你的用户名/项目名" target="_blank" title="查看源码">
+                            <a href="https://github.com/cool-hotdog/Stock-correlation-analysis" target="_blank" title="查看源码">
                                 <i class="fas fa-code"></i>
                             </a>
-                            <a href="https://项目演示链接" target="_blank" title="在线演示">
-                                <i class="fas fa-external-link-alt"></i>
-                            </a>
+        
                         </div>
                     </div>
-                    <h3>项目名称</h3>
+                    <h3>股票相关性分析</h3>
                     <p class="project-desc">
-                        项目简介：这是一个用React开发的待办事项应用，支持拖拽排序、数据持久化等功能。
+                        基于 Flask 的股票相关性分析 Web 应用，通过 Tushare API 获取股票数据，计算股票间的相关性系数，并以可视化方式展示结果。
                     </p>
                     <div class="project-tech">
-                        <span class="tech-tag">React</span>
-                        <span class="tech-tag">TypeScript</span>
-                        <span class="tech-tag">Tailwind</span>
-                    </div>
-                    <div class="project-stats">
-                        <span><i class="fas fa-star"></i> 128</span>
-                        <span><i class="fas fa-code-branch"></i> 32</span>
+                        <span class="tech-tag">Flask</span>
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">数据可视化</span>
                     </div>
                 </div>
 
-                <!-- 示例项目2 -->
+                <!-- 项目2 -->
                 <div class="project-card">
                     <div class="project-header">
                         <i class="fab fa-github project-icon"></i>
                         <div class="project-links">
-                            <a href="https://github.com/你的用户名/另一个项目" target="_blank">
+                            <a href="https://github.com/cool-hotdog/Dynamic-Hedging" target="_blank">
                                 <i class="fas fa-code"></i>
                             </a>
                         </div>
                     </div>
-                    <h3>另一个项目</h3>
+                    <h3>动态对冲策略</h3>
                     <p class="project-desc">
-                        基于Python的数据可视化工具，支持多种图表类型和实时数据更新。
+                        基于线性组合优化的增强组合构建了市场中性组合和暴露一定多头敞口的灵活对冲策略。
                     </p>
                     <div class="project-tech">
                         <span class="tech-tag">Python</span>
-                        <span class="tech-tag">FastAPI</span>
-                        <span class="tech-tag">ECharts</span>
-                    </div>
-                    <div class="project-stats">
-                        <span><i class="fas fa-star"></i> 86</span>
-                        <span><i class="fas fa-code-branch"></i> 15</span>
+                        <span class="tech-tag">DataFrame</span>
+                        <span class="tech-tag">Linear Regression</span>
                     </div>
                 </div>
 
             </div>
             
-            <!-- 查看更多按钮，跳转到GitHub主页 -->
+            <!-- 查看更多按钮 -->
             <div class="more-projects">
-                <a href="https://github.com/你的用户名?tab=repositories" target="_blank" class="btn btn-outline">
-                    查看更多项目 <i class="fas fa-arrow-right"></i>
+                <a href="https://github.com/cool-hotdog?tab=repositories" target="_blank" class="more-projects-link">
+                    <i class="fab fa-github"></i> 查看更多项目
                 </a>
             </div>
         </div>
@@ -115,7 +161,7 @@
     <!-- 页脚 -->
     <footer class="footer">
         <div class="container">
-            <p> 2026 COOL-HOTDOG. Built with Kimi & Github Copilot.</p>
+            <p> 2026 COOL-HOTDOG. Built with Kimi V2.6 & Github Copilot.</p>
         </div>
     </footer>
 

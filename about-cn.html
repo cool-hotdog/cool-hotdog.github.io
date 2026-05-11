@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>关于我 - Cool Hotdog</title>
+    <link rel="stylesheet" href="css/style.css">
+    <!-- 引入Font Awesome图标 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .about-page {
+            min-height: 100vh;
+            padding: 120px 0 60px;
+        }
+
+        .about-page .container {
+            max-width: 800px;
+        }
+
+        .about-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .about-header .avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 4px solid var(--primary-color);
+            margin-bottom: 1rem;
+            object-fit: cover;
+        }
+
+        .about-header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .about-header .subtitle {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        .about-section {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: background 1.0s ease, border-color 1.0s ease;
+        }
+
+        .about-section h2 {
+            font-size: 1.3rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .about-section h2 i {
+            font-size: 1.1rem;
+        }
+
+        .about-section p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 0.8rem;
+        }
+
+        .about-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .about-section ul li {
+            color: var(--text-secondary);
+            padding: 0.4rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .about-section ul li::before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+        }
+
+        .course-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+        }
+
+        .course-tag {
+            background: rgba(15, 0, 0, 0.082);
+            color: var(--text-secondary);
+            padding: 0.8rem 1.0rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            text-align: center;
+            white-space: nowrap;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        .course-tag:hover {
+            background: rgba(37, 99, 235, 0.2);
+            color: var(--primary-color);
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .back-link a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .back-link a:hover {
+            color: var(--primary-color);
+        }
+
+        .back-link a i {
+            margin-right: 0.3rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">Cool Hotdog</a>
+            <ul class="nav-links">
+                <li><a href="index.html#about">关于我</a></li>
+                <li><a href="index.html#projects">项目</a></li>
+                <li><a href="index.html#contact">课程与技能</a></li>
+                <li>
+                    <button id="theme-toggle" class="theme-toggle" aria-label="切换主题">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </li>
+                <li><span class="built-with">Built With Kimi  💗</span></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 自我介绍内容 -->
+    <section class="about-page">
+        <div class="container">
+            <div class="about-header">
+                <img src="images/avatar.jpg" alt="头像" class="avatar">
+                <h1><span class="highlight">Cool Hotdog</span></h1>
+                <p class="subtitle">PKU 25' | Econ & Math | AI & Fintech</p>
+            </div>
+
+            <div class="about-section">
+                <h2><i class="fas fa-user"></i> 个人简介</h2>
+                <p>
+                    你好！我是James Liang，但我更喜欢你叫我凉凉的热狗。我是一名北京大学经济学院2025级的本科生，并在本学期申请了修读数学双专业。
+                    我热衷于将人工智能与数学方法应用于金融科技领域，探索技术与金融的交叉创新。
+                </p>
+                <p>
+                    我相信脚踏实地、持续学习的力量，致力于学习与运用人工智能，融合自己的专业背景，创造真正的价值。
+                </p>
+                <p>
+                    最近半年我在做：在Webots中搭建赛道并进行仿真赛车比赛、通过Kaggle比赛了解一些基础的机器学习算法、借助Vibe Coding开发一些基础量化投资策略
+                </p>
+            </div>
+
+            <div class="about-section">
+                <h2><i class="fas fa-graduation-cap"></i> 教育背景</h2>
+                <p style="margin-bottom: 1rem; color: var(--text-primary);">
+                    <strong>北京大学</strong> — 经济学院（2025 - 至今）
+                </p>
+                <p>
+                    <strong>主要课程：</strong>
+                </p>
+                <div class="course-tags">
+                    <span class="course-tag">量化投资交易</span>
+                    <span class="course-tag">数据结构与算法</span>
+                    <span class="course-tag">计算概率</span>
+                    <span class="course-tag">高等数学</span>
+                    <span class="course-tag">概率统计</span>
+                    <span class="course-tag">经济学原理</span>
+                </div>
+            </div>
+
+            <div class="about-section">
+                <h2><i class="fas fa-code"></i> 技能</h2>
+                <ul>
+                    <li><strong>计算机：</strong>Python, C, HTML, CSS, JavaScript</li>
+                    <li><strong>数据科学：</strong> Jupyter Notebook, pandas, numpy, matplotlib, seaborn</li>
+                    <li><strong>金融 & 经济：</strong>RiceQuant, tushare, Wind, Bloomberg</li>
+                    <li><strong>其他：</strong>Git, LaTeX, Markdown</li>
+                </ul>
+            </div>
+
+            <div class="about-section">
+                <h2><i class="fas fa-heart"></i> 兴趣方向</h2>
+                <ul>
+                    <li>智能体理财助手</li>
+                    <li>LLM分析金融舆情</li>
+                    <li>智能体因子挖掘工厂</li>
+                    <li>量化投资策略研究</li>
+                </ul>
+            </div>
+
+            <div class="back-link">
+                <a href="index.html"><i class="fas fa-arrow-left"></i> 返回主页</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <p> 2026 COOL HOTDOG. Built with Kimi & Github Copilot.</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
