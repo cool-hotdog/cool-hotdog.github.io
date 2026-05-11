@@ -1,8 +1,6 @@
-// ========== 主题切换功能 ==========
+// ========== 主题切换功能（三态循环：light → dark → kimi → light） ==========
 const themeToggle = document.getElementById('theme-toggle');
 const themeIcon = themeToggle.querySelector('i');
-const kimiToggle = document.getElementById('kimi-toggle');
-const kimiIcon = kimiToggle.querySelector('i');
 
 // 获取当前主题
 function getCurrentTheme() {
@@ -14,26 +12,27 @@ function setTheme(theme) {
     if (theme === 'dark') {
         document.documentElement.setAttribute('data-theme', 'dark');
         themeIcon.className = 'fas fa-sun';
-        kimiIcon.className = 'fas fa-star';
         // 恢复默认光标
         document.body.style.cursor = 'auto';
         showCursorElements(false);
     } else if (theme === 'kimi') {
         document.documentElement.setAttribute('data-theme', 'kimi');
-        themeIcon.className = 'fas fa-moon';
-        kimiIcon.className = 'fas fa-star';
+        themeIcon.className = 'fas fa-star';
         // 隐藏默认光标，显示自定义光标
         document.body.style.cursor = 'none';
         showCursorElements(true);
     } else {
         document.documentElement.removeAttribute('data-theme');
         themeIcon.className = 'fas fa-moon';
-        kimiIcon.className = 'fas fa-star';
         // 恢复默认光标
         document.body.style.cursor = 'auto';
         showCursorElements(false);
     }
-    localStorage.setItem('theme', theme);
+    try {
+        localStorage.setItem('theme', theme);
+    } catch (e) {
+        console.warn('localStorage 不可用:', e);
+    }
 }
 
 // 显示/隐藏自定义光标元素
@@ -44,41 +43,44 @@ function showCursorElements(show) {
     if (dot) dot.style.display = show ? 'block' : 'none';
 }
 
-// 切换亮/暗主题
+// 三态循环切换：light → dark → kimi → light
 function toggleTheme() {
-    const currentTheme = getCurrentTheme();
-    if (currentTheme === 'kimi') {
-        setTheme('light');
-    } else {
-        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    try {
+        const currentTheme = getCurrentTheme();
+        let newTheme;
+        if (currentTheme === 'light') {
+            newTheme = 'dark';
+        } else if (currentTheme === 'dark') {
+            newTheme = 'kimi';
+        } else {
+            newTheme = 'light';
+        }
         setTheme(newTheme);
-    }
-}
-
-// 切换 Kimi 主题
-function toggleKimiTheme() {
-    const currentTheme = getCurrentTheme();
-    if (currentTheme === 'kimi') {
-        setTheme('light');
-    } else {
-        setTheme('kimi');
+    } catch (e) {
+        console.error('主题切换出错:', e);
     }
 }
 
 // 初始化主题
 function initTheme() {
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-        setTheme(savedTheme);
-    } else {
-        // 默认使用浅色主题
+    try {
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme && ['light', 'dark', 'kimi'].includes(savedTheme)) {
+            setTheme(savedTheme);
+        } else {
+            // 默认使用浅色主题
+            setTheme('light');
+        }
+    } catch (e) {
+        console.warn('主题初始化出错，使用默认主题:', e);
         setTheme('light');
     }
 }
 
 // 绑定切换事件
-themeToggle.addEventListener('click', toggleTheme);
-kimiToggle.addEventListener('click', toggleKimiTheme);
+if (themeToggle) {
+    themeToggle.addEventListener('click', toggleTheme);
+}
 
 // 页面加载时初始化主题
 initTheme();
@@ -130,21 +132,20 @@ document.addEventListener('mousemove', handleMouseMove);
 document.addEventListener('mouseover', handleMouseOver);
 document.addEventListener('mouseout', handleMouseOut);
 
-// 光晕呼吸动画循环（纯白色）- 使用 CSS 动画替代，移除 JS 循环避免性能问题
-// 呼吸效果已通过 CSS animation 实现
-
 // ========== 星空粒子动画（Kimi 主题） ==========
 const canvas = document.getElementById('starfield');
-const ctx = canvas.getContext('2d');
+let ctx = null;
 let stars = [];
 let animationId = null;
 
 function resizeCanvas() {
+    if (!canvas) return;
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 }
 
 function initStars() {
+    if (!canvas) return;
     stars = [];
     const starCount = Math.floor((canvas.width * canvas.height) / 8000);
     for (let i = 0; i < starCount; i++) {
@@ -161,6 +162,7 @@ function initStars() {
 }
 
 function drawStars() {
+    if (!canvas || !ctx) return;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     
     const currentTheme = getCurrentTheme();
@@ -197,24 +199,33 @@ function drawStars() {
 
 // 监听主题变化以控制星空
 const observer = new MutationObserver(() => {
-    const theme = getCurrentTheme();
-    if (theme === 'kimi') {
-        canvas.style.display = 'block';
-        if (!animationId) {
-            resizeCanvas();
-            initStars();
-            drawStars();
+    try {
+        const theme = getCurrentTheme();
+        if (theme === 'kimi') {
+            if (canvas) canvas.style.display = 'block';
+            if (!animationId) {
+                resizeCanvas();
+                initStars();
+                if (canvas) {
+                    ctx = canvas.getContext('2d');
+                }
+                drawStars();
+            }
+        } else {
+            if (canvas) canvas.style.display = 'none';
+            if (animationId) {
+                cancelAnimationFrame(animationId);
+                animationId = null;
+            }
         }
-    } else {
-        canvas.style.display = 'none';
-        if (animationId) {
-            cancelAnimationFrame(animationId);
-            animationId = null;
-        }
+    } catch (e) {
+        console.error('星空动画切换出错:', e);
     }
 });
 
-observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+if (document.documentElement) {
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+}
 
 // 窗口大小变化时重新初始化
 window.addEventListener('resize', () => {
@@ -225,12 +236,15 @@ window.addEventListener('resize', () => {
 });
 
 // 初始检查
-if (getCurrentTheme() === 'kimi') {
-    resizeCanvas();
-    initStars();
-    drawStars();
-} else {
-    canvas.style.display = 'none';
+if (canvas) {
+    ctx = canvas.getContext('2d');
+    if (getCurrentTheme() === 'kimi') {
+        resizeCanvas();
+        initStars();
+        drawStars();
+    } else {
+        canvas.style.display = 'none';
+    }
 }
 
 // ========== 平滑滚动 ==========
@@ -247,10 +261,12 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 // ========== 导航栏滚动效果 ==========
 window.addEventListener('scroll', () => {
     const navbar = document.querySelector('.navbar');
-    if (window.scrollY > 50) {
-        navbar.style.boxShadow = '0 2px 20px var(--shadow-color)';
-    } else {
-        navbar.style.boxShadow = 'none';
+    if (navbar) {
+        if (window.scrollY > 50) {
+            navbar.style.boxShadow = '0 2px 20px var(--shadow-color)';
+        } else {
+            navbar.style.boxShadow = 'none';
+        }
     }
 });
 
@@ -261,6 +277,8 @@ async function fetchGitHubProjects(username) {
         const repos = await response.json();
         
         const container = document.getElementById('projects-container');
+        if (!container) return;
+        
         container.innerHTML = repos.map(repo => `
             <div class="project-card">
                 <div class="project-header">
