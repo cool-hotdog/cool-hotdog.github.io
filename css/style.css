@@ -31,6 +31,498 @@
     --shadow-color: rgba(0, 0, 0, 0.3);
 }
 
+/* ========== Kimi 主题 - 黑白极简科幻风 ========== */
+[data-theme="kimi"] {
+    --primary-color: #ffffff;
+    --secondary-color: #aaaaaa;
+    --bg-gradient: radial-gradient(ellipse at 50% 0%, #0d0d0d 0%, #050505 50%, #000000 100%);
+    --card-bg: rgba(20, 20, 20, 0.7);
+    --text-primary: #ffffff;
+    --text-secondary: #aaaaaa;
+    --border-color: rgba(255, 255, 255, 0.1);
+    --navbar-bg: rgba(0, 0, 0, 0.9);
+    --shadow-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Kimi 主题 - 全局样式 */
+[data-theme="kimi"] body {
+    background: var(--bg-gradient);
+    cursor: none;
+}
+
+[data-theme="kimi"] a,
+[data-theme="kimi"] button,
+[data-theme="kimi"] .theme-toggle,
+[data-theme="kimi"] .kimi-toggle {
+    cursor: none;
+}
+
+/* Kimi 主题 - 噪点纹理叠加 */
+[data-theme="kimi"] body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    opacity: 0.5;
+}
+
+/* Kimi 主题 - 导航栏 */
+[data-theme="kimi"] .navbar {
+    background: var(--navbar-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+[data-theme="kimi"] .logo {
+    color: #ffffff;
+    font-weight: 300;
+    letter-spacing: 2px;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.15);
+}
+
+[data-theme="kimi"] .nav-links a {
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 300;
+    letter-spacing: 1px;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    transition: color 0.5s ease, text-shadow 0.5s ease;
+}
+
+[data-theme="kimi"] .nav-links a:hover {
+    color: #ffffff;
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+}
+
+[data-theme="kimi"] .built-with {
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 0.75rem;
+}
+
+/* Kimi 主题 - 主题切换按钮 */
+[data-theme="kimi"] .theme-toggle {
+    border-color: rgba(255, 255, 255, 0.15);
+    color: rgba(255, 255, 255, 0.6);
+}
+
+[data-theme="kimi"] .theme-toggle:hover {
+    border-color: #ffffff;
+    color: #ffffff;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+}
+
+/* Kimi 主题 - Kimi 切换按钮 */
+.kimi-toggle {
+    background: none;
+    border: 2px solid var(--border-color);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: var(--text-primary);
+    transition: all 4.0s ease, color 4.0s ease;
+    margin-left: 0.5rem;
+}
+
+.kimi-toggle:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+    transform: rotate(15deg);
+}
+
+[data-theme="kimi"] .kimi-toggle {
+    border-color: #ffffff;
+    color: #ffffff;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+    animation: kimi-pulse 2s ease-in-out infinite;
+}
+
+@keyframes kimi-pulse {
+    0%, 100% { box-shadow: 0 0 20px rgba(255, 255, 255, 0.2); }
+    50% { box-shadow: 0 0 30px rgba(255, 255, 255, 0.4), 0 0 60px rgba(255, 255, 255, 0.1); }
+}
+
+/* Kimi 主题 - Hero 区宇宙背景 */
+[data-theme="kimi"] .hero {
+    position: relative;
+    overflow: hidden;
+    background: 
+        radial-gradient(ellipse at 20% 50%, rgba(255, 255, 255, 0.03) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 30%, rgba(200, 200, 200, 0.03) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 80%, rgba(255, 255, 255, 0.02) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 0%, #0d0d0d 0%, #050505 50%, #000000 100%);
+}
+
+/* Kimi 主题 - 月球装饰 */
+[data-theme="kimi"] .hero::before {
+    content: '';
+    position: absolute;
+    top: 10%;
+    right: 5%;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, 
+        rgba(200, 200, 210, 0.12) 0%, 
+        rgba(150, 150, 160, 0.08) 30%, 
+        rgba(100, 100, 110, 0.03) 60%, 
+        transparent 80%);
+    box-shadow: 
+        0 0 60px rgba(255, 255, 255, 0.05),
+        0 0 120px rgba(200, 200, 200, 0.03),
+        inset 0 0 40px rgba(255, 255, 255, 0.03);
+    animation: moon-glow 8s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* 月球环形山纹理 */
+[data-theme="kimi"] .hero::after {
+    content: '';
+    position: absolute;
+    top: 10%;
+    right: 5%;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: 
+        radial-gradient(circle at 20% 30%, rgba(0,0,0,0.15) 0%, transparent 8%),
+        radial-gradient(circle at 60% 40%, rgba(0,0,0,0.12) 0%, transparent 6%),
+        radial-gradient(circle at 40% 70%, rgba(0,0,0,0.1) 0%, transparent 10%),
+        radial-gradient(circle at 70% 20%, rgba(0,0,0,0.1) 0%, transparent 5%),
+        radial-gradient(circle at 80% 60%, rgba(0,0,0,0.08) 0%, transparent 7%);
+    pointer-events: none;
+    z-index: 0;
+    animation: moon-glow 8s ease-in-out infinite;
+}
+
+@keyframes moon-glow {
+    0%, 100% { 
+        box-shadow: 
+            0 0 60px rgba(255, 255, 255, 0.05),
+            0 0 120px rgba(200, 200, 200, 0.03),
+            inset 0 0 40px rgba(255, 255, 255, 0.03);
+    }
+    50% { 
+        box-shadow: 
+            0 0 80px rgba(255, 255, 255, 0.08),
+            0 0 160px rgba(200, 200, 200, 0.05),
+            inset 0 0 50px rgba(255, 255, 255, 0.05);
+    }
+}
+
+/* Kimi 主题 - 星光粒子 */
+[data-theme="kimi"] #starfield {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Kimi 主题 - 光晕鼠标 - 白色光圈 */
+#cursor-halo {
+    position: fixed;
+    pointer-events: none;
+    z-index: 10000;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: radial-gradient(circle, 
+        rgba(255, 255, 255, 0.08) 0%, 
+        rgba(255, 255, 255, 0.04) 30%, 
+        rgba(255, 255, 255, 0.02) 60%, 
+        transparent 70%);
+    border: 1.5px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 
+        0 0 15px rgba(255, 255, 255, 0.15),
+        inset 0 0 15px rgba(255, 255, 255, 0.05);
+    transform: translate(-50%, -50%);
+    transition: width 0.3s ease, height 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    mix-blend-mode: normal;
+    animation: cursor-breathe 3s ease-in-out infinite;
+}
+
+@keyframes cursor-breathe {
+    0%, 100% { 
+        opacity: 0.8;
+        box-shadow: 0 0 15px rgba(255, 255, 255, 0.15), inset 0 0 15px rgba(255, 255, 255, 0.05);
+    }
+    50% { 
+        opacity: 1;
+        box-shadow: 0 0 25px rgba(255, 255, 255, 0.25), inset 0 0 20px rgba(255, 255, 255, 0.08);
+    }
+}
+
+#cursor-halo.active {
+    width: 160px;
+    height: 160px;
+    border-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 
+        0 0 25px rgba(255, 255, 255, 0.25),
+        inset 0 0 25px rgba(255, 255, 255, 0.08);
+}
+
+/* Kimi 主题 - 自定义光标点 */
+#cursor-dot {
+    position: fixed;
+    pointer-events: none;
+    z-index: 10001;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.9), 0 0 16px rgba(255, 255, 255, 0.4);
+    transform: translate(-50%, -50%);
+    transition: width 0.15s ease, height 0.15s ease;
+}
+
+#cursor-dot.active {
+    width: 10px;
+    height: 10px;
+}
+
+/* Kimi 主题 - 个人简介区域 */
+[data-theme="kimi"] .profile {
+    position: relative;
+    z-index: 1;
+}
+
+[data-theme="kimi"] .avatar {
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.1), 0 0 60px rgba(200, 200, 200, 0.05);
+    border: 2px solid rgba(255, 255, 255, 0.15);
+}
+
+[data-theme="kimi"] h1 {
+    font-weight: 200;
+    letter-spacing: 4px;
+    text-shadow: 0 0 30px rgba(255, 255, 255, 0.15);
+}
+
+[data-theme="kimi"] .highlight {
+    color: #ffffff;
+}
+
+[data-theme="kimi"] .bio {
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 300;
+    letter-spacing: 1px;
+    line-height: 2;
+}
+
+[data-theme="kimi"] .github-link {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+[data-theme="kimi"] .github-link:hover {
+    color: #ffffff;
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+}
+
+[data-theme="kimi"] .btn-about {
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+}
+
+[data-theme="kimi"] .btn-about:hover {
+    background: rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+    border-color: #ffffff;
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+}
+
+/* Kimi 主题 - 内容区域 */
+[data-theme="kimi"] .content-section {
+    position: relative;
+    z-index: 1;
+}
+
+[data-theme="kimi"] .section-title {
+    color: #ffffff;
+    font-weight: 200;
+    letter-spacing: 3px;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+/* Kimi 主题 - 卡片样式（毛玻璃 + 白色边缘） */
+[data-theme="kimi"] .skill-card,
+[data-theme="kimi"] .project-card,
+[data-theme="kimi"] .about-section {
+    background: rgba(20, 20, 20, 0.6);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 
+        0 0 20px rgba(255, 255, 255, 0.03),
+        inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    transition: all 0.5s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+/* 卡片边缘白色光晕 */
+[data-theme="kimi"] .skill-card::before,
+[data-theme="kimi"] .project-card::before,
+[data-theme="kimi"] .about-section::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    right: -1px;
+    bottom: -1px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.15), 
+        transparent 30%, 
+        transparent 70%, 
+        rgba(200, 200, 200, 0.1));
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+[data-theme="kimi"] .skill-card:hover::before,
+[data-theme="kimi"] .project-card:hover::before,
+[data-theme="kimi"] .about-section:hover::before {
+    opacity: 1;
+}
+
+[data-theme="kimi"] .skill-card:hover,
+[data-theme="kimi"] .project-card:hover,
+[data-theme="kimi"] .about-section:hover {
+    transform: translateY(-3px);
+    border-color: rgba(255, 255, 255, 0.25);
+    box-shadow: 
+        0 0 30px rgba(255, 255, 255, 0.06),
+        0 0 60px rgba(200, 200, 200, 0.03),
+        inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+[data-theme="kimi"] .skill-card h3 {
+    color: #ffffff;
+    font-weight: 300;
+    letter-spacing: 1px;
+}
+
+[data-theme="kimi"] .skill-card ul li {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+[data-theme="kimi"] .skill-card ul li::before {
+    color: #ffffff;
+}
+
+[data-theme="kimi"] .project-card h3 {
+    color: #ffffff;
+    font-weight: 300;
+    letter-spacing: 1px;
+}
+
+[data-theme="kimi"] .project-desc {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+[data-theme="kimi"] .project-icon {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+[data-theme="kimi"] .project-links a {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+[data-theme="kimi"] .project-links a:hover {
+    color: #ffffff;
+}
+
+[data-theme="kimi"] .tech-tag {
+    background: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+[data-theme="kimi"] .more-projects-link {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+[data-theme="kimi"] .more-projects-link:hover {
+    color: #ffffff;
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+}
+
+/* Kimi 主题 - 页脚 */
+[data-theme="kimi"] .footer {
+    color: rgba(255, 255, 255, 0.3);
+    position: relative;
+    z-index: 1;
+}
+
+/* Kimi 主题 - About 页面 */
+[data-theme="kimi"] .about-page {
+    background: var(--bg-gradient);
+}
+
+[data-theme="kimi"] .about-header .subtitle {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+[data-theme="kimi"] .about-section h2 {
+    color: #ffffff;
+    font-weight: 300;
+    letter-spacing: 1px;
+}
+
+[data-theme="kimi"] .about-section p {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+[data-theme="kimi"] .about-section ul li {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+[data-theme="kimi"] .about-section ul li::before {
+    color: #ffffff;
+}
+
+[data-theme="kimi"] .course-tag {
+    background: rgba(255, 255, 255, 0.06);
+    color: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="kimi"] .course-tag:hover {
+    background: rgba(255, 255, 255, 0.12);
+    color: #ffffff;
+}
+
+[data-theme="kimi"] .back-link a {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+[data-theme="kimi"] .back-link a:hover {
+    color: #ffffff;
+}
+
+/* Kimi 主题 - 项目统计 */
+[data-theme="kimi"] .project-stats span {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+/* ========== 全局样式 ========== */
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     background: var(--bg-gradient);
@@ -396,6 +888,22 @@ h1 {
     font-size: 1rem;
 }
 
+/* 项目统计 */
+.project-stats {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.5rem;
+}
+
+.project-stats span {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+}
+
+.project-stats i {
+    margin-right: 0.2rem;
+}
+
 /* 页脚 */
 .footer {
     text-align: center;
@@ -410,4 +918,12 @@ h1 {
     .nav-links { gap: 1rem; font-size: 0.9rem; }
     .projects-grid { grid-template-columns: 1fr; }
     .skills-grid { grid-template-columns: 1fr; }
+    
+    [data-theme="kimi"] .hero::before,
+    [data-theme="kimi"] .hero::after {
+        width: 150px;
+        height: 150px;
+        top: 5%;
+        right: 5%;
+    }
 }

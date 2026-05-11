@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>关于我 - Cool Hotdog</title>
+    <title>关于我 - Cool Hotdog's Link</title>
     <link rel="stylesheet" href="css/style.css">
     <!-- 引入Font Awesome图标 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -132,6 +132,12 @@
     </style>
 </head>
 <body>
+    <!-- 光晕鼠标元素（Kimi 主题） -->
+    <div id="cursor-halo"></div>
+    <div id="cursor-dot"></div>
+    <!-- 星空粒子 Canvas -->
+    <canvas id="starfield"></canvas>
+
     <!-- 导航栏 -->
     <nav class="navbar">
         <div class="container">
@@ -143,6 +149,11 @@
                 <li>
                     <button id="theme-toggle" class="theme-toggle" aria-label="切换主题">
                         <i class="fas fa-moon"></i>
+                    </button>
+                </li>
+                <li>
+                    <button id="kimi-toggle" class="kimi-toggle" aria-label="切换Kimi主题">
+                        <i class="fas fa-star"></i>
                     </button>
                 </li>
                 <li><span class="built-with">Built With Kimi V2.6 💗</span></li>
