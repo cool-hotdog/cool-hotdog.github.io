@@ -1,95 +1,106 @@
 // ========== 主题切换功能（三态循环：light → dark → kimi → light） ==========
 const themeToggle = document.getElementById('theme-toggle');
-const themeIcon = themeToggle.querySelector('i');
 
-// 获取当前主题
-function getCurrentTheme() {
-    return document.documentElement.getAttribute('data-theme') || 'light';
-}
+// 如果找不到主题切换按钮，跳过整个主题功能，防止后续代码报错崩溃
+if (!themeToggle) {
+    console.warn('[主题] 未找到 theme-toggle 按钮，主题功能已跳过');
+} else {
+    const themeIcon = themeToggle.querySelector('i');
 
-// 设置主题
-function setTheme(theme) {
-    if (theme === 'dark') {
-        document.documentElement.setAttribute('data-theme', 'dark');
-        themeIcon.className = 'fas fa-sun';
-        // 恢复默认光标
-        document.body.style.cursor = 'auto';
-        showCursorElements(false);
-    } else if (theme === 'kimi') {
-        document.documentElement.setAttribute('data-theme', 'kimi');
-        themeIcon.className = 'fas fa-star';
-        // 隐藏默认光标，显示自定义光标
-        document.body.style.cursor = 'none';
-        showCursorElements(true);
-    } else {
-        document.documentElement.removeAttribute('data-theme');
-        themeIcon.className = 'fas fa-moon';
-        // 恢复默认光标
-        document.body.style.cursor = 'auto';
-        showCursorElements(false);
+    // 获取当前主题
+    function getCurrentTheme() {
+        return document.documentElement.getAttribute('data-theme') || 'light';
     }
-    try {
-        localStorage.setItem('theme', theme);
-    } catch (e) {
-        console.warn('localStorage 不可用:', e);
-    }
-}
 
-// 显示/隐藏自定义光标元素
-function showCursorElements(show) {
-    const halo = document.getElementById('cursor-halo');
-    const dot = document.getElementById('cursor-dot');
-    if (halo) halo.style.display = show ? 'block' : 'none';
-    if (dot) dot.style.display = show ? 'block' : 'none';
-}
-
-// 三态循环切换：light → dark → kimi → light
-function toggleTheme() {
-    try {
-        const currentTheme = getCurrentTheme();
-        let newTheme;
-        if (currentTheme === 'light') {
-            newTheme = 'dark';
-        } else if (currentTheme === 'dark') {
-            newTheme = 'kimi';
+    // 设置主题
+    function setTheme(theme) {
+        if (theme === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            themeIcon.className = 'fas fa-sun';
+            // 恢复默认光标
+            document.body.style.cursor = 'auto';
+            showCursorElements(false);
+        } else if (theme === 'kimi') {
+            document.documentElement.setAttribute('data-theme', 'kimi');
+            themeIcon.className = 'fas fa-star';
+            // 隐藏默认光标，显示自定义光标
+            document.body.style.cursor = 'none';
+            showCursorElements(true);
         } else {
-            newTheme = 'light';
+            document.documentElement.removeAttribute('data-theme');
+            themeIcon.className = 'fas fa-moon';
+            // 恢复默认光标
+            document.body.style.cursor = 'auto';
+            showCursorElements(false);
         }
-        setTheme(newTheme);
-    } catch (e) {
-        console.error('主题切换出错:', e);
+        try {
+            localStorage.setItem('theme', theme);
+        } catch (e) {
+            console.warn('localStorage 不可用:', e);
+        }
     }
-}
 
-// 初始化主题
-function initTheme() {
-    try {
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme && ['light', 'dark', 'kimi'].includes(savedTheme)) {
-            setTheme(savedTheme);
-        } else {
-            // 默认使用浅色主题
+    // 显示/隐藏自定义光标元素
+    function showCursorElements(show) {
+        const halo = document.getElementById('cursor-halo');
+        const dot = document.getElementById('cursor-dot');
+        if (halo) halo.style.display = show ? 'block' : 'none';
+        if (dot) dot.style.display = show ? 'block' : 'none';
+    }
+
+    // 三态循环切换：light → dark → kimi → light
+    function toggleTheme() {
+        try {
+            const currentTheme = getCurrentTheme();
+            let newTheme;
+            if (currentTheme === 'light') {
+                newTheme = 'dark';
+            } else if (currentTheme === 'dark') {
+                newTheme = 'kimi';
+            } else {
+                newTheme = 'light';
+            }
+            setTheme(newTheme);
+            console.log('[主题] 已切换到:', newTheme);
+        } catch (e) {
+            console.error('主题切换出错:', e);
+        }
+    }
+
+    // 初始化主题
+    function initTheme() {
+        try {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme && ['light', 'dark', 'kimi'].includes(savedTheme)) {
+                setTheme(savedTheme);
+                console.log('[主题] 已恢复保存的主题:', savedTheme);
+            } else {
+                // 默认使用浅色主题
+                setTheme('light');
+            }
+        } catch (e) {
+            console.warn('主题初始化出错，使用默认主题:', e);
             setTheme('light');
         }
-    } catch (e) {
-        console.warn('主题初始化出错，使用默认主题:', e);
-        setTheme('light');
     }
-}
 
-// 绑定切换事件
-if (themeToggle) {
+    // 绑定切换事件
     themeToggle.addEventListener('click', toggleTheme);
-}
 
-// 页面加载时初始化主题
-initTheme();
+    // 页面加载时初始化主题
+    initTheme();
+}
 
 // ========== 光晕鼠标效果（Kimi 主题） ==========
 const cursorHalo = document.getElementById('cursor-halo');
 const cursorDot = document.getElementById('cursor-dot');
 
 let mouseX = 0, mouseY = 0;
+
+// 获取当前主题（独立函数，避免依赖 themeToggle）
+function getCurrentTheme() {
+    return document.documentElement.getAttribute('data-theme') || 'light';
+}
 
 // 鼠标移动处理函数
 function handleMouseMove(e) {
