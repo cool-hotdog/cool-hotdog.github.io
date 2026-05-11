@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>你的名字 - 个人主页</title>
+    <link rel="stylesheet" href="css/style.css">
+    <!-- 引入Font Awesome图标 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="#" class="logo">你的名字</a>
+            <ul class="nav-links">
+                <li><a href="#about">关于我</a></li>
+                <li><a href="#projects">项目</a></li>
+                <li><a href="#contact">联系</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 个人简介部分 -->
+    <section id="about" class="hero">
+        <div class="container">
+            <div class="profile">
+                <img src="images/avatar.jpg" alt="头像" class="avatar">
+                <h1>你好，我是 <span class="highlight">你的名字</span></h1>
+                <p class="bio">
+                    全栈开发工程师 / 开源爱好者<br>
+                    热爱用技术解决实际问题，专注于Web开发和人工智能应用。
+                </p>
+                <div class="social-links">
+                    <a href="https://github.com/你的用户名" target="_blank" class="btn btn-primary">
+                        <i class="fab fa-github"></i> GitHub
+                    </a>
+                    <a href="mailto:your.email@example.com" class="btn btn-secondary">
+                        <i class="fas fa-envelope"></i> 邮箱
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GitHub项目展示 -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <h2 class="section-title">开源项目</h2>
+            <div class="projects-grid" id="projects-container">
+                <!-- 项目卡片将通过JS动态加载，或手动写死 -->
+                
+                <!-- 示例项目1 -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <i class="fab fa-github project-icon"></i>
+                        <div class="project-links">
+                            <a href="https://github.com/你的用户名/项目名" target="_blank" title="查看源码">
+                                <i class="fas fa-code"></i>
+                            </a>
+                            <a href="https://项目演示链接" target="_blank" title="在线演示">
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <h3>项目名称</h3>
+                    <p class="project-desc">
+                        项目简介：这是一个用React开发的待办事项应用，支持拖拽排序、数据持久化等功能。
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-tag">React</span>
+                        <span class="tech-tag">TypeScript</span>
+                        <span class="tech-tag">Tailwind</span>
+                    </div>
+                    <div class="project-stats">
+                        <span><i class="fas fa-star"></i> 128</span>
+                        <span><i class="fas fa-code-branch"></i> 32</span>
+                    </div>
+                </div>
+
+                <!-- 示例项目2 -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <i class="fab fa-github project-icon"></i>
+                        <div class="project-links">
+                            <a href="https://github.com/你的用户名/另一个项目" target="_blank">
+                                <i class="fas fa-code"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <h3>另一个项目</h3>
+                    <p class="project-desc">
+                        基于Python的数据可视化工具，支持多种图表类型和实时数据更新。
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">FastAPI</span>
+                        <span class="tech-tag">ECharts</span>
+                    </div>
+                    <div class="project-stats">
+                        <span><i class="fas fa-star"></i> 86</span>
+                        <span><i class="fas fa-code-branch"></i> 15</span>
+                    </div>
+                </div>
+
+            </div>
+            
+            <!-- 查看更多按钮，跳转到GitHub主页 -->
+            <div class="more-projects">
+                <a href="https://github.com/你的用户名?tab=repositories" target="_blank" class="btn btn-outline">
+                    查看更多项目 <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <p> 2024 你的名字. Built with ❤️ and HTML/CSS/JS.</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
