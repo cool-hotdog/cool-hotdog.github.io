@@ -209,18 +209,18 @@
     position: fixed;
     pointer-events: none;
     z-index: 10000;
-    width: 120px;
-    height: 120px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
     background: radial-gradient(circle, 
         rgba(255, 255, 255, 0.08) 0%, 
         rgba(255, 255, 255, 0.04) 30%, 
         rgba(255, 255, 255, 0.02) 60%, 
         transparent 70%);
-    border: 1.5px solid rgba(255, 255, 255, 0.5);
+    border: 1.2px solid rgba(255, 255, 255, 0.5);
     box-shadow: 
-        0 0 15px rgba(255, 255, 255, 0.15),
-        inset 0 0 15px rgba(255, 255, 255, 0.05);
+        0 0 8px rgba(255, 255, 255, 0.15),
+        inset 0 0 8px rgba(255, 255, 255, 0.05);
     transform: translate(-50%, -50%);
     transition: width 0.3s ease, height 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
     mix-blend-mode: normal;
@@ -230,21 +230,21 @@
 @keyframes cursor-breathe {
     0%, 100% { 
         opacity: 0.8;
-        box-shadow: 0 0 15px rgba(255, 255, 255, 0.15), inset 0 0 15px rgba(255, 255, 255, 0.05);
+        box-shadow: 0 0 8px rgba(255, 255, 255, 0.15), inset 0 0 8px rgba(255, 255, 255, 0.05);
     }
     50% { 
         opacity: 1;
-        box-shadow: 0 0 25px rgba(255, 255, 255, 0.25), inset 0 0 20px rgba(255, 255, 255, 0.08);
+        box-shadow: 0 0 14px rgba(255, 255, 255, 0.25), inset 0 0 12px rgba(255, 255, 255, 0.08);
     }
 }
 
 #cursor-halo.active {
-    width: 160px;
-    height: 160px;
+    width: 80px;
+    height: 80px;
     border-color: rgba(255, 255, 255, 0.8);
     box-shadow: 
-        0 0 25px rgba(255, 255, 255, 0.25),
-        inset 0 0 25px rgba(255, 255, 255, 0.08);
+        0 0 14px rgba(255, 255, 255, 0.25),
+        inset 0 0 14px rgba(255, 255, 255, 0.08);
 }
 
 /* Kimi 主题 - 自定义光标点 */
