@@ -1,0 +1,5 @@
+{
+  "vaultPathEnv": "OBSIDIAN_VAULT_PATH",
+  "localConfig": "notes.local.json",
+  "contentDirectory": "content"
+}
