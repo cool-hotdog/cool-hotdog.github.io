@@ -1,8 +1,8 @@
 export const copy = {
   zh: {
     lang: 'zh-CN', title: 'James Liang · Cool Hotdog', nav: ['首页', '笔记', '关于'], language: 'EN', skip: '跳到正文',
-    eyebrow: '北京大学经济学院 · 2025 级', hero: '把知识连起来，<br>把想法做出来。',
-    intro: '你好，我是James，捏可以叫我凉凉的热狗。<br>欢迎来到我的主页。',
+    hero: '把知识连起来，<br>把想法做出来。',
+    intro: '你好，我是James，你可以叫我凉凉的热狗。<br>欢迎来到我的主页。',
     readNotes: '探索笔记', profile: 'James Liang', profileSub: 'Econ · Math · AI · Fintech',
     garden: '一座持续生长的知识花园', gardenDesc: '课程给出路径，概念建立联系，思考加深理解。',
     directions: '我关注的方向', directionsSub: '从基础概念出发，走向可以验证的问题。',
@@ -17,7 +17,7 @@ export const copy = {
   },
   en: {
     lang: 'en', title: 'James Liang · Cool Hotdog', nav: ['Home', 'Notes', 'About'], language: '中文', skip: 'Skip to content',
-    eyebrow: 'PEKING UNIVERSITY · ECONOMICS · CLASS OF 2025', hero: 'Connecting ideas.<br>Building things.',
+    hero: 'Connecting ideas.<br>Building things.',
     intro: 'Hi, I’m James — you can call me Cool Hotdog.<br>Welcome to my website!',
     readNotes: 'Explore my notes', profile: 'James Liang', profileSub: 'Econ · Math · AI · Fintech',
     garden: 'A knowledge garden in progress', gardenDesc: 'Courses guide the journey. Concepts connect it. Reflection deepens understanding.',
