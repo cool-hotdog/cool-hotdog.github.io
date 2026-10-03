@@ -18,7 +18,7 @@ async function addNotesNavigation(dir) {
     else if (entry.name.endsWith('.html')) {
       let html = await fs.readFile(full, 'utf8');
       html = html.replace('</head>', '<script src="/assets/theme-init.js"></script></head>');
-      html = html.replace(/(<body[^>]*>)/, '$1<nav class="notes-home-nav" aria-label="网站导航"><a class="notes-brand" href="/">James Liang <span aria-hidden="true">/</span> Notes</a><div><a href="/">中文主页</a><a href="/en/">English</a><a href="/projects/">项目 ↗</a></div></nav>');
+      html = html.replace(/(<body[^>]*>)/, '$1<nav class="notes-home-nav" aria-label="网站导航"><a class="notes-brand" href="/">James Liang <span aria-hidden="true">/</span> Notes</a><div><a href="/">中文主页</a><a href="/en/">English</a><a href="/about/">关于 ↗</a></div></nav>');
       await fs.writeFile(full, html);
     }
   }
@@ -26,16 +26,23 @@ async function addNotesNavigation(dir) {
 await addNotesNavigation(path.join(dist, 'notes'));
 await fs.cp(path.join(root, 'site/assets'), path.join(dist, 'assets'), { recursive: true });
 for (const lang of ['zh', 'en']) {
-  for (const page of ['', 'projects', 'about']) {
+  for (const page of ['', 'about']) {
     const output = path.join(dist, lang === 'en' ? 'en' : '', page);
     await fs.mkdir(output, { recursive: true });
     await fs.writeFile(path.join(output, 'index.html'), render(lang, page, manifest.notes));
   }
 }
+// Preserve old bookmarks without publishing project details.
+for (const lang of ['zh', 'en']) {
+  const target = lang === 'en' ? '/en/' : '/';
+  const output = path.join(dist, lang === 'en' ? 'en' : '', 'projects');
+  await fs.mkdir(output, { recursive: true });
+  await fs.writeFile(path.join(output, 'index.html'), `<!doctype html><html lang="${lang === 'en' ? 'en' : 'zh-CN'}"><head><meta charset="utf-8"><meta name="robots" content="noindex"><meta http-equiv="refresh" content="0;url=${target}"><title>James Liang</title><link rel="canonical" href="https://cool-hotdog.github.io${target}"></head><body><a href="${target}">${lang === 'en' ? 'Home' : '返回首页'}</a></body></html>`);
+}
 await fs.writeFile(path.join(dist, 'about-cn.html'), '<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=/about/"><title>关于 James</title><link rel="canonical" href="https://cool-hotdog.github.io/about/"></head><body><a href="/about/">关于 James</a></body></html>');
 await fs.writeFile(path.join(dist, '.nojekyll'), '');
 await fs.writeFile(path.join(dist, '404.html'), '<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>页面未找到 · James Liang</title><link rel="stylesheet" href="/assets/site.css"></head><body><main class="site-main"><div class="page-heading"><div class="micro">404 / NOT FOUND</div><h1>这条路径尚未写下。</h1><p>Page not found.</p></div><a class="button" href="/">返回首页 / Home ↗</a></main></body></html>');
-const urls = ['/', '/en/', '/projects/', '/en/projects/', '/about/', '/en/about/'];
+const urls = ['/', '/en/', '/about/', '/en/about/'];
 await fs.writeFile(path.join(dist, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${urls.map(u=>`<url><loc>https://cool-hotdog.github.io${u}</loc></url>`).join('')}</urlset>`);
 await fs.writeFile(path.join(dist, 'robots.txt'), 'User-agent: *\nAllow: /\nSitemap: https://cool-hotdog.github.io/sitemap.xml\nSitemap: https://cool-hotdog.github.io/notes/sitemap.xml\n');
 console.log('展示页与笔记库已构建到 dist/');
