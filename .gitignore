@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.local/
+.quartz/
+quartz-engine/node_modules/
+quartz-engine/.quartz/
+quartz-engine/public/
+notes.local.json
+.DS_Store
+.quartz-cache/

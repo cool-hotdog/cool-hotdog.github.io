@@ -1,0 +1,26 @@
+{
+  "name": "cool-hotdog-homepage",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "notes:sync": "node scripts/sync-notes.mjs",
+    "build": "node scripts/build.mjs",
+    "preview": "npm run build && node scripts/serve.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "verify": "node scripts/verify.mjs",
+    "setup": "npm ci --prefix quartz-engine"
+  },
+  "dependencies": {
+    "@quartz-community/utils": "1.0.1",
+    "github-slugger": "2.0.0",
+    "parse5": "7.3.0",
+    "remark-parse": "11.0.0",
+    "unified": "11.0.5",
+    "unist-util-visit": "5.0.0",
+    "yaml": "2.8.2"
+  }
+}

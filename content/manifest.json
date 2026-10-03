@@ -1,0 +1,17 @@
+{
+  "notes": [
+    {
+      "path": "20 Knowledge/Computer Science/Code/CPP刷题经验.md",
+      "title": "CPP刷题经验",
+      "url": "/notes/20-knowledge/computer-science/code/cpp刷题经验.html",
+      "tags": [
+        "cpp"
+      ],
+      "modified": "2026-10-03T08:06:53.703Z",
+      "featured": true,
+      "description": "保留前导零：C++ 中字符串输入与 setw、setfill 格式化输出。",
+      "sha256": "d1195ee70b1fda216d29668a5fe36264b04a3e2ff345e2fd175f7e5e03ee5a36"
+    }
+  ],
+  "assets": []
+}
