@@ -29,6 +29,18 @@ npm run preview
 
 ## 从 Obsidian 发布
 
+### 一键发布（Mac）
+
+Obsidian 的 `90 Meta/Home` 中提供「发布公开笔记」与「仅检查」两个入口，通过本地专用插件「个人网站发布」运行脚本，并在 Obsidian 弹窗中显示执行结果。插件源码在 `integrations/obsidian-homepage-publisher/`，只支持手动运行，不监听保存事件。插件安装到当前打开笔记库的 `.obsidian/plugins/homepage-publisher/`，`data.json` 的 `projectPath` 指向这个项目的绝对路径。
+
+在 Obsidian 中保存笔记、按需要勾选 `publish`，然后在 Finder 中双击本项目的 **`发布笔记.command`**。程序会同步公开笔记，运行测试、构建和链接检查，只提交 `content/` 中的公开快照，并推送到 `main`，触发 GitHub Pages 部署。终端会显示每一步的结果和部署状态链接。推送成功后仍需等待 GitHub 部署完成，网页才会更新。
+
+检查失败会停止发布；推送失败时保留本机提交，再次运行即可重试。没有变化时不创建空提交。需要使用 `main` 分支，暂存区为空，网站代码没有未提交修改；其他未跟踪文件不会随笔记提交。工具不会修改原 Obsidian 笔记。可将此入口拖入 Dock 或创建替身，方便以后打开。
+
+也可以运行 `npm run notes:publish`。只想同步并检查、不提交或推送时，运行 `npm run notes:publish -- --check`。
+
+### 手动同步
+
 在本机新建 **不提交 Git 的** `notes.local.json`，填写自己的 Vault 绝对路径：
 
 ```json

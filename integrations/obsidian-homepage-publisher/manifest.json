@@ -1,0 +1,9 @@
+{
+  "id": "homepage-publisher",
+  "name": "个人网站发布",
+  "version": "1.0.0",
+  "minAppVersion": "1.0.0",
+  "description": "从入口笔记发布或检查公开笔记，并显示执行结果。",
+  "author": "James",
+  "isDesktopOnly": true
+}

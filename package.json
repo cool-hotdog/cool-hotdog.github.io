@@ -8,6 +8,7 @@
   },
   "scripts": {
     "notes:sync": "node scripts/sync-notes.mjs",
+    "notes:publish": "node scripts/publish-notes.mjs",
     "build": "node scripts/build.mjs",
     "preview": "npm run build && node scripts/serve.mjs",
     "test": "node --test tests/*.test.mjs",
