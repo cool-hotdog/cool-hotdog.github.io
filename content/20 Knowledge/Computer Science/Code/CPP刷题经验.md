@@ -3,8 +3,8 @@ title: CPP刷题经验
 publish: true
 tags:
   - cpp
-created: 2026-10-05T11:10:52.677Z
-modified: 2026-10-05T11:10:52.677Z
+created: 2026-10-05T11:15:26.383Z
+modified: 2026-10-05T11:15:26.383Z
 description: 计算概论（A）做题时的遇到的实用tricks
 ---
 ### 如何处理带前导零的整数？
@@ -34,4 +34,17 @@ n是格式所需位数
 
 建立多个平行的数组等同于将对象的不同要素分开储存，且同一个对象的各个要素在其对应数组中的 index 都相同。
 
+```cpp
+char key[4] = {'a', 'b', 'c', 'd'};
+int  value[4] = {a, b, c, d};
+```
 
+
+例如我们要对 value 进行排序，同时希望输出 value 时能同时输出 key。我们需要在对value排序时同步key数组的 index。
+
+```cpp
+swap(value[a], value[b]);
+swap(key[a], key[b]);
+```
+
+至于为什么要使用冒泡/插入/归并排序，这是因为
