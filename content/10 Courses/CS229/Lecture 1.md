@@ -4,8 +4,8 @@ publish: true
 tags:
   - ML
   - Stanford
-created: 2026-10-05T17:44:03.833Z
-modified: 2026-10-05T17:44:03.833Z
+created: 2026-10-05T17:47:24.906Z
+modified: 2026-10-05T17:47:24.906Z
 description: ""
 ---
 ## Key ideas
@@ -54,9 +54,7 @@ given a dataset without labels
 
 **K-means clustering**
 		
-**Cocktail party problem**:a noisy room, multiple microphones, record overlapping 
-		
-voices. separate out the people's voices. ——ICA（Independent Components Analysis)
+**Cocktail party problem**:a noisy room, multiple microphones, record overlapping voices，separate out the people's voices, using **ICA（Independent Components Analysis)**
 
 
 
