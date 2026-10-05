@@ -98,6 +98,13 @@ test('changes during candidate validation discard the candidate and preserve the
   assert.ok(!f.calls.some(([file, verb]) => file === 'git' && ['add', 'commit', 'push'].includes(verb)));
 });
 
+test('unrelated code edits during validation stop before replacing or committing the candidate', async t => {
+  const f = await fixture(t), previous = await fs.readFile(path.join(f.cwd, 'content/note.md'), 'utf8');
+  await assert.rejects(publishNotes({ cwd: f.cwd, sourceIdentity: null, log() {}, run: f.runner({ sync: true, duringBuild: () => writeFileSync(path.join(f.cwd, 'site.mjs'), 'concurrent code edit') }) }), /网站代码/);
+  assert.equal(await fs.readFile(path.join(f.cwd, 'content/note.md'), 'utf8'), previous);
+  assert.ok(!f.calls.some(([file, verb]) => file === 'git' && ['add', 'commit', 'push'].includes(verb)));
+});
+
 test('private edits and empty folders do not build or fetch; whole-folder moves replace old paths', async t => {
   const f = await fixture(t);
   await fs.writeFile(path.join(f.vaultPath, 'private.md'), 'private');

@@ -51,7 +51,8 @@ test('Quartz renders public Obsidian links, formulas, code and attachment paths 
 });
 
 test('candidate builds and verification rebuild navigation, search, backlinks and remove old folder pages', async () => {
-  const tmp = await fs.mkdtemp(path.join(os.tmpdir(), 'homepage-mirror-build-'));
+  await fs.mkdir(path.join(root, '.local'), { recursive: true });
+  const tmp = await fs.mkdtemp(path.join(root, '.local', 'mirror-build-test-'));
   try {
     const vaultPath = path.join(tmp, 'vault'), content = path.join(tmp, 'content'), output = path.join(tmp, 'dist');
     await fs.mkdir(path.join(vaultPath, 'Original/Nested'), { recursive: true });

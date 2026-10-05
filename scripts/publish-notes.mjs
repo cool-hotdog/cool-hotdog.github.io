@@ -15,10 +15,13 @@ function command(file, args, { cwd, capture = false, env = {} }) {
 
 export async function publishNotes({ cwd = root, checkOnly = false, run = command, log = console.log, sourceIdentity = { id: process.env.HOMEPAGE_SOURCE_ID, vaultRoot: process.env.HOMEPAGE_VAULT_ROOT } } = {}) {
   const git = (...args) => run('git', args, { cwd, capture: true }).trim();
-  if (git('branch', '--show-current') !== 'main') throw new Error('请先回到 main 分支，再发布笔记。');
-  if (git('diff', '--cached', '--name-only')) throw new Error('暂存区中有其他改动。请先完成或取消暂存，再发布笔记。');
-  const modified = git('diff', '--name-only', '-z').split('\0').filter(Boolean);
-  if (modified.some(name => !name.startsWith('content/'))) throw new Error('网站代码有未提交修改。请先处理这些修改，再发布笔记。');
+  const ensureRepository = () => {
+    if (git('branch', '--show-current') !== 'main') throw new Error('请先回到 main 分支，再发布笔记。');
+    if (git('diff', '--cached', '--name-only')) throw new Error('暂存区中有其他改动。请先完成或取消暂存，再发布笔记。');
+    const modified = git('diff', '--name-only', '-z').split('\0').filter(Boolean);
+    if (modified.some(name => !name.startsWith('content/'))) throw new Error('网站代码有未提交修改。请先处理这些修改，再发布笔记。');
+  };
+  ensureRepository();
 
   const { vaultPath, destination } = await vaultSettings(cwd);
   async function validateSource() {
@@ -61,6 +64,7 @@ export async function publishNotes({ cwd = root, checkOnly = false, run = comman
     log('3/4 验证候选快照和网站构建…');
     const env = { HOMEPAGE_CONTENT_DIR: candidate, HOMEPAGE_DIST_DIR: path.join(temporary, 'dist') };
     for (const args of [['test'], ['run', 'build'], ['run', 'verify']]) run('npm', args, { cwd, env });
+    ensureRepository();
     await ensureStable();
     if (changed) await replaceExport(candidate, destination);
     if (checkOnly) {

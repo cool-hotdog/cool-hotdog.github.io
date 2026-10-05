@@ -1,5 +1,6 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import os from 'node:os';
 import { spawnSync } from 'node:child_process';
 import { root } from './sync-notes.mjs';
 import { render } from '../site/render.mjs';
@@ -11,7 +12,17 @@ await fs.rm(dist, { recursive: true, force: true });
 await fs.mkdir(dist, { recursive: true });
 const manifest = JSON.parse(await fs.readFile(path.join(content, 'manifest.json'), 'utf8'));
 const engine = path.join(root, 'quartz-engine');
-const result = spawnSync(process.execPath, ['quartz/bootstrap-cli.mjs', 'build', '-d', content, '-o', path.join(dist, 'notes'), '--concurrency', '2'], { cwd: engine, stdio: 'inherit' });
+// Quartz honors ancestor .gitignore files. Candidate snapshots live in ignored
+// .local/, so build an isolated copy where that ignore rule cannot hide notes.
+let isolated, input = content, result;
+try {
+  if (process.env.HOMEPAGE_CONTENT_DIR) {
+    isolated = await fs.mkdtemp(path.join(os.tmpdir(), 'homepage-build-'));
+    input = path.join(isolated, 'content');
+    await fs.cp(content, input, { recursive: true });
+  }
+  result = spawnSync(process.execPath, ['quartz/bootstrap-cli.mjs', 'build', '-d', input, '-o', path.join(dist, 'notes'), '--concurrency', '2'], { cwd: engine, stdio: 'inherit' });
+} finally { if (isolated) await fs.rm(isolated, { recursive: true, force: true }); }
 if (result.status !== 0) process.exit(result.status || 1);
 async function addNotesNavigation(dir) {
   for (const entry of await fs.readdir(dir, { withFileTypes: true })) {
