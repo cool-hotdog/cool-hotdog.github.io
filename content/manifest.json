@@ -1,17 +1,4 @@
 {
-  "notes": [
-    {
-      "path": "20 Knowledge/Computer Science/Code/CPP刷题经验.md",
-      "title": "CPP刷题经验",
-      "url": "/notes/20-knowledge/computer-science/code/cpp刷题经验.html",
-      "tags": [
-        "cpp"
-      ],
-      "modified": "2026-10-05T08:28:54.553Z",
-      "featured": true,
-      "description": "计算概论（A）做题时的遇到的实用tricks",
-      "sha256": "a6455ba60b57719487fc2d74fd2a664704d3abfcae95c67556e47126a3ddd93a"
-    }
-  ],
+  "notes": [],
   "assets": []
 }
