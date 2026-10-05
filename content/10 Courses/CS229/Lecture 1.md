@@ -4,8 +4,8 @@ publish: true
 tags:
   - ML
   - Stanford
-created: 2026-10-05T17:54:10.686Z
-modified: 2026-10-05T17:54:10.686Z
+created: 2026-10-05T17:56:40.568Z
+modified: 2026-10-05T17:56:40.568Z
 description: ""
 ---
 ## Key ideas
@@ -13,16 +13,16 @@ description: ""
 ### **Most of the learning algorithms in a class rely on convex optimization algorithms**
 
 
-### What is ML?
+### **What is ML?**
 
 1.让计算机在==无需明确编程==情况下具有学习能力（Arthur Samuel) 
 	
 2.对于某种任务，从某种经验中中学习后在该任务上在某种指标意义上 outperform 经验 （Tom Mitchell)
 
 
-### Categories
+### **Categories**
 
-##### Supervised Learning
+##### *Supervised Learning*
 
 given a dataset (inputs X & labels Y),  learn a ==mapping== $X \rightarrow Y$. 
 
@@ -32,7 +32,7 @@ classification: y takes on a discrete number of variables.
 
 **logistic reg**...
   
-###### Some terms
+###### *Some terms*
 
 Support Vector Machine**: allows use ==infinite-dimensions== vectors input.
 	
@@ -50,7 +50,7 @@ Support Vector Machine**: allows use ==infinite-dimensions== vectors input.
 	
 given a dataset without labels
 
-###### Examples
+###### *Examples*
 
 **K-means clustering**
 		
