@@ -3,14 +3,14 @@ title: CPP刷题经验
 publish: true
 tags:
   - cpp
-created: 2026-10-05T08:21:40.331Z
-modified: 2026-10-05T08:21:40.331Z
+created: 2026-10-05T08:23:00.158Z
+modified: 2026-10-05T08:23:00.158Z
 description: 计算概论（A）做题时的遇到的实用tricks
 ---
 ### 如何处理输入输出格式为“001”、“046”这样的整数？
 
 **输入**
-用 $string$ 来获取整个数字
+用 string 来获取整个数字
 ```cpp
 #include <string>
 string number;
@@ -27,4 +27,6 @@ n是格式所需位数
 
 ###  排序问题
 
-在C++中，排序的处理比Python要复杂一些，主要体现为：在处理多元字典序排序时，
+在C++中，排序的处理比Python要复杂一些，主要体现为：在处理多元字典序排序时，C++中没有Python中关键字排序这种简单的排序工具。
+
+处理方法：多元bing
