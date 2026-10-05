@@ -3,8 +3,8 @@ title: CPP刷题经验
 publish: true
 tags:
   - cpp
-created: 2026-10-05T11:15:26.383Z
-modified: 2026-10-05T11:15:26.383Z
+created: 2026-10-05T11:16:30.614Z
+modified: 2026-10-05T11:16:30.614Z
 description: 计算概论（A）做题时的遇到的实用tricks
 ---
 ### 如何处理带前导零的整数？
@@ -47,4 +47,4 @@ swap(value[a], value[b]);
 swap(key[a], key[b]);
 ```
 
-至于为什么要使用冒泡/插入/归并排序，这是因为
+至于为什么要使用冒泡/插入/归并排序，这是因为这几种排序算法具有稳定性，在一些问题中往往要求 value相同的键值对
