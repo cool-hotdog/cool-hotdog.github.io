@@ -29,15 +29,15 @@ npm run preview
 
 ## 从 Obsidian 发布
 
-### 一键发布（Mac）
+### 自动发布（Mac）
 
-Obsidian 的 `90 Meta/Home` 中提供「发布公开笔记」与「仅检查」两个入口，通过本地专用插件「个人网站发布」运行脚本，并在 Obsidian 弹窗中显示执行结果。插件源码在 `integrations/obsidian-homepage-publisher/`，只支持手动运行，不监听保存事件。插件安装到当前打开笔记库的 `.obsidian/plugins/homepage-publisher/`，`data.json` 的 `projectPath` 指向这个项目的绝对路径。
+本地 Obsidian 插件「个人网站发布」会监听 `James-Vault` 中的公开笔记与引用附件。编辑 `publish: true` 的笔记后，停止编辑约 15 秒，自动同步、运行检查并推送到 GitHub。取消公开、删除或重命名公开笔记也会重新同步；模板与私人笔记不会触发发布。启动 Obsidian 时会检查一次，补上其他设备或离线期间的修改。Mac 上的 Obsidian 需要保持运行且能够联网，网页会在 GitHub 部署完成后更新。
 
-在 Obsidian 中保存笔记、按需要勾选 `publish`，然后在 Finder 中双击本项目的 **`发布笔记.command`**。程序会同步公开笔记，运行测试、构建和链接检查，只提交 `content/` 中的公开快照，并推送到 `main`，触发 GitHub Pages 部署。终端会显示每一步的结果和部署状态链接。推送成功后仍需等待 GitHub 部署完成，网页才会更新。
+检查失败时保留上一次线上版本，并在 Obsidian 中提示；可通过命令面板的「个人网站发布：查看自动发布结果」查看原因。发布过程中继续编辑会排队再次同步，不会并发运行。无变化时不创建空提交或重复推送。日志保存在本机 `.local/auto-publish.log`。
 
-检查失败会停止发布；推送失败时保留本机提交，再次运行即可重试。没有变化时不创建空提交。需要使用 `main` 分支，暂存区为空，网站代码没有未提交修改；其他未跟踪文件不会随笔记提交。工具不会修改原 Obsidian 笔记。可将此入口拖入 Dock 或创建替身，方便以后打开。
+插件源码在 `integrations/obsidian-homepage-publisher/`。安装到当前打开笔记库的 `.obsidian/plugins/homepage-publisher/` 后启用；`data.json` 的 `projectPath` 为网站项目绝对路径，`sourceFolder` 为笔记目录（当前是 `James-Vault`），`debounceSeconds` 默认为 15。
 
-也可以运行 `npm run notes:publish`。只想同步并检查、不提交或推送时，运行 `npm run notes:publish -- --check`。
+底层发布程序要求使用 `main` 分支、暂存区为空、网站代码没有未提交修改。只提交 `content/` 中的公开快照，其他未跟踪文件不会一起上传。需要排查时可在终端运行 `npm run notes:publish -- --check`，只同步和检查，不提交或推送。
 
 ### 手动同步
 
