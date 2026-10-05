@@ -4,13 +4,13 @@ publish: true
 tags:
   - ML
   - Stanford
-created: 2026-10-05T17:52:14.876Z
-modified: 2026-10-05T17:52:14.876Z
+created: 2026-10-05T17:54:10.686Z
+modified: 2026-10-05T17:54:10.686Z
 description: ""
 ---
 ## Key ideas
 
-### Most of the learning algorithms in a class rely on convex optimization algorithms
+### **Most of the learning algorithms in a class rely on convex optimization algorithms**
 
 
 ### What is ML?
