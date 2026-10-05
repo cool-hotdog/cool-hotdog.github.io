@@ -4,8 +4,8 @@ publish: true
 tags:
   - ML
   - Stanford
-created: 2026-10-05T17:38:58.323Z
-modified: 2026-10-05T17:38:58.323Z
+created: 2026-10-05T17:40:22.151Z
+modified: 2026-10-05T17:40:22.151Z
 description: ""
 ---
 ## Key ideas
@@ -33,11 +33,12 @@ description: ""
   **logistic reg**...
   
 - Some terms
-	**Support Vector Machine**: allows use ==infinite-dimensions== vectors input.
+
+  **Support Vector Machine**: allows use ==infinite-dimensions== vectors input.
 	
-	**Back-propagation**:反向传播
+  **Back-propagation**:反向传播
 	
-	**Gradient-descent**:梯度下降
+  **Gradient-descent**:梯度下降
 
 
 #### DL
