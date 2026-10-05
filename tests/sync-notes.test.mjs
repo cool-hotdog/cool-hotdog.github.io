@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
-import { exportVault } from '../scripts/sync-notes.mjs';
+import { exportVault, exportFingerprint } from '../scripts/sync-notes.mjs';
 
 async function fixture(t, files) {
   const base = await fs.mkdtemp(path.join(os.tmpdir(), 'homepage-notes-test-'));
@@ -57,4 +57,42 @@ test('HTML attachment references are selected and symlinks cannot export files o
   await exportVault(f); await fs.symlink(path.join(f.destination,'图.png'),path.join(f.vaultPath,'越界.png'));
   await fs.writeFile(path.join(f.vaultPath,'公开.md'),pub('![[越界.png]]'));
   await assert.rejects(exportVault(f));
+});
+
+test('nested navigation follows real folder names and whole-folder moves and deletion remove obsolete paths', async t => {
+  const f = await fixture(t, { '自定义/课程/公开.md': pub('first'), '自定义/课程/第二篇.md': pub('second'), '私密目录/私人.md': 'secret', '.homepage-publisher-source.json': '{"id":"private-id"}' });
+  await fs.mkdir(path.join(f.vaultPath, '空目录'));
+  await exportVault(f);
+  const index = await fs.readFile(path.join(f.destination, 'index.md'), 'utf8');
+  assert.match(index, /- \*\*自定义\*\*\n  - \*\*课程\*\*/);
+  assert.doesNotMatch(index, /私密目录|空目录|课程 · Courses/);
+  await assert.rejects(fs.access(path.join(f.destination, '.homepage-publisher-source.json')));
+  const original = await exportFingerprint(f.destination);
+  await fs.writeFile(path.join(f.vaultPath, '私密目录/私人.md'), 'changed private');
+  await exportVault(f);
+  assert.equal(await exportFingerprint(f.destination), original);
+  await fs.rename(path.join(f.vaultPath, '自定义'), path.join(f.vaultPath, '新目录'));
+  await exportVault(f);
+  await assert.rejects(fs.access(path.join(f.destination, '自定义')));
+  assert.match(await fs.readFile(path.join(f.destination, 'index.md'), 'utf8'), /新目录\/课程\/公开/);
+  await fs.rm(path.join(f.vaultPath, '新目录'), { recursive: true });
+  await exportVault(f);
+  const manifest = JSON.parse(await fs.readFile(path.join(f.destination, 'manifest.json'), 'utf8'));
+  assert.deepEqual(manifest, { notes: [], assets: [] });
+  assert.match(await fs.readFile(path.join(f.destination, 'index.md'), 'utf8'), /笔记整理中/);
+});
+
+test('attachment content replacements change the public fingerprint even with a preserved mtime', async t => {
+  const f = await fixture(t, { '公开.md': pub('![[图.png]]'), '图.png': 'old image' });
+  await exportVault(f);
+  const first = await exportFingerprint(f.destination), stat = await fs.stat(path.join(f.vaultPath, '图.png'));
+  await fs.writeFile(path.join(f.vaultPath, '图.png'), 'new image');
+  await fs.utimes(path.join(f.vaultPath, '图.png'), stat.atime, stat.mtime);
+  await exportVault(f);
+  assert.notEqual(await exportFingerprint(f.destination), first);
+  await fs.rename(path.join(f.vaultPath, '图.png'), path.join(f.vaultPath, '新图.png'));
+  await fs.writeFile(path.join(f.vaultPath, '公开.md'), pub('![[新图.png]]'));
+  await exportVault(f);
+  await assert.rejects(fs.access(path.join(f.destination, '图.png')));
+  assert.equal(await fs.readFile(path.join(f.destination, '新图.png'), 'utf8'), 'new image');
 });

@@ -4,12 +4,14 @@ import { spawnSync } from 'node:child_process';
 import { root } from './sync-notes.mjs';
 import { render } from '../site/render.mjs';
 
-const dist = path.join(root, 'dist');
+const dist = path.resolve(process.env.HOMEPAGE_DIST_DIR || path.join(root, 'dist'));
+const content = path.resolve(process.env.HOMEPAGE_CONTENT_DIR || path.join(root, 'content'));
+if (dist === root || content === dist || content.startsWith(dist + path.sep) || dist.startsWith(content + path.sep)) throw new Error('构建目录不能覆盖源内容或项目根目录。');
 await fs.rm(dist, { recursive: true, force: true });
 await fs.mkdir(dist, { recursive: true });
-const manifest = JSON.parse(await fs.readFile(path.join(root, 'content/manifest.json'), 'utf8'));
+const manifest = JSON.parse(await fs.readFile(path.join(content, 'manifest.json'), 'utf8'));
 const engine = path.join(root, 'quartz-engine');
-const result = spawnSync(process.execPath, ['quartz/bootstrap-cli.mjs', 'build', '-d', '../content', '-o', '../dist/notes', '--concurrency', '2'], { cwd: engine, stdio: 'inherit' });
+const result = spawnSync(process.execPath, ['quartz/bootstrap-cli.mjs', 'build', '-d', content, '-o', path.join(dist, 'notes'), '--concurrency', '2'], { cwd: engine, stdio: 'inherit' });
 if (result.status !== 0) process.exit(result.status || 1);
 async function addNotesNavigation(dir) {
   for (const entry of await fs.readdir(dir, { withFileTypes: true })) {

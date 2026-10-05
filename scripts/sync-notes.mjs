@@ -34,7 +34,43 @@ async function inventory(dir, base = dir) {
     if (entry.isDirectory()) files.push(...await inventory(full, base));
     else if (entry.isFile()) files.push(rel);
   }
-  return files;
+  return files.sort();
+}
+
+// Hash actual bytes, not just mtimes: iCloud can preserve timestamps on replacement.
+export async function sourceFingerprint(directory) {
+  const digest = createHash('sha256');
+  for (const rel of await inventory(directory)) {
+    const bytes = await fs.readFile(path.join(directory, rel));
+    const stat = await fs.stat(path.join(directory, rel));
+    digest.update(JSON.stringify([rel, hash(bytes), stat.mtimeMs]));
+  }
+  return digest.digest('hex');
+}
+
+export async function exportFingerprint(directory) {
+  try {
+    const digest = createHash('sha256');
+    for (const rel of await inventory(directory)) digest.update(JSON.stringify([rel, hash(await fs.readFile(path.join(directory, rel)))]));
+    return digest.digest('hex');
+  } catch (error) { if (error.code === 'ENOENT') return null; throw error; }
+}
+
+export async function replaceExport(staging, destination) {
+  const backup = `${destination}.previous`;
+  await fs.rm(backup, { recursive: true, force: true });
+  try { await fs.rename(destination, backup); } catch (e) { if (e.code !== 'ENOENT') throw e; }
+  try { await fs.rename(staging, destination); }
+  catch (e) { await fs.rename(backup, destination).catch(() => {}); throw e; }
+  await fs.rm(backup, { recursive: true, force: true });
+}
+
+export async function vaultSettings(cwd = root) {
+  const cfg = JSON.parse(await fs.readFile(path.join(cwd, 'notes.config.json'), 'utf8'));
+  const local = await fs.readFile(path.join(cwd, cfg.localConfig), 'utf8').then(JSON.parse).catch(e => { if (e.code === 'ENOENT') return {}; throw e; });
+  const vaultPath = process.env[cfg.vaultPathEnv] || local.vaultPath;
+  if (!vaultPath) throw new Error(`Set ${cfg.vaultPathEnv} or vaultPath in ${cfg.localConfig}`);
+  return { vaultPath, destination: path.join(cwd, cfg.contentDirectory) };
 }
 
 function resolveTarget(value, source, files, notes, noteOnly = false) {
@@ -149,44 +185,54 @@ export async function exportVault({ vaultPath, destination }) {
     metadata.push({ path: rel, title, url: `/notes/${publicSlug}.html`, tags: fm.tags, modified: fm.modified, featured: note.data.featured === true, description: fm.description || '', sha256: hash(exported) });
   }
   for (const rel of assets) exports.set(rel, await fs.readFile(path.join(vaultPath, rel)));
-  const categories = [
-    ['10 Courses', '课程 · Courses'], ['20 Knowledge', '知识 · Knowledge'],
-    ['30 Projects', '项目笔记 · Projects'], ['40 Sources', '阅读资料 · Sources'], ['90 Meta/MOCs', '知识地图 · MOCs'],
-  ];
-  const groups = categories.map(([prefix, label]) => {
-    const children = metadata.filter(n => n.path.startsWith(prefix + '/'));
-    return children.length ? `## ${label}\n\n${children.map(n => `- [[${n.path.replace(/\.md$/, '')}|${n.title}]]`).join('\n')}` : '';
-  }).filter(Boolean);
-  const other = metadata.filter(n => !categories.some(([prefix]) => n.path.startsWith(prefix + '/')));
-  if (other.length) groups.push(`## 其他笔记 · Other notes\n\n${other.map(n => `- [[${n.path.replace(/\.md$/, '')}|${n.title}]]`).join('\n')}`);
-  exports.set('index.md', Buffer.from(`---\ntitle: 公开笔记\npublish: true\n---\n\n经济学、数学与计算机的学习记录。通过课程与知识地图，连接概念、推导和实践。\n\n${groups.join('\n\n') || '笔记整理中。'}\n`));
+  const tree = { folders: new Map(), notes: [] };
+  for (const note of metadata) {
+    const parts = note.path.split('/'); parts.pop();
+    let node = tree;
+    for (const part of parts) {
+      if (!node.folders.has(part)) node.folders.set(part, { folders: new Map(), notes: [] });
+      node = node.folders.get(part);
+    }
+    node.notes.push(note);
+  }
+  function navigation(node, depth = 0) {
+    const indent = '  '.repeat(depth), lines = [];
+    for (const [name, child] of [...node.folders].sort(([a], [b]) => a.localeCompare(b, 'zh-CN'))) {
+      lines.push(`${indent}- **${escapeMd(name)}**`, ...navigation(child, depth + 1));
+    }
+    for (const note of node.notes.sort((a, b) => a.path.localeCompare(b.path, 'zh-CN'))) {
+      lines.push(`${indent}- [[${note.path.replace(/\.md$/, '')}|${note.title}]]`);
+    }
+    return lines;
+  }
+  exports.set('index.md', Buffer.from(`---\ntitle: 公开笔记\npublish: true\n---\n\n经济学、数学与计算机的学习记录。通过课程与知识地图，连接概念、推导和实践。\n\n${navigation(tree).join('\n') || '笔记整理中。'}\n`));
   // Read every source successfully before replacing the previous public export.
   await fs.mkdir(path.dirname(destination), { recursive: true });
   const staging = await fs.mkdtemp(path.join(path.dirname(destination), '.notes-export-'));
-  const backup = `${destination}.previous`;
   try {
     for (const [rel, bytes] of exports) {
       const full = path.join(staging, rel);
       await fs.mkdir(path.dirname(full), { recursive: true });
       await fs.writeFile(full, bytes);
     }
-    await fs.writeFile(path.join(staging, 'manifest.json'), JSON.stringify({ notes: metadata.sort((a, b) => b.modified.localeCompare(a.modified)), assets: [...assets].sort() }, null, 2) + '\n');
-    await fs.rm(backup, { recursive: true, force: true });
-    try { await fs.rename(destination, backup); } catch (e) { if (e.code !== 'ENOENT') throw e; }
-    try { await fs.rename(staging, destination); } catch (e) { await fs.rename(backup, destination).catch(() => {}); throw e; }
-    await fs.rm(backup, { recursive: true, force: true });
+    await fs.writeFile(path.join(staging, 'manifest.json'), JSON.stringify({ notes: metadata.sort((a, b) => b.modified.localeCompare(a.modified) || a.path.localeCompare(b.path)), assets: [...assets].sort() }, null, 2) + '\n');
+    await replaceExport(staging, destination);
   } finally { await fs.rm(staging, { recursive: true, force: true }); }
   return { notes: metadata, assets: [...assets], warnings };
 }
 
 async function main() {
-  const cfg = JSON.parse(await fs.readFile(path.join(root, 'notes.config.json'), 'utf8'));
-  const local = await fs.readFile(path.join(root, cfg.localConfig), 'utf8').then(JSON.parse).catch(e => { if (e.code === 'ENOENT') return {}; throw e; });
-  const vaultPath = process.env[cfg.vaultPathEnv] || local.vaultPath;
-  if (!vaultPath) throw new Error(`Set ${cfg.vaultPathEnv} or vaultPath in ${cfg.localConfig}`);
-  const destination = path.join(root, cfg.contentDirectory);
+  const { vaultPath, destination } = await vaultSettings();
+  const before = await sourceFingerprint(vaultPath);
   const previous = await fs.readFile(path.join(destination, 'manifest.json'), 'utf8').then(JSON.parse).catch(() => ({ notes: [] }));
-  const result = await exportVault({ vaultPath, destination });
+  const temporary = await fs.mkdtemp(path.join(path.dirname(destination), '.notes-sync-'));
+  let result;
+  try {
+    const candidate = path.join(temporary, 'content');
+    result = await exportVault({ vaultPath, destination: candidate });
+    if (before !== await sourceFingerprint(vaultPath)) throw new Error('源文件发生变化，请等待编辑结束后重新同步。');
+    await replaceExport(candidate, destination);
+  } finally { await fs.rm(temporary, { recursive: true, force: true }); }
   for (const note of result.notes) {
     const old = previous.notes.find(n => n.path === note.path);
     if (!old || old.sha256 !== note.sha256) console.log(`${old ? '更新' : '新增'}: ${note.path}`);

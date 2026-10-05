@@ -3,7 +3,8 @@ import path from 'node:path';
 import { parse } from 'parse5';
 import { root } from './sync-notes.mjs';
 
-const dist = path.join(root, 'dist');
+const dist = path.resolve(process.env.HOMEPAGE_DIST_DIR || path.join(root, 'dist'));
+const content = path.resolve(process.env.HOMEPAGE_CONTENT_DIR || path.join(root, 'content'));
 const origin = 'https://cool-hotdog.github.io';
 const errors = [];
 let references = 0;
@@ -44,7 +45,7 @@ for (const file of outputs.filter(f => f.endsWith('.html'))) {
   };
   visit(tree);
 }
-const manifest = JSON.parse(await fs.readFile(path.join(root, 'content/manifest.json'), 'utf8'));
+const manifest = JSON.parse(await fs.readFile(path.join(content, 'manifest.json'), 'utf8'));
 const index = JSON.parse(await fs.readFile(path.join(dist, 'notes/static/contentIndex.json'), 'utf8'));
 for (const note of manifest.notes) {
   if (!targetFor(new URL(note.url, origin))) errors.push(`Published note missing: ${note.path}`);

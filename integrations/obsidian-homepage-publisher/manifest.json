@@ -1,9 +1,9 @@
 {
   "id": "homepage-publisher",
   "name": "个人网站发布",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "minAppVersion": "1.0.0",
-  "description": "修改公开笔记后自动同步、检查并上传到个人网站。",
+  "description": "完整同步公开笔记的目录、内容和附件，自动跟踪源目录并检查遗漏变化。",
   "author": "James",
   "isDesktopOnly": true
 }

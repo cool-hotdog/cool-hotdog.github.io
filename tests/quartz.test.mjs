@@ -49,3 +49,45 @@ test('Quartz renders public Obsidian links, formulas, code and attachment paths 
     assert.doesNotMatch(JSON.stringify(index), /Unpublished secret sentinel/);
   } finally { await fs.rm(tmp, { recursive: true, force: true }); }
 });
+
+test('candidate builds and verification rebuild navigation, search, backlinks and remove old folder pages', async () => {
+  const tmp = await fs.mkdtemp(path.join(os.tmpdir(), 'homepage-mirror-build-'));
+  try {
+    const vaultPath = path.join(tmp, 'vault'), content = path.join(tmp, 'content'), output = path.join(tmp, 'dist');
+    await fs.mkdir(path.join(vaultPath, 'Original/Nested'), { recursive: true });
+    await fs.writeFile(path.join(vaultPath, 'Original/Nested/First.md'), '---\npublish: true\n---\n[[Second]]');
+    await fs.writeFile(path.join(vaultPath, 'Original/Nested/Second.md'), '---\npublish: true\n---\nA public target');
+    await fs.writeFile(path.join(vaultPath, 'Private.md'), 'private-sentinel-must-not-appear');
+    const env = { ...process.env, HOMEPAGE_CONTENT_DIR: content, HOMEPAGE_DIST_DIR: output };
+    const build = async () => {
+      await exportVault({ vaultPath, destination: content });
+      for (const script of ['build.mjs', 'verify.mjs']) {
+        const result = spawnSync(process.execPath, [path.join(root, 'scripts', script)], { cwd: root, env, encoding: 'utf8' });
+        assert.equal(result.status, 0, result.stdout + result.stderr);
+      }
+      return JSON.parse(await fs.readFile(path.join(output, 'notes/static/contentIndex.json'), 'utf8'));
+    };
+    const first = await build();
+    assert.ok(first['original/nested/first']);
+    await fs.rename(path.join(vaultPath, 'Original'), path.join(vaultPath, 'Renamed'));
+    const second = await build();
+    assert.ok(second['renamed/nested/first']);
+    assert.ok(second['renamed/nested/first'].links.includes('renamed/nested/second'));
+    const html = parse(await fs.readFile(path.join(output, 'notes/renamed/nested/second.html'), 'utf8'));
+    let backlinkFound = false;
+    const inspect = (node, inBacklinks = false) => {
+      const attrs = Object.fromEntries((node.attrs || []).map(a => [a.name, a.value]));
+      inBacklinks ||= (attrs.class || '').split(' ').includes('backlinks');
+      if (inBacklinks && node.tagName === 'a' && attrs.href?.includes('first')) backlinkFound = true;
+      for (const child of node.childNodes || []) inspect(child, inBacklinks);
+    };
+    inspect(html); assert.equal(backlinkFound, true);
+    assert.ok(!Object.keys(second).some(key => key.startsWith('original/')));
+    await assert.rejects(fs.access(path.join(output, 'notes/original')));
+    assert.doesNotMatch(JSON.stringify(second), /private-sentinel/);
+    await fs.rm(path.join(vaultPath, 'Renamed'), { recursive: true });
+    const empty = await build();
+    assert.ok(!Object.keys(empty).some(key => key.startsWith('renamed/')));
+    await assert.rejects(fs.access(path.join(output, 'notes/renamed')));
+  } finally { await fs.rm(tmp, { recursive: true, force: true }); }
+});

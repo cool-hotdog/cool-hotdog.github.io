@@ -31,13 +31,17 @@ npm run preview
 
 ### 自动发布（Mac）
 
-本地 Obsidian 插件「个人网站发布」会监听 `James-Vault` 中的公开笔记与引用附件。编辑 `publish: true` 的笔记后，停止编辑约 15 秒，自动同步、运行检查并推送到 GitHub。取消公开、删除或重命名公开笔记也会重新同步；模板与私人笔记不会触发发布。启动 Obsidian 时会检查一次，补上其他设备或离线期间的修改。Mac 上的 Obsidian 需要保持运行且能够联网，网页会在 GitHub 部署完成后更新。
+本地 Obsidian 插件「个人网站发布」把 `James-Vault` 中的公开笔记及引用附件同步为完整网站快照。源目录内任意内容、文件或文件夹的增删、移动、重命名都会触发检查；停止操作约 15 秒后扫描一次，启动时检查一次，运行期间每 60 秒补查遗漏事件与 iCloud 更新。只有公开快照发生变化才构建和推送；私人笔记的普通编辑和空目录调整不创建网站提交。
 
-检查失败时保留上一次线上版本，并在 Obsidian 中提示；可通过命令面板的「个人网站发布：查看自动发布结果」查看原因。发布过程中继续编辑会排队再次同步，不会并发运行。无变化时不创建空提交或重复推送。日志保存在本机 `.local/auto-publish.log`。
+笔记首页与目录导航根据公开笔记的实际相对路径生成，不使用固定课程分类，不展示只有私人笔记的目录。移动或重命名后旧页面撤下，新网址对应新路径；搜索、图谱、反向链接、站点地图、精选与最近更新均从新快照重建。插件不改写笔记正文；整理目录时请让 Obsidian 更新内部链接，无法解析的引用继续按下方规则处理。
 
-插件源码在 `integrations/obsidian-homepage-publisher/`。安装到当前打开笔记库的 `.obsidian/plugins/homepage-publisher/` 后启用；`data.json` 的 `projectPath` 为网站项目绝对路径，`sourceFolder` 为笔记目录（当前是 `James-Vault`），`debounceSeconds` 默认为 15。
+插件首次运行会在源目录创建不公开的 `.homepage-publisher-source.json` 身份标记，并把标识保存到插件设置。源目录及父目录在当前 Obsidian 仓库内移动或改名后自动跟踪，关闭应用期间的移动也能在下次启动时重新定位。源目录缺失、移出仓库或存在多个相同身份副本时暂停发布并保留网站；在「设置 → 个人网站发布 → 公开笔记源目录」选择目录并点击「保存并检查」可重新绑定。身份标记和其他隐藏文件不导出。
 
-底层发布程序要求使用 `main` 分支、暂存区为空、网站代码没有未提交修改。只提交 `content/` 中的公开快照，其他未跟踪文件不会一起上传。需要排查时可在终端运行 `npm run notes:publish -- --check`，只同步和检查，不提交或推送。
+发布先在本机 `.local/` 创建候选快照，验证构建、公开范围和站内链接，确认源文件在处理期间没有变化后才替换正式公开导出、提交和推送。失败保留上一份有效导出与线上网站，网络失败自动退避重试；发布期间的新修改排队检查，不并发运行。无变化时不重复构建、提交或推送，之前未成功推送的提交仍会重试。可通过命令面板的「个人网站发布：查看自动发布结果」查看输出，日志保存在 `.local/auto-publish.log`。状态中的「已推送，等待网站部署」仅表示上传成功，网站在 GitHub Pages 部署完成后更新。
+
+插件源码在 `integrations/obsidian-homepage-publisher/`。将 `main.js`、`source-root.cjs` 和 `manifest.json` 安装到当前打开笔记库的 `.obsidian/plugins/homepage-publisher/` 后启用。`data.json` 的 `projectPath` 为网站项目绝对路径，`sourceFolder` 为源目录相对路径，`sourceId` 为自动生成的身份，`debounceSeconds` 默认为 15，`reconcileSeconds` 默认为 60。插件将当前源路径显式传入发布程序，并同步更新本机 `notes.local.json`。Mac 上的 Obsidian 需要保持运行，上传和部署需要网络。
+
+底层发布程序要求使用 `main` 分支、暂存区为空、网站代码没有未提交修改。只提交 `content/` 中经过验证的公开快照，其他未跟踪文件不会一起上传。可运行 `npm run notes:publish -- --check`，在临时目录完成验证后更新本机公开导出，不提交或推送。构建和验证程序支持 `HOMEPAGE_CONTENT_DIR` 与 `HOMEPAGE_DIST_DIR` 环境变量，用于检查候选快照，默认仍使用 `content/` 和 `dist/`。
 
 ### 手动同步
 
