@@ -3,13 +3,14 @@ title: CPP刷题经验
 publish: true
 tags:
   - cpp
-created: 2026-10-05T08:24:38.762Z
-modified: 2026-10-05T08:24:38.762Z
+created: 2026-10-05T08:28:54.553Z
+modified: 2026-10-05T08:28:54.553Z
 description: 计算概论（A）做题时的遇到的实用tricks
 ---
 ### 如何处理带前导零的整数？
 
 **输入**
+
 用 string 来获取整个数字
 ```cpp
 #include <string>
@@ -23,6 +24,7 @@ cin >> number;
 cout << setfill('0') << setw(n) << number << endl;
 ```
 ps: setw = set width
+
 n是格式所需位数
 
 ###  排序问题
