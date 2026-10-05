@@ -4,8 +4,8 @@ publish: true
 tags:
   - ML
   - Stanford
-created: 2026-10-05T17:47:24.906Z
-modified: 2026-10-05T17:47:24.906Z
+created: 2026-10-05T17:52:14.876Z
+modified: 2026-10-05T17:52:14.876Z
 description: ""
 ---
 ## Key ideas
@@ -22,7 +22,7 @@ description: ""
 
 ### Categories
 
-#### Supervised Learning
+##### Supervised Learning
 
 given a dataset (inputs X & labels Y),  learn a ==mapping== $X \rightarrow Y$. 
 
@@ -32,7 +32,7 @@ classification: y takes on a discrete number of variables.
 
 **logistic reg**...
   
-##### Some terms
+###### Some terms
 
 Support Vector Machine**: allows use ==infinite-dimensions== vectors input.
 	
@@ -50,7 +50,7 @@ Support Vector Machine**: allows use ==infinite-dimensions== vectors input.
 	
 given a dataset without labels
 
-##### Examples
+###### Examples
 
 **K-means clustering**
 		
