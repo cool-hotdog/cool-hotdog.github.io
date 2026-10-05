@@ -4,8 +4,8 @@ publish: true
 tags:
   - ML
   - Stanford
-created: 2026-10-05T17:36:00.006Z
-modified: 2026-10-05T17:36:00.006Z
+created: 2026-10-05T17:37:52.793Z
+modified: 2026-10-05T17:37:52.793Z
 description: ""
 ---
 ## Key ideas
@@ -15,9 +15,9 @@ description: ""
 
 ### What is ML?
 
-1. 让计算机在==无需明确编程==情况下具有学习能力（Arthur Samuel) 
+	1. 让计算机在==无需明确编程==情况下具有学习能力（Arthur Samuel) 
 	
-2. 对于某种任务，从某种经验中中学习后在该任务上在某种指标意义上 outperform 经验 （Tom Mitchell)
+	2. 对于某种任务，从某种经验中中学习后在该任务上在某种指标意义上 outperform 经验 （Tom Mitchell)
 
 
 ### Categories
