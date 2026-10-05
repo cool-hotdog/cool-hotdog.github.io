@@ -1,6 +1,19 @@
 {
   "notes": [
     {
+      "path": "10 Courses/CS229/Lecture 1.md",
+      "title": "Lecture 1",
+      "url": "/notes/10-courses/cs229/lecture-1.html",
+      "tags": [
+        "ML",
+        "Stanford"
+      ],
+      "modified": "2026-10-05T17:16:52.162Z",
+      "featured": false,
+      "description": "",
+      "sha256": "d952894c289df131a0ff63c02c3713f1d88908f5f79e47945df702c18514053a"
+    },
+    {
       "path": "20 Knowledge/Computer Science/Code/CPP刷题经验.md",
       "title": "CPP刷题经验",
       "url": "/notes/20-knowledge/computer-science/code/cpp刷题经验.html",
