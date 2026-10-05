@@ -3,8 +3,8 @@ title: CPP刷题经验
 publish: true
 tags:
   - cpp
-created: 2026-10-05T12:11:29.777Z
-modified: 2026-10-05T12:11:29.777Z
+created: 2026-10-05T12:12:46.695Z
+modified: 2026-10-05T12:12:46.695Z
 description: 计算概论（A）做题时的遇到的实用tricks
 ---
 ### 如何处理带前导零的整数？
@@ -62,4 +62,13 @@ swap(key[a], key[b]);
 0 0 1 1 0 2 2 1
 ```
 
-w
+我们可以把 cin 本身作为一个 condition：
+```cpp
+int x1, y1, x2, y2, x3, y3, x4, y4;
+while (cin >> x1 >> y1
+	        >> x2 >> y2
+	        >> x3 >> y3
+	        >> x4 >> y4) {
+	        // ……
+	        }
+```
