@@ -4,8 +4,8 @@ publish: true
 tags:
   - ML
   - Stanford
-created: 2026-10-05T17:16:52.162Z
-modified: 2026-10-05T17:16:52.162Z
+created: 2026-10-05T17:18:24.308Z
+modified: 2026-10-05T17:18:24.308Z
 description: ""
 ---
 ## Key ideas
