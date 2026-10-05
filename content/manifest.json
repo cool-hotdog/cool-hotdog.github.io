@@ -7,10 +7,10 @@
       "tags": [
         "cpp"
       ],
-      "modified": "2026-10-03T08:06:53.703Z",
+      "modified": "2026-10-05T07:44:00.100Z",
       "featured": true,
-      "description": "保留前导零：C++ 中字符串输入与 setw、setfill 格式化输出。",
-      "sha256": "d1195ee70b1fda216d29668a5fe36264b04a3e2ff345e2fd175f7e5e03ee5a36"
+      "description": "计算概论（A）做题时的遇到的实用tricks",
+      "sha256": "ae68c8f21dd9be012fe1f93751be9fddb0d961e94aa38d201b71dc91995ba0ee"
     }
   ],
   "assets": []
