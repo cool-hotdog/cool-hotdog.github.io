@@ -4,8 +4,8 @@ publish: true
 tags:
   - ML
   - Stanford
-created: 2026-10-05T17:40:22.151Z
-modified: 2026-10-05T17:40:22.151Z
+created: 2026-10-05T17:41:23.830Z
+modified: 2026-10-05T17:41:23.830Z
 description: ""
 ---
 ## Key ideas
@@ -51,6 +51,7 @@ description: ""
 - given a dataset without labels
 
 - Examples
+
 	 **K-means clustering**
 		
 	 **Cocktail party problem**:a noisy room, multiple microphones, record overlapping 
