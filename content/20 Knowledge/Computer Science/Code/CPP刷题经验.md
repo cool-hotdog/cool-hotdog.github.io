@@ -3,11 +3,11 @@ title: CPP刷题经验
 publish: true
 tags:
   - cpp
-created: 2026-10-05T08:23:46.801Z
-modified: 2026-10-05T08:23:46.801Z
+created: 2026-10-05T08:24:38.762Z
+modified: 2026-10-05T08:24:38.762Z
 description: 计算概论（A）做题时的遇到的实用tricks
 ---
-### 如何处理输入输出格式为“001”、“046”这样的整数？
+### 如何处理带前导零的整数？
 
 **输入**
 用 string 来获取整个数字
