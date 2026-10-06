@@ -4,8 +4,8 @@ publish: true
 tags:
   - ML
   - Stanford
-created: 2026-10-05T17:56:40.568Z
-modified: 2026-10-05T17:56:40.568Z
+created: 2026-10-06T04:46:17.611Z
+modified: 2026-10-06T04:46:17.611Z
 description: ""
 ---
 ## Key ideas
@@ -34,7 +34,7 @@ classification: y takes on a discrete number of variables.
   
 ###### *Some terms*
 
-Support Vector Machine**: allows use ==infinite-dimensions== vectors input.
+**Support Vector Machine**: allows use ==infinite-dimensions== vectors input.
 	
 **Back-propagation**:反向传播
 	
