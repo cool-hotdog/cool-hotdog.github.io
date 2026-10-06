@@ -4,8 +4,8 @@ publish: true
 tags:
   - ML
   - Stanford
-created: 2026-10-06T04:46:17.611Z
-modified: 2026-10-06T04:46:17.611Z
+created: 2026-10-06T04:54:58.460Z
+modified: 2026-10-06T04:54:58.460Z
 description: ""
 ---
 ## Key ideas
@@ -30,15 +30,15 @@ regression: y is continuous.
 
 classification: y takes on a discrete number of variables.
 
-**logistic reg**...
+logistic reg...
   
 ###### *Some terms*
 
-**Support Vector Machine**: allows use ==infinite-dimensions== vectors input.
+Support Vector Machine: allows use ==infinite-dimensions== vectors input.
 	
-**Back-propagation**:反向传播
+Back-propagation:反向传播
 	
-**Gradient-descent**:梯度下降
+gradient-descent:梯度下降
 
 
 #### DL
@@ -52,18 +52,18 @@ given a dataset without labels
 
 ###### *Examples*
 
-**K-means clustering**
+K-means clustering
 		
-**Cocktail party problem**:a noisy room, multiple microphones, record overlapping voices，separate out the people's voices, using **ICA（Independent Components Analysis)**
+Cocktail party problem:a noisy room, multiple microphones, record overlapping voices，separate out the people's voices, using **ICA（Independent Components Analysis)**
 
 
 
 #### Others
 
-1.**ML strategies**
+1.ML strategies
 	
-2.**DL**
+2.DL
 	
-3.**RL**：==we don't know the optimal way==, so we use reward when the model behaves well.
+3.RL：==we don't know the optimal way==, so we use reward when the model behaves well.
 
 
