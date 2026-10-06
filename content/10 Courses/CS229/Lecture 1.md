@@ -4,8 +4,8 @@ publish: true
 tags:
   - ML
   - Stanford
-created: 2026-10-06T05:36:09.027Z
-modified: 2026-10-06T05:36:09.027Z
+created: 2026-10-06T06:11:29.734Z
+modified: 2026-10-06T06:11:29.734Z
 description: ""
 ---
 ## Key ideas
@@ -17,7 +17,7 @@ description: ""
 
 1.让计算机在==无需明确编程==情况下具有学习能力（Arthur Samuel) 
 	
-2.对于某种任务，从某种经验中中学习后在该任务上在某种指标意义上 outperform 经验 （Tom Mitchell)
+2.对于某种任务，从某种经验中学习后，在该任务上在某种指标意义上 outperform 经验 （Tom Mitchell)
 
 
 ### Categories
