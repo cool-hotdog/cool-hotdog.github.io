@@ -5,11 +5,13 @@ import { createHash } from 'node:crypto';
 import YAML from 'yaml';
 import { unified } from 'unified';
 import remarkParse from 'remark-parse';
+import remarkGfm from 'remark-gfm';
 import { visit } from 'unist-util-visit';
 import { slugifyFilePath } from '@quartz-community/utils/path';
 
 export const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const parser = unified().use(remarkParse);
+// Match Quartz's GFM parser so Obsidian footnotes are not mistaken for link definitions.
+const parser = unified().use(remarkParse).use(remarkGfm);
 const posix = p => p.split(path.sep).join('/');
 const hash = value => createHash('sha256').update(value).digest('hex');
 const escapeMd = value => String(value).replace(/[\\[\]*_`<>]/g, '\\$&');

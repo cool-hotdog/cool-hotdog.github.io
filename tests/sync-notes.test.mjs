@@ -14,6 +14,35 @@ async function fixture(t, files) {
   return { vaultPath, destination };
 }
 const pub = body => '---\npublish: true\n---\n' + body;
+test('Obsidian footnote definitions remain text rather than attachment paths', async t => {
+  const body = '环境准备[^1]，编程介绍[^2]。\n\n[^1]: 这一部分参考了《fcpp-for-dbd》\n\n[^2]: 同样来自《fcpp-for-dbd》\n';
+  const f = await fixture(t, { '00 Inbox/计概C.md': pub(body) });
+  const result = await exportVault(f);
+  const exported = await fs.readFile(path.join(f.destination, '00 Inbox/计概C.md'), 'utf8');
+  assert.ok(exported.endsWith(body));
+  assert.deepEqual(result.assets, []);
+  assert.deepEqual(result.warnings, []);
+});
+test('references inside footnotes obey public-note and attachment rules', async t => {
+  const f = await fixture(t, {
+    '00 Inbox/公开.md': pub('正文[^source]\n\n[^source]: [[目标]]、[[私有|私人笔记]]、[PDF](../90%20Meta/资料.pdf)、![[图.png]]\n'),
+    '目标.md': pub('public target'),
+    '私有.md': 'private sentinel',
+    '90 Meta/资料.pdf': 'public pdf',
+    '图.png': 'public image',
+  });
+  const result = await exportVault(f);
+  const exported = await fs.readFile(path.join(f.destination, '00 Inbox/公开.md'), 'utf8');
+  assert.match(exported, /\[\^source\]: \[\[目标\]\]/);
+  assert.match(exported, /私人笔记/);
+  assert.doesNotMatch(exported, /\[\[私有|private sentinel/);
+  assert.deepEqual(result.assets.sort(), ['90 Meta/资料.pdf', '图.png']);
+  await assert.rejects(fs.access(path.join(f.destination, '私有.md')));
+  const before = await exportFingerprint(f.destination);
+  await fs.writeFile(path.join(f.vaultPath, '00 Inbox/公开.md'), pub('正文[^source]\n\n[^source]: ![[不存在.png]]\n'));
+  await assert.rejects(exportVault(f), /missing or unpublished|missing attachment/);
+  assert.equal(await exportFingerprint(f.destination), before);
+});
 test('only boolean publish:true notes and referenced assets are exported; private links become text', async t => {
   const f=await fixture(t,{'20 Knowledge/公开.md':pub('[[目标|概念]] [[私有|私人笔记]] ![[图.png]] [PDF](../40%20Sources/资料.pdf)\n```cpp\n// [[代码中的链接]]\n```\n%%secret comment%%'), '20 Knowledge/目标.md':pub('$$x^2$$'), '私有.md':'private secret', '字符串.md':'---\npublish: "true"\n---\nnot public', '图.png':'public image', '40 Sources/资料.pdf':'public pdf', '未引用.png':'private image', '.obsidian/config.json':'private config', '90 Meta/Templates/template.md':pub('private template')});
   const r=await exportVault(f);
