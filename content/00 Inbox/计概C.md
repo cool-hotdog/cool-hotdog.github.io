@@ -4,8 +4,8 @@ publish: true
 tags:
   - CS
   - Python
-created: 2026-10-07T08:47:58.922Z
-modified: 2026-10-07T08:47:58.922Z
+created: 2026-10-07T08:48:44.876Z
+modified: 2026-10-07T08:48:44.876Z
 description: Some tips which probably are useful in the course
 ---
 # 环境准备
@@ -14,7 +14,7 @@ description: Some tips which probably are useful in the course
 
 对于任何编程行为，除了编程语言本身以外，我们都需要掌握两个要素：**工具**和**环境**
 
-> [! ]
+> [!工具和环境]
 > **工具** 用来编写和运行程序的软件工具。它们帮助我们更高效地达成我们的目标，例如调试程序、管理项目等。
 > 
 > **环境** 我们编写、调试、运行代码的整个过程和条件，如操作系统、编程语言版本以及相关的库和框 架。一个良好的编程环境可以大大提高我们的工作效率；同时，我们写出的代码，最终也要运行在某个环境中。
