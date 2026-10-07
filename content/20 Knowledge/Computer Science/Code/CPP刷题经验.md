@@ -3,8 +3,9 @@ title: CPP刷题经验
 publish: true
 tags:
   - cpp
-created: 2026-10-05T12:12:46.695Z
-modified: 2026-10-05T12:12:46.695Z
+  - CS
+created: 2026-10-07T05:29:29.955Z
+modified: 2026-10-07T05:29:29.955Z
 description: 计算概论（A）做题时的遇到的实用tricks
 ---
 ### 如何处理带前导零的整数？
