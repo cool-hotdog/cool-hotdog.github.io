@@ -4,8 +4,8 @@ publish: true
 tags:
   - CS
   - Python
-created: 2026-10-07T13:43:47.446Z
-modified: 2026-10-07T13:43:47.446Z
+created: 2026-10-07T13:46:52.428Z
+modified: 2026-10-07T13:46:52.428Z
 description: Some tips which probably are useful in the course
 ---
 # 环境准备

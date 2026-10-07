@@ -1,17 +1,17 @@
 {
   "notes": [
     {
-      "path": "00 Inbox/计概C.md",
+      "path": "10 Courses/计概C.md",
       "title": "计概C",
-      "url": "/notes/00-inbox/计概c.html",
+      "url": "/notes/10-courses/计概c.html",
       "tags": [
         "CS",
         "Python"
       ],
-      "modified": "2026-10-07T13:43:47.446Z",
+      "modified": "2026-10-07T13:46:52.428Z",
       "featured": false,
       "description": "Some tips which probably are useful in the course",
-      "sha256": "5b8be281dd8c28b8723e7c13b10e04c9ee4926a1652730a6be1eaf25a17ba55a"
+      "sha256": "df5ecac63b65eec589ea551f0edfd88eb5d03bd00e9205668d2f211bac69dd6d"
     },
     {
       "path": "20 Knowledge/Computer Science/Code/CPP刷题经验.md",
