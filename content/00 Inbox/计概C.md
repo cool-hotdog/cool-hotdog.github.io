@@ -4,8 +4,8 @@ publish: true
 tags:
   - CS
   - Python
-created: 2026-10-07T13:40:46.962Z
-modified: 2026-10-07T13:40:46.962Z
+created: 2026-10-07T13:43:47.446Z
+modified: 2026-10-07T13:43:47.446Z
 description: Some tips which probably are useful in the course
 ---
 # 环境准备
@@ -111,10 +111,15 @@ a = {'a':1, 'b':2, 'c':3, 'd':3}
 
 我们现在与计算机交互的方式是图像化的，例如点击、拖、拉等操作。我们称当前计算机界面为GUI（Graphical User Interface）
 
-而当我们开发一个环境
+而当我们要登陆服务器进行开发、部署等操作时，几乎必须使用CLI（Command Line Interface)
+
+交互方式一般是在Terminal（终端）上输入操作命令，获取反馈。
 
 ```Bash
 ls
+rm
+python3 test.py
+mv
 ```
 
 ## Latex
