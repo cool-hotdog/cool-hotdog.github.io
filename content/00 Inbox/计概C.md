@@ -4,8 +4,8 @@ publish: true
 tags:
   - CS
   - Python
-created: 2026-10-07T08:48:44.876Z
-modified: 2026-10-07T08:48:44.876Z
+created: 2026-10-07T12:06:13.708Z
+modified: 2026-10-07T12:06:13.708Z
 description: Some tips which probably are useful in the course
 ---
 # 环境准备
@@ -90,6 +90,8 @@ a = {'a':1, 'b':2, 'c':3, 'd':3}
 一些操作：比如按某种格式print……
 
 **==计概C考试不涉及算法==**
+
+另外自学一下OOP（Object Oriented Programming)会对大家机考有帮助hh。
 
 由于本人已经有大半年没有手写过Python了，更遑论Python机考了，因此对题目的总结一定是有缺漏且不尽准确的。具体的情况还等各位去研究。
 
