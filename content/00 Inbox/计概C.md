@@ -4,8 +4,8 @@ publish: true
 tags:
   - CS
   - Python
-created: 2026-10-07T12:06:13.708Z
-modified: 2026-10-07T12:06:13.708Z
+created: 2026-10-07T13:40:46.962Z
+modified: 2026-10-07T13:40:46.962Z
 description: Some tips which probably are useful in the course
 ---
 # 环境准备
@@ -106,6 +106,16 @@ a = {'a':1, 'b':2, 'c':3, 'd':3}
 ## Github
 
 全球最大的开源仓库，有各类开源的项目、学习资源……
+
+## CLI 和 Terminal
+
+我们现在与计算机交互的方式是图像化的，例如点击、拖、拉等操作。我们称当前计算机界面为GUI（Graphical User Interface）
+
+而当我们开发一个环境
+
+```Bash
+ls
+```
 
 ## Latex
 
