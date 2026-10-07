@@ -1,0 +1,11 @@
+{
+  "name": "chinese-callouts",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "main": "index.js",
+  "quartz": {
+    "category": "transformer",
+    "defaultOrder": 25
+  }
+}

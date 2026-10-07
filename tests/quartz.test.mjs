@@ -7,6 +7,56 @@ import { spawnSync } from 'node:child_process';
 import { parse } from 'parse5';
 import { exportVault, root } from '../scripts/sync-notes.mjs';
 
+test('Quartz renders Chinese callout names without changing highlight parsing', async () => {
+  const tmp = await fs.mkdtemp(path.join(os.tmpdir(), 'homepage-chinese-callouts-'));
+  try {
+    const vaultPath = path.join(tmp, 'vault'), destination = path.join(tmp, 'content'), output = path.join(tmp, 'notes');
+    await fs.mkdir(vaultPath);
+    const body = [
+      '> [!工具和环境]', '> **工具** 说明', '> ', '> **环境** 补充说明', '',
+      ' >[!什么是编程]', '> 编程定义。', '',
+      '> [!警告]- 自定义标题', '> 风险说明。', '',
+      '> [!提示|custom]+', '> 建议说明。', '',
+      '> [!note] 原有英文类型', '> 原有内容。', '',
+      '> [!note] 外层', '> ', '> > [!内层]', '> > 内层正文。', '',
+      '```markdown', '> [!示例代码]', '```', '',
+      '`>[!代码文本]`', '', '==**高亮加粗仍是原样**==', '',
+    ].join('\n');
+    await fs.writeFile(path.join(vaultPath, 'Chinese.md'), '---\npublish: true\n---\n' + body);
+    await exportVault({ vaultPath, destination });
+    const built = spawnSync(process.execPath, ['quartz/bootstrap-cli.mjs', 'build', '-d', destination, '-o', output, '--concurrency', '2'], { cwd: path.join(root, 'quartz-engine'), encoding: 'utf8' });
+    assert.equal(built.status, 0, built.stdout + built.stderr);
+    const html = await fs.readFile(path.join(output, 'chinese.html'), 'utf8');
+    const callouts = [];
+    const text = node => node.nodeName === '#text' ? node.value : (node.childNodes || []).map(text).join('');
+    const findTitle = node => {
+      const attrs = Object.fromEntries((node.attrs || []).map(a => [a.name, a.value]));
+      if ((attrs.class || '').split(' ').includes('callout-title-inner')) return text(node).trim();
+      for (const child of node.childNodes || []) { const title = findTitle(child); if (title) return title; }
+    };
+    const inspect = node => {
+      const attrs = Object.fromEntries((node.attrs || []).map(a => [a.name, a.value]));
+      if (attrs['data-callout']) callouts.push({ ...attrs, title: findTitle(node) });
+      for (const child of node.childNodes || []) inspect(child);
+    };
+    inspect(parse(html));
+    for (const title of ['工具和环境', '什么是编程', '自定义标题', '提示', '原有英文类型', '外层', '内层']) {
+      assert.ok(callouts.some(c => c.title === title), `Missing callout title: ${title}`);
+    }
+    const warning = callouts.find(c => c.title === '自定义标题');
+    assert.equal(warning['data-callout'], 'warning');
+    assert.match(warning.class, /is-collapsible/);
+    assert.match(warning.class, /is-collapsed/);
+    const tip = callouts.find(c => c.title === '提示');
+    assert.equal(tip['data-callout'], 'tip');
+    assert.equal(tip['data-callout-metadata'], 'custom');
+    assert.doesNotMatch(tip.class, /is-collapsed/);
+    assert.ok(!callouts.some(c => /示例代码|代码文本/.test(c.title)));
+    assert.match(html, /<span class="text-highlight">\*\*高亮加粗仍是原样\*\*<\/span>/);
+    for (const value of ['编程定义。', '内层正文。', '风险说明。']) assert.ok(html.includes(value));
+  } finally { await fs.rm(tmp, { recursive: true, force: true }); }
+});
+
 test('Quartz renders public Obsidian links, formulas, code and attachment paths under /notes/', async () => {
   const tmp = await fs.mkdtemp(path.join(os.tmpdir(), 'homepage-quartz-'));
   try {
