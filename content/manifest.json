@@ -1,6 +1,19 @@
 {
   "notes": [
     {
+      "path": "00 Inbox/计概C.md",
+      "title": "计概C",
+      "url": "/notes/00-inbox/计概c.html",
+      "tags": [
+        "CS",
+        "Python"
+      ],
+      "modified": "2026-10-07T08:30:46.713Z",
+      "featured": false,
+      "description": "Some tips which probably are useful in the course",
+      "sha256": "287e2f3149ecc085da372a33ae56c1f201b6093117742e0845b5051189d98b2c"
+    },
+    {
       "path": "20 Knowledge/Computer Science/Code/CPP刷题经验.md",
       "title": "CPP刷题经验",
       "url": "/notes/20-knowledge/computer-science/code/cpp刷题经验.html",
@@ -14,9 +27,9 @@
       "sha256": "6dd28d9651c700f122783536ffb276b1c2e7d2bee454160a25ffd3d1b1d0ef67"
     },
     {
-      "path": "10 Courses/CS229/Lecture 1.md",
-      "title": "Lecture 1",
-      "url": "/notes/10-courses/cs229/lecture-1.html",
+      "path": "10 Courses/CS229/CS229 Lecture 1.md",
+      "title": "CS229 Lecture 1",
+      "url": "/notes/10-courses/cs229/cs229-lecture-1.html",
       "tags": [
         "ML",
         "Stanford",
@@ -25,8 +38,11 @@
       "modified": "2026-10-07T05:29:17.384Z",
       "featured": false,
       "description": "",
-      "sha256": "0899ec9988df0a6dc797d535a56a46a85cc6ce39aafe9d6398c8ea48fac3304e"
+      "sha256": "5a029f2ff19ecfe0c686e1b25199ef36594a1cc92437116a9f9025ba6d64ea8d"
     }
   ],
-  "assets": []
+  "assets": [
+    "Pasted image 20261007141336.png",
+    "Pasted image 20261007141901.png"
+  ]
 }

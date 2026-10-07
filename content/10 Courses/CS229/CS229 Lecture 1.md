@@ -1,5 +1,5 @@
 ---
-title: Lecture 1
+title: CS229 Lecture 1
 publish: true
 tags:
   - ML
