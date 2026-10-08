@@ -5,8 +5,8 @@ tags:
   - ML
   - CS
   - Stanford
-created: 2026-10-08T17:28:40.260Z
-modified: 2026-10-08T17:28:40.260Z
+created: 2026-10-08T17:30:59.745Z
+modified: 2026-10-08T17:30:59.745Z
 description: Linear Regression and Gradient Descent
 ---
 # CS229 Lecture2
@@ -25,6 +25,11 @@ $$
 以下是一些本课程会用到的符号及其含义，我们称：
 
 $\theta$为参数（parameters)；$M$为训练样本数量（the number of training example)；$x$为输入或特征（input/feature）；$Y$为输出或目标变量（input/target variable) ；$(x, y )$ 为训练样本（training example）；$(x^{(i)},y^{(i)})$s是第i个训练样本；$n$为特征数量
+
+### How to choose $\theta$ ?
+
+目标：让 $h(x)$接近训练样本
+
 ## Derivation / proof
 
 ## Questions
