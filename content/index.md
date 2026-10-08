@@ -8,6 +8,7 @@ publish: true
 - **10 Courses**
   - **CS229**
     - [[10 Courses/CS229/CS229 Lecture 1|CS229 Lecture 1]]
+    - [[10 Courses/CS229/CS229 Lecture2|CS229 Lecture2]]
   - [[10 Courses/计概C|计概C]]
 - **20 Knowledge**
   - **Computer Science**
