@@ -9,10 +9,24 @@
         "CS",
         "Stanford"
       ],
-      "modified": "2026-10-08T17:03:32.830Z",
+      "modified": "2026-10-08T17:04:48.608Z",
       "featured": false,
-      "description": "",
-      "sha256": "c7c2aebe6271d8b53abd66359a32283c6f9ced5d5c5b68265b47d846b2b08563"
+      "description": "Linear Regression and Gradient Descent",
+      "sha256": "369f1bd0e9a4e1f8f1eef440d2e4d76bebdd167473e45f1c5d0a731e406b915d"
+    },
+    {
+      "path": "10 Courses/CS229/CS229 Lecture 1.md",
+      "title": "CS229 Lecture 1",
+      "url": "/notes/10-courses/cs229/cs229-lecture-1.html",
+      "tags": [
+        "ML",
+        "Stanford",
+        "CS"
+      ],
+      "modified": "2026-10-08T17:04:25.822Z",
+      "featured": false,
+      "description": "机器学习的概念、教学大纲、一些总体性建议",
+      "sha256": "7a4e563008c26926e007ab732c7c2b7f5e5f4898dcd04538062f92776b3befe4"
     },
     {
       "path": "20 Knowledge/Computer Science/Code/CPP刷题经验.md",
@@ -39,20 +53,6 @@
       "featured": false,
       "description": "Some tips which probably are useful in the course",
       "sha256": "069a95a335bdf8d759b509e1b84658df1e414d64372b248175aa8f36d9aaf510"
-    },
-    {
-      "path": "10 Courses/CS229/CS229 Lecture 1.md",
-      "title": "CS229 Lecture 1",
-      "url": "/notes/10-courses/cs229/cs229-lecture-1.html",
-      "tags": [
-        "ML",
-        "Stanford",
-        "CS"
-      ],
-      "modified": "2026-10-07T05:29:17.384Z",
-      "featured": false,
-      "description": "",
-      "sha256": "5a029f2ff19ecfe0c686e1b25199ef36594a1cc92437116a9f9025ba6d64ea8d"
     }
   ],
   "assets": [
