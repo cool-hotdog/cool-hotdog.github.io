@@ -4,8 +4,8 @@ publish: true
 tags:
   - CS
   - Python
-created: 2026-10-08T02:15:47.000Z
-modified: 2026-10-08T02:15:47.000Z
+created: 2026-10-08T04:56:46.072Z
+modified: 2026-10-08T04:56:46.072Z
 description: Some tips which probably are useful in the course
 ---
 # 环境准备
@@ -152,7 +152,7 @@ $$
 
 ## AI
 
-如何使用好AI，like skills...
+如何使用好AI，like skill，MCP...
 
 ## 一些好的学习资源
 
