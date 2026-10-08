@@ -5,8 +5,8 @@ tags:
   - ML
   - CS
   - Stanford
-created: 2026-10-08T17:30:59.745Z
-modified: 2026-10-08T17:30:59.745Z
+created: 2026-10-08T17:32:43.706Z
+modified: 2026-10-08T17:32:43.706Z
 description: Linear Regression and Gradient Descent
 ---
 # CS229 Lecture2
@@ -28,7 +28,7 @@ $\theta$为参数（parameters)；$M$为训练样本数量（the number of train
 
 ### How to choose $\theta$ ?
 
-目标：让 $h(x)$接近训练样本
+目标：让 $h(x)$接近训练样本，简单来说就是让残差平方和最小
 
 ## Derivation / proof
 
