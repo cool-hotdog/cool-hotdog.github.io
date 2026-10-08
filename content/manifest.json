@@ -1,6 +1,19 @@
 {
   "notes": [
     {
+      "path": "20 Knowledge/Computer Science/Code/CPP刷题经验.md",
+      "title": "CPP刷题经验",
+      "url": "/notes/20-knowledge/computer-science/code/cpp刷题经验.html",
+      "tags": [
+        "cpp",
+        "CS"
+      ],
+      "modified": "2026-10-08T16:04:59.030Z",
+      "featured": true,
+      "description": "计算概论（A）做题时的遇到的实用tricks",
+      "sha256": "2d44ef96a0392f1fd5374be88f849c79428a3952d40be44699152a9576f7c485"
+    },
+    {
       "path": "10 Courses/计概C.md",
       "title": "计概C",
       "url": "/notes/10-courses/计概c.html",
@@ -12,19 +25,6 @@
       "featured": false,
       "description": "Some tips which probably are useful in the course",
       "sha256": "069a95a335bdf8d759b509e1b84658df1e414d64372b248175aa8f36d9aaf510"
-    },
-    {
-      "path": "20 Knowledge/Computer Science/Code/CPP刷题经验.md",
-      "title": "CPP刷题经验",
-      "url": "/notes/20-knowledge/computer-science/code/cpp刷题经验.html",
-      "tags": [
-        "cpp",
-        "CS"
-      ],
-      "modified": "2026-10-07T05:29:29.955Z",
-      "featured": true,
-      "description": "计算概论（A）做题时的遇到的实用tricks",
-      "sha256": "6dd28d9651c700f122783536ffb276b1c2e7d2bee454160a25ffd3d1b1d0ef67"
     },
     {
       "path": "10 Courses/CS229/CS229 Lecture 1.md",
