@@ -5,8 +5,8 @@ tags:
   - ML
   - CS
   - Stanford
-created: 2026-10-08T17:39:48.953Z
-modified: 2026-10-08T17:39:48.953Z
+created: 2026-10-08T17:42:58.514Z
+modified: 2026-10-08T17:42:58.514Z
 description: Linear Regression and Gradient Descent
 ---
 # CS229 Lecture2
@@ -41,7 +41,8 @@ $$
 
 ### OLS证明
 
- 使用梯度下降（？我们需要初始化$\theta$，不妨令$\theta = $ 
+ 使用梯度下降（？我们需要初始化$\theta$，不妨令$\vec{\theta} = \vec{0}$ 
+
 
 ## Questions
 
