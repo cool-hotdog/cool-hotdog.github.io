@@ -4,8 +4,8 @@ publish: true
 tags:
   - CS
   - Python
-created: 2026-10-08T02:13:31.000Z
-modified: 2026-10-08T02:13:31.000Z
+created: 2026-10-08T02:13:50.000Z
+modified: 2026-10-08T02:13:50.000Z
 description: Some tips which probably are useful in the course
 ---
 # 环境准备
@@ -107,7 +107,7 @@ a = {'a':1, 'b':2, 'c':3, 'd':3}
 
 全球最大的开源仓库，有各类开源的项目、学习资源……
 
-网址：[github.com](
+网址：[github.com]
 
 ## CLI 和 Terminal
 
