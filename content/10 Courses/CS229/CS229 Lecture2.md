@@ -5,8 +5,8 @@ tags:
   - ML
   - CS
   - Stanford
-created: 2026-10-08T17:32:43.706Z
-modified: 2026-10-08T17:32:43.706Z
+created: 2026-10-08T17:39:48.953Z
+modified: 2026-10-08T17:39:48.953Z
 description: Linear Regression and Gradient Descent
 ---
 # CS229 Lecture2
@@ -30,7 +30,18 @@ $\theta$为参数（parameters)；$M$为训练样本数量（the number of train
 
 目标：让 $h(x)$接近训练样本，简单来说就是让残差平方和最小
 
+原理我们在统计学相关课程中我们已了解，不过多赘述。
+
+我们定义：
+$$
+J(\theta) = \frac{1}{2}\sum_{i=1}^{m}(h(x^{(i)})-y^{(i)})^{2}
+$$
+我们希望最小化这个函数
 ## Derivation / proof
+
+### OLS证明
+
+ 使用梯度下降（？我们需要初始化$\theta$，不妨令$\theta = $ 
 
 ## Questions
 
