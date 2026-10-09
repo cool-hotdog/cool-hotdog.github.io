@@ -5,8 +5,8 @@ tags:
   - ML
   - CS
   - Stanford
-created: 2026-10-09T05:30:09.549Z
-modified: 2026-10-09T05:30:09.549Z
+created: 2026-10-09T05:36:05.674Z
+modified: 2026-10-09T05:36:05.674Z
 description: Linear Regression and Gradient Descent
 ---
 # CS229 Lecture2
@@ -51,10 +51,13 @@ $$
 我们称$\alpha$为学习率（learning rate)
 
 $$
-\frac{\partial}{\partial\theta_j}J(\theta)
+\begin{aligned}
+\frac{\partial}{\partial\theta_j}J(\theta) &= (h_\theta(x)-y)\frac{\partial}{\partial \theta_j}(h_\theta(x)-y)\\
+&=(h_\theta(x)-y)\frac{\partial}{\partial \theta_j}(\sum_{i=0}^{n}\theta_ix_i-y)
+\end{aligned}
 $$
-
-## Questions
+可以看到求偏导时，求和中只有和 $\theta_j$对应的一项不为0，其他全为0
+## Questions 
 
 ## Extract to Knowledge
 - [[]]
