@@ -5,8 +5,8 @@ tags:
   - ML
   - CS
   - Stanford
-created: 2026-10-09T05:37:50.866Z
-modified: 2026-10-09T05:37:50.866Z
+created: 2026-10-09T05:41:10.103Z
+modified: 2026-10-09T05:41:10.103Z
 description: Linear Regression and Gradient Descent
 ---
 # CS229 Lecture2
@@ -50,6 +50,8 @@ $$
 $$
 我们称$\alpha$为学习率（learning rate)
 
+不妨设 $m = 1$，则
+
 $$
 \begin{aligned}
 \frac{\partial}{\partial\theta_j}J(\theta) &= (h_\theta(x)-y)\frac{\partial}{\partial \theta_j}(h_\theta(x)-y)\\
@@ -62,8 +64,8 @@ PS：可以看到求偏导时，求和中只有和 $\theta_j$对应的一项不�
 
 $$
 \begin{aligned}
-\theta_j &:= \theta_{j} - \alpha \frac{\partial}{\partial\theta_j}J(\theta)
-
+\theta_j &:= \theta_{j} - \alpha \frac{\partial}{\partial\theta_j}J(\theta)\\
+&:=\theta_j-\alpha(h_\theta(x)-y)x_j
 \end{aligned}
 $$
 ## Questions 
