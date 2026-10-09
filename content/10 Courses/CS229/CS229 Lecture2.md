@@ -5,8 +5,8 @@ tags:
   - ML
   - CS
   - Stanford
-created: 2026-10-09T05:23:28.574Z
-modified: 2026-10-09T05:23:28.574Z
+created: 2026-10-09T05:26:15.095Z
+modified: 2026-10-09T05:26:15.095Z
 description: Linear Regression and Gradient Descent
 ---
 # CS229 Lecture2
@@ -46,8 +46,9 @@ $$
  我们需要初始化$\theta$，不妨令$\vec{\theta} = \vec{0}$ 
 
 $$
-\theta_j := \theta_{j} - \alpha \frac{ }{}
+\theta_j := \theta_{j} - \alpha \frac{\partial}{\partial\theta_j}J(\theta)
 $$
+我们称$\alpha$为学习率（learning rate)
 
 ## Questions
 
