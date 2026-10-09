@@ -4,8 +4,8 @@ publish: true
 tags:
   - CS
   - Python
-created: 2026-10-09T03:11:25.427Z
-modified: 2026-10-09T03:11:25.427Z
+created: 2026-10-09T04:26:45.850Z
+modified: 2026-10-09T04:26:45.850Z
 description: Some tips which probably are useful in the course
 ---
 # 环境准备
@@ -88,6 +88,8 @@ a = {'a':1, 'b':2, 'c':3, 'd':3}
 ```
 
 一些操作：比如按某种格式print……
+
+**==看报错，根据报错debug==**
 
 **==计概C考试不涉及算法==**
 
