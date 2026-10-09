@@ -5,8 +5,8 @@ tags:
   - ML
   - CS
   - Stanford
-created: 2026-10-09T05:41:10.103Z
-modified: 2026-10-09T05:41:10.103Z
+created: 2026-10-09T05:44:57.978Z
+modified: 2026-10-09T05:44:57.978Z
 description: Linear Regression and Gradient Descent
 ---
 # CS229 Lecture2
@@ -37,7 +37,8 @@ $$
 J(\theta) = \frac{1}{2}\sum_{i=1}^{m}(h(x^{(i)})-y^{(i)})^{2}
 $$
 我们希望最小化这个函数
-## Derivation / proof
+
+## Mathematical proof
 
 ### OLS证明
 
@@ -66,6 +67,14 @@ $$
 \begin{aligned}
 \theta_j &:= \theta_{j} - \alpha \frac{\partial}{\partial\theta_j}J(\theta)\\
 &:=\theta_j-\alpha(h_\theta(x)-y)x_j
+\end{aligned}
+$$
+更近一步，$m > 1$时，
+
+$$
+\begin{aligned}
+\theta_j &:= \theta_{j} - \alpha \frac{\partial}{\partial\theta_j}J(\theta)\\
+&:=\theta_j-\alpha\sum_{i=1}^{m}(h_\theta^{(i)}(x)-y^{(i)})x_j^{(i)}
 \end{aligned}
 $$
 ## Questions 
