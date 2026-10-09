@@ -5,8 +5,8 @@ tags:
   - ML
   - CS
   - Stanford
-created: 2026-10-09T05:36:05.674Z
-modified: 2026-10-09T05:36:05.674Z
+created: 2026-10-09T05:37:50.866Z
+modified: 2026-10-09T05:37:50.866Z
 description: Linear Regression and Gradient Descent
 ---
 # CS229 Lecture2
@@ -56,7 +56,16 @@ $$
 &=(h_\theta(x)-y)\frac{\partial}{\partial \theta_j}(\sum_{i=0}^{n}\theta_ix_i-y)
 \end{aligned}
 $$
-可以看到求偏导时，求和中只有和 $\theta_j$对应的一项不为0，其他全为0
+PS：可以看到求偏导时，求和中只有和 $\theta_j$对应的一项不为0，其他全为0
+
+从而：
+
+$$
+\begin{aligned}
+\theta_j &:= \theta_{j} - \alpha \frac{\partial}{\partial\theta_j}J(\theta)
+
+\end{aligned}
+$$
 ## Questions 
 
 ## Extract to Knowledge
