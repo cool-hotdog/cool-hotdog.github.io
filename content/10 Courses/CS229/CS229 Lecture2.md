@@ -5,8 +5,8 @@ tags:
   - ML
   - CS
   - Stanford
-created: 2026-10-08T17:48:56.244Z
-modified: 2026-10-08T17:48:56.244Z
+created: 2026-10-09T05:21:49.117Z
+modified: 2026-10-09T05:21:49.117Z
 description: Linear Regression and Gradient Descent
 ---
 # CS229 Lecture2
@@ -44,6 +44,7 @@ $$
  老师使用梯度下降来解决，似乎这是为了符合ML的习惯
  
  我们需要初始化$\theta$，不妨令$\vec{\theta} = \vec{0}$ 
+
 
 
 ## Questions
