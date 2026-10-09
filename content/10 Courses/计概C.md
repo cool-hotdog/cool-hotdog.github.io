@@ -4,8 +4,8 @@ publish: true
 tags:
   - CS
   - Python
-created: 2026-10-08T04:56:46.072Z
-modified: 2026-10-08T04:56:46.072Z
+created: 2026-10-09T03:11:25.427Z
+modified: 2026-10-09T03:11:25.427Z
 description: Some tips which probably are useful in the course
 ---
 # 环境准备
@@ -46,7 +46,7 @@ description: Some tips which probably are useful in the course
 
 ~~我们说EC范式只是因为惯常用法~~ 
 
-我强烈推荐大家使用EC范式（特指VS Code）而不是IDE。IDE本身是面向专业开发者用于开发大型项目的，对于学生来说过于“重”，且具有一定门槛，更不要提初学者了。而编辑器更加轻量化，在使用上没有门槛。同时VS Code 有良好的社区生态、丰富的插件、多样的主题外观（？）……
+我强烈推荐大家使用EC范式而不是IDE。IDE本身是面向专业开发者用于开发大型项目的，对于学生来说过于“重”，且具有一定门槛，更不要提初学者了。而编辑器更加轻量化，在使用上没有门槛。同时VS Code 有良好的社区生态、丰富的插件、多样的主题外观（？）……
 
 # 编程学习
 

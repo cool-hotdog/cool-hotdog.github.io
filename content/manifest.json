@@ -1,6 +1,19 @@
 {
   "notes": [
     {
+      "path": "10 Courses/计概C.md",
+      "title": "计概C",
+      "url": "/notes/10-courses/计概c.html",
+      "tags": [
+        "CS",
+        "Python"
+      ],
+      "modified": "2026-10-09T03:11:25.427Z",
+      "featured": false,
+      "description": "Some tips which probably are useful in the course",
+      "sha256": "6b2317b54b7a5af0139046cd54a5f1e1d9741cd9979ab65a5a71fd484a66d6f0"
+    },
+    {
       "path": "10 Courses/CS229/CS229 Lecture2.md",
       "title": "CS229 Lecture2",
       "url": "/notes/10-courses/cs229/cs229-lecture2.html",
@@ -40,19 +53,6 @@
       "featured": true,
       "description": "计算概论（A）做题时的遇到的实用tricks",
       "sha256": "13360d637fde323aca31d6c35999b20dc8f903e9eef387f01c3bd720912919b1"
-    },
-    {
-      "path": "10 Courses/计概C.md",
-      "title": "计概C",
-      "url": "/notes/10-courses/计概c.html",
-      "tags": [
-        "CS",
-        "Python"
-      ],
-      "modified": "2026-10-08T04:56:46.072Z",
-      "featured": false,
-      "description": "Some tips which probably are useful in the course",
-      "sha256": "069a95a335bdf8d759b509e1b84658df1e414d64372b248175aa8f36d9aaf510"
     }
   ],
   "assets": [
