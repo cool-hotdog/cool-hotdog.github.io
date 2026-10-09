@@ -5,8 +5,8 @@ tags:
   - ML
   - CS
   - Stanford
-created: 2026-10-09T05:28:57.378Z
-modified: 2026-10-09T05:28:57.378Z
+created: 2026-10-09T05:30:09.549Z
+modified: 2026-10-09T05:30:09.549Z
 description: Linear Regression and Gradient Descent
 ---
 # CS229 Lecture2
@@ -50,6 +50,9 @@ $$
 $$
 我们称$\alpha$为学习率（learning rate)
 
+$$
+\frac{\partial}{\partial\theta_j}J(\theta)
+$$
 
 ## Questions
 
