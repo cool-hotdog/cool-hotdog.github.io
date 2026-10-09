@@ -9,10 +9,10 @@
         "CS",
         "Stanford"
       ],
-      "modified": "2026-10-09T05:44:57.978Z",
+      "modified": "2026-10-09T07:20:46.306Z",
       "featured": false,
       "description": "Linear Regression and Gradient Descent",
-      "sha256": "921dd9c3e405d0a53ef560a4f85e3817e765c376c4fe3273c6752388297059d4"
+      "sha256": "dc32c6a055cff3a31defea847efd34f4d6373d36600f43617deec8af488a2630"
     },
     {
       "path": "10 Courses/计概C.md",
@@ -57,6 +57,7 @@
   ],
   "assets": [
     "Pasted image 20261007141336.png",
-    "Pasted image 20261007141901.png"
+    "Pasted image 20261007141901.png",
+    "Pasted image 20261009134610.png"
   ]
 }
