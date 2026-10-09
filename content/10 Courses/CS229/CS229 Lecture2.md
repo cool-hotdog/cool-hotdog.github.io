@@ -5,8 +5,8 @@ tags:
   - ML
   - CS
   - Stanford
-created: 2026-10-09T05:21:49.117Z
-modified: 2026-10-09T05:21:49.117Z
+created: 2026-10-09T05:23:28.574Z
+modified: 2026-10-09T05:23:28.574Z
 description: Linear Regression and Gradient Descent
 ---
 # CS229 Lecture2
@@ -45,7 +45,9 @@ $$
  
  我们需要初始化$\theta$，不妨令$\vec{\theta} = \vec{0}$ 
 
-
+$$
+\theta_j := \theta_{j} - \alpha \frac{ }{}
+$$
 
 ## Questions
 
