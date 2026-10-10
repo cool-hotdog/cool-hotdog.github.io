@@ -4,6 +4,7 @@ import os from 'node:os';
 import { spawnSync } from 'node:child_process';
 import { root } from './sync-notes.mjs';
 import { render } from '../site/render.mjs';
+import { renderStats, statsHead } from '../site/stats.mjs';
 
 const dist = path.resolve(process.env.HOMEPAGE_DIST_DIR || path.join(root, 'dist'));
 const content = path.resolve(process.env.HOMEPAGE_CONTENT_DIR || path.join(root, 'content'));
@@ -30,7 +31,9 @@ async function addNotesNavigation(dir) {
     if (entry.isDirectory()) await addNotesNavigation(full);
     else if (entry.name.endsWith('.html')) {
       let html = await fs.readFile(full, 'utf8');
-      html = html.replace('</head>', '<script src="/assets/theme-init.js"></script></head>');
+      const isNotFound = entry.name === '404.html';
+      html = html.replace('</head>', `<script src="/assets/theme-init.js"></script>${isNotFound ? '' : statsHead}</head>`);
+      if (!isNotFound) html = html.replace('</footer>', `${renderStats()}</footer>`);
       html = html.replace(/(<body[^>]*>)/, '$1<nav class="notes-home-nav" aria-label="网站导航"><a class="notes-brand" href="/">James Liang <span aria-hidden="true">/</span> Notes</a><div><a href="/">中文主页</a><a href="/en/">English</a><a href="/about/">关于 ↗</a></div></nav>');
       await fs.writeFile(full, html);
     }

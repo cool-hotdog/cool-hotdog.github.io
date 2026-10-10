@@ -30,8 +30,14 @@ function targetFor(url) {
 for (const file of outputs.filter(f => f.endsWith('.html'))) {
   const rel = '/' + path.relative(dist, file).split(path.sep).join('/');
   const tree = parse(await fs.readFile(file, 'utf8'));
+  const statsIds = new Map();
+  let statsLoaders = 0, statsStyles = 0, redirects = false;
   const visit = node => {
     const attrs = Object.fromEntries((node.attrs || []).map(a => [a.name, a.value]));
+    if (attrs.id?.startsWith('busuanzi_')) statsIds.set(attrs.id, (statsIds.get(attrs.id) || 0) + 1);
+    if (node.tagName === 'script' && attrs.src === '/assets/stats.js') statsLoaders++;
+    if (node.tagName === 'link' && attrs.href === '/assets/stats.css') statsStyles++;
+    if (node.tagName === 'meta' && attrs['http-equiv']?.toLowerCase() === 'refresh') redirects = true;
     if (attrs.property === 'og:image') attrs.src = attrs.content;
     for (const key of ['href', 'src', 'poster']) {
       const value = attrs[key];
@@ -44,6 +50,13 @@ for (const file of outputs.filter(f => f.endsWith('.html'))) {
     for (const child of node.childNodes || []) visit(child);
   };
   visit(tree);
+  const shouldCount = !redirects && !rel.endsWith('/404.html');
+  if (statsLoaders !== Number(shouldCount) || statsStyles !== Number(shouldCount)) errors.push(`${rel}: incorrect statistics resources`);
+  for (const key of ['site_pv', 'site_uv', 'page_pv']) {
+    for (const prefix of ['container', 'value']) {
+      if ((statsIds.get(`busuanzi_${prefix}_${key}`) || 0) !== Number(shouldCount)) errors.push(`${rel}: incorrect ${prefix} for ${key}`);
+    }
+  }
 }
 const manifest = JSON.parse(await fs.readFile(path.join(content, 'manifest.json'), 'utf8'));
 const index = JSON.parse(await fs.readFile(path.join(dist, 'notes/static/contentIndex.json'), 'utf8'));

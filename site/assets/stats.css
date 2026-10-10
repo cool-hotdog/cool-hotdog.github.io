@@ -1,0 +1,12 @@
+footer .site-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 20px;
+  font-size: 11px;
+  line-height: 1.8;
+}
+.site-stats > span { white-space: nowrap; }
+.site-stats span > span { font-variant-numeric: tabular-nums; }
+.site-stats:has(> span[style*="inline"]) { margin-top: 12px; }
+.site-footer { flex-wrap: wrap; }
+.site-footer > .site-stats { flex-basis: 100%; gap: 6px 20px; }
