@@ -4,8 +4,8 @@ publish: true
 tags:
   - CS
   - Python
-created: 2026-10-09T04:26:45.850Z
-modified: 2026-10-09T04:26:45.850Z
+created: 2026-10-09T11:21:03.000Z
+modified: 2026-10-09T11:21:03.000Z
 description: Some tips which probably are useful in the course
 ---
 # 环境准备
@@ -77,23 +77,23 @@ Computer Science 永远需要通过实践进行学习的，知识上的不足往
 
 2. 需要根据复杂的题目要求，设计和维护一个/多个数据结构和对象，通常是字典（dict）。
 
-接下来讲一讲我印象中
 数据结构及其维护：
 - 列表（list）：增删查改，排序（正序、逆序）
 - 字典（dict）：同上，多次排序
+- 可变vs不可变类型
 
 ```python
 a = {'a':1, 'b':2, 'c':3, 'd':3}
 # 先按value排序从大到小排序,若value相同则按key的字典序排序
 ```
 
-一些操作：比如按某种格式print……
+一些特殊操作：比如按某种格式print……
 
 **==看报错，根据报错debug==**
 
 **==计概C考试不涉及算法==**
 
-另外自学一下OOP（Object Oriented Programming)会对大家机考有帮助hh。
+另外自学一下面向对象编程OOP（Object Oriented Programming)会对大家机考有帮助hh。
 
 由于本人已经有大半年没有手写过Python了，更遑论Python机考了，因此对题目的总结一定是有缺漏且不尽准确的。具体的情况还等各位去研究。
 

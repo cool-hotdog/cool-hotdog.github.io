@@ -5,12 +5,10 @@ tags:
   - ML
   - CS
   - Stanford
-created: 2026-10-09T07:20:46.306Z
-modified: 2026-10-09T07:20:46.306Z
+created: 2026-10-10T06:22:01.104Z
+modified: 2026-10-10T06:22:01.104Z
 description: Linear Regression and Gradient Descent
 ---
-# CS229 Lecture2
-
 ## Key ideas
 
 线性回归是最简单的监督学习算法。
@@ -108,6 +106,7 @@ $$
 \end{aligned}
 $$
 ### OLS的另一种推导
+我们给出：标量对向量求导的法则
 
 $$
 \nabla_{\theta}J(\theta) = \begin{pmatrix}
@@ -117,7 +116,7 @@ $$
 \frac{\partial J}{\partial \theta_n}
 \end{pmatrix}
 $$
-我们定义：$f(A)：\mathbf{R}^{m,n} \rightarrow \mathbf{R}$
+以及，标量对矩阵求导的法则，定义：$f(A)：\mathbf{R}^{m\times n} \rightarrow \mathbf{R}$
 $$
 \nabla_Af(A)=\begin{pmatrix}
 \frac{\partial}{\partial A_{11}}f & \frac{\partial}{\partial A_{12}}f & \cdots \frac{\partial}{\partial A_{1n}}f \\
@@ -126,6 +125,7 @@ $$
 \end{pmatrix}
 $$
 
+实际上这是Jacobian矩阵
 令：
 $$
 \nabla_\theta J(\theta) =\vec{0}
