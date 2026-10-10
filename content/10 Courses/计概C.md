@@ -4,8 +4,8 @@ publish: true
 tags:
   - CS
   - Python
-created: 2026-10-10T11:04:44.000Z
-modified: 2026-10-10T11:04:44.000Z
+created: 2026-10-10T11:44:32.598Z
+modified: 2026-10-10T11:44:32.598Z
 description: Some tips which probably are useful in the course
 ---
 # 环境准备
@@ -32,7 +32,9 @@ description: Some tips which probably are useful in the course
 
 比较适配于Windows系统，下载免费的Community版即可（如果非要下IDE的话）
 
-**EC范式**：E for Editor, and C for Compiler. 即编辑器 + 编译器的开发范式。（==Strongly Commended==)
+**EC范式**：
+
+E for Editor, and C for Compiler. 即编辑器 + 编译器的开发范式。（==Strongly Commended==)
 
 常用编辑器：Visual Studio Code
 
@@ -57,13 +59,12 @@ description: Some tips which probably are useful in the course
 
 OK，说了那么多我们终于进入学习编程本身了。我打算对几种学习方式做一个“从夯到拉”排行榜。
 
-- 夯：OJ刷题、拜AI为师
-- 顶级：向老师/TAs请教问题
-- 人上人：在油管/B站找公开课程学习
-- NPC：老老实实上课
-- 拉完了：报编程班、手抄代码
+- 夯：
+- 顶级：
+- 人上人：
+- NPC：
+- 拉完了：
 
-（仅个人主观排序，请勿当真，如有冒犯，敬请原谅）
 
 Computer Science 永远需要通过实践进行学习的，知识上的不足往往会在报错中呈现，在debug中修复。当然每个班老师的要求不同，考试考勤要求都不太一样，请大家以实际情况为准。
 
