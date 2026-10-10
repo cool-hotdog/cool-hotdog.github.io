@@ -1,6 +1,19 @@
 {
   "notes": [
     {
+      "path": "10 Courses/计概C.md",
+      "title": "计概C",
+      "url": "/notes/10-courses/计概c.html",
+      "tags": [
+        "CS",
+        "Python"
+      ],
+      "modified": "2026-10-10T11:04:44.000Z",
+      "featured": false,
+      "description": "Some tips which probably are useful in the course",
+      "sha256": "91c3d8d55a90fe12f38585c1ed3ee04f1456379bc4266037bf027af9baacf2a1"
+    },
+    {
       "path": "10 Courses/CS229/CS229 Lecture2.md",
       "title": "CS229 Lecture2",
       "url": "/notes/10-courses/cs229/cs229-lecture2.html",
@@ -13,19 +26,6 @@
       "featured": false,
       "description": "Linear Regression and Gradient Descent",
       "sha256": "e5aa6915f3fbd035ff8aa72d44695a607368891961a333614b1afa3f4ba22eac"
-    },
-    {
-      "path": "10 Courses/计概C.md",
-      "title": "计概C",
-      "url": "/notes/10-courses/计概c.html",
-      "tags": [
-        "CS",
-        "Python"
-      ],
-      "modified": "2026-10-09T11:21:03.000Z",
-      "featured": false,
-      "description": "Some tips which probably are useful in the course",
-      "sha256": "6a0f50e873f22c94d2e0be098bffecd571795b7394a25daff09889891fa60700"
     },
     {
       "path": "10 Courses/CS229/CS229 Lecture 1.md",

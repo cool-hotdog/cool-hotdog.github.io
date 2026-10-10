@@ -4,8 +4,8 @@ publish: true
 tags:
   - CS
   - Python
-created: 2026-10-09T11:21:03.000Z
-modified: 2026-10-09T11:21:03.000Z
+created: 2026-10-10T11:04:44.000Z
+modified: 2026-10-10T11:04:44.000Z
 description: Some tips which probably are useful in the course
 ---
 # 环境准备
@@ -150,7 +150,7 @@ $$
 
 ## 一些基本的算法
 
-如排序、DFS、BFS等
+如排序、DFS、BFS、DP等
 
 ## AI
 
