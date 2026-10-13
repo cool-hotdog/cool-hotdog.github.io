@@ -4,8 +4,8 @@ publish: true
 tags:
   - cpp
   - CS
-created: 2026-10-13T06:00:56.142Z
-modified: 2026-10-13T06:00:56.142Z
+created: 2026-10-13T06:02:22.820Z
+modified: 2026-10-13T06:02:22.820Z
 description: 计算概论（A）做题时的遇到的实用tricks
 ---
 ### 如何处理带前导零的整数？
@@ -115,7 +115,6 @@ for (int i = 0; i < k; i ++) {
 }
 
 // 若有分隔符
-int a[k];
 for (int i = 0; i < k; i ++) {
 	string line, num;
 	getline(cin, line);
