@@ -4,8 +4,8 @@ publish: true
 tags:
   - cpp
   - CS
-created: 2026-10-13T05:41:03.861Z
-modified: 2026-10-13T05:41:03.861Z
+created: 2026-10-13T05:47:22.422Z
+modified: 2026-10-13T05:47:22.422Z
 description: 计算概论（A）做题时的遇到的实用tricks
 ---
 ### 如何处理带前导零的整数？
@@ -87,4 +87,23 @@ while (cin >> x1 >> y1
 	        }
 ```
 
-但以上是我们知道列数时使用的方法。如果我们只知道行数，或行数列数都不知道怎么办？
+但以上是我们知道列数时使用的方法。如果我们只知道行数，或行数列数都不知道怎么办？这需要用到getline()函数。
+
+```cpp
+// getline大概分为两类
+getline(cin, line) //读入输入流，以换行符或EOF终止，输入被命名为line
+getline(cin, line, ',') //读入输入流，以EOF终止，以逗号作为分隔符，输入被命名为line
+
+//在处理只知道行数时且无分割符，我们直接用一维数组即可
+int a[k];
+for (int i = 0; i < k; i ++) {
+	cin >> a[i];
+}
+
+// 若有分隔符
+int a[k];
+for (int i = 0; i < k; i ++) {
+	getline(cin, );
+}
+//在两个都不知道的时候
+```
