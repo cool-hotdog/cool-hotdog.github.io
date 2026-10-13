@@ -4,8 +4,8 @@ publish: true
 tags:
   - cpp
   - CS
-created: 2026-10-13T05:57:42.057Z
-modified: 2026-10-13T05:57:42.057Z
+created: 2026-10-13T06:00:56.142Z
+modified: 2026-10-13T06:00:56.142Z
 description: 计算概论（A）做题时的遇到的实用tricks
 ---
 ### 如何处理带前导零的整数？
@@ -87,6 +87,20 @@ while (cin >> x1 >> y1
 	        }
 ```
 
+也有更简洁的写法
+```cpp
+while (cin >> x) {
+    vector<int> row;
+    row.push_back(x);
+	
+	// 获取除该行剩余数据
+    for (int j = 1; j < n; j++) {
+        cin >> x;
+        row.push_back(x);
+    }
+```
+
+
 但以上是我们知道列数时使用的方法。如果我们只知道行数，或行数列数都不知道怎么办？这需要用到getline()函数等工具……
 
 ```cpp
@@ -113,20 +127,22 @@ for (int i = 0; i < k; i ++) {
 }
 
 //在只知道列数时且无分割符
-int x1, y1, x2, y2, x3, y3, x4, y4;
-while (cin >> x1 >> y1
-	        >> x2 >> y2
-	        >> x3 >> y3
-	        >> x4 >> y4) {
-
-	        }
+while (cin >> x) {
+    vector<int> row;
+    row.push_back(x);
+	
+	// 获取除该行剩余数据
+    for (int j = 1; j < n; j++) {
+        cin >> x;
+        row.push_back(x);
+    }
 	        
 //只知道列数且有分割符
 string line;
 while (getline(cin, line)) {
 	stringstream ss(line);
 	
-	//然后使用刚刚分割等办法即可
+	//然后使用刚刚分割的办法即可
 }
 
 //都不知道且无分割符
