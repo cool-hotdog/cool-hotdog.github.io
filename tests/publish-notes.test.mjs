@@ -5,7 +5,7 @@ import { writeFileSync } from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
-import { publishNotes } from '../scripts/publish-notes.mjs';
+import { publishNotes, acquireLock, cleanStaleCandidates, isTransientGitError } from '../scripts/publish-notes.mjs';
 import { exportVault } from '../scripts/sync-notes.mjs';
 
 async function fixture(t) {
@@ -126,4 +126,117 @@ test('staged edits and unrelated tracked changes stop before syncing', async t =
   f.git('add', 'site.mjs');
   await assert.rejects(publishNotes({ cwd: f.cwd, sourceIdentity: null, run: f.runner(), log() {} }), /暂存区/);
   assert.ok(!f.calls.some(([file]) => file === 'npm'));
+});
+
+test('staged content-only changes hint at an interrupted previous run', async t => {
+  const f = await fixture(t);
+  await fs.writeFile(path.join(f.cwd, 'content/extra.md'), 'leftover');
+  f.git('add', 'content');
+  await assert.rejects(publishNotes({ cwd: f.cwd, sourceIdentity: null, run: f.runner(), log() {} }), /git restore --staged content/);
+  f.git('reset', '-q');
+  await fs.writeFile(path.join(f.cwd, 'site.mjs'), 'changed');
+  f.git('add', 'site.mjs');
+  await assert.rejects(publishNotes({ cwd: f.cwd, sourceIdentity: null, run: f.runner(), log() {} }), error => {
+    assert.match(error.message, /暂存区/);
+    assert.ok(!error.message.includes('restore --staged'));
+    return true;
+  });
+});
+
+test('stale lock states: foreign machine, dead pid, and stuck holder are reclaimed', async t => {
+  const dir = await fs.mkdtemp(path.join(os.tmpdir(), 'publish-lock-'));
+  t.after(() => fs.rm(dir, { recursive: true, force: true }));
+  const lock = path.join(dir, 'test.lock');
+  const now = Date.now();
+  // Foreign machine: reclaimed without probing the pid.
+  await fs.writeFile(lock, `other-host:4242:${now}`);
+  const logs = [];
+  let handle = await acquireLock(lock, { hostname: 'this-host', now: () => now, kill: () => { throw new Error('must not probe a foreign pid'); }, log: m => logs.push(m) });
+  assert.match(logs[0], /other-host/);
+  assert.equal(await fs.readFile(lock, 'utf8'), `this-host:${process.pid}:${now}`);
+  await handle.close(); await fs.unlink(lock);
+  // Dead pid (ESRCH): reclaimed.
+  await fs.writeFile(lock, `this-host:4242:${now}`);
+  handle = await acquireLock(lock, { hostname: 'this-host', now: () => now, kill: () => { const e = new Error('no such process'); e.code = 'ESRCH'; throw e; }, log() {} });
+  await handle.close(); await fs.unlink(lock);
+  // Live pid with a recent lock blocks; EPERM (another user's process) also counts as alive.
+  await fs.writeFile(lock, `this-host:4242:${now}`);
+  await assert.rejects(acquireLock(lock, { hostname: 'this-host', now: () => now, kill: () => {} }), /正在运行/);
+  await assert.rejects(acquireLock(lock, { hostname: 'this-host', now: () => now, kill: () => { const e = new Error('not permitted'); e.code = 'EPERM'; throw e; } }), /正在运行/);
+  // Live pid stuck past the stale window: SIGTERM, then reclaim (never just unlink a live holder).
+  const signals = [];
+  await fs.writeFile(lock, `this-host:4242:${now - 31 * 60 * 1000}`);
+  handle = await acquireLock(lock, { hostname: 'this-host', now: () => now, kill: (pid, signal) => signals.push(signal), log() {} });
+  assert.deepEqual(signals, [0, 'SIGTERM']);
+  await handle.close(); await fs.unlink(lock);
+});
+
+test('legacy pid-only locks still work; empty locks depend on file age', async t => {
+  const dir = await fs.mkdtemp(path.join(os.tmpdir(), 'publish-lock-'));
+  t.after(() => fs.rm(dir, { recursive: true, force: true }));
+  const lock = path.join(dir, 'test.lock');
+  // Legacy format, live pid: blocks.
+  await fs.writeFile(lock, '4242');
+  await assert.rejects(acquireLock(lock, { kill: () => {} }), /正在运行/);
+  // Legacy format, dead pid: reclaimed.
+  let handle = await acquireLock(lock, { kill: () => { const e = new Error('gone'); e.code = 'ESRCH'; throw e; }, log() {} });
+  await handle.close(); await fs.unlink(lock);
+  // Empty fresh lock: another publisher may be mid-startup.
+  await fs.writeFile(lock, '');
+  await assert.rejects(acquireLock(lock), /正在启动/);
+  // Empty lock older than a minute: the writer died before writing.
+  const past = new Date(Date.now() - 5 * 60 * 1000);
+  await fs.utimes(lock, past, past);
+  handle = await acquireLock(lock, { log() {} });
+  await handle.close(); await fs.unlink(lock);
+});
+
+test('stale candidate directories are removed while fresh ones stay', async t => {
+  const dir = await fs.mkdtemp(path.join(os.tmpdir(), 'publish-candidates-'));
+  t.after(() => fs.rm(dir, { recursive: true, force: true }));
+  const local = path.join(dir, '.local');
+  const stale = path.join(local, 'candidate-stale'), fresh = path.join(local, 'candidate-fresh'), other = path.join(local, 'keep-me');
+  await fs.mkdir(stale, { recursive: true });
+  await fs.mkdir(fresh);
+  await fs.mkdir(other);
+  const twoHoursAgo = new Date(Date.now() - 2 * 60 * 60 * 1000);
+  await fs.utimes(stale, twoHoursAgo, twoHoursAgo);
+  await cleanStaleCandidates(local);
+  await assert.rejects(fs.access(stale));
+  await fs.access(fresh);
+  await fs.access(other);
+});
+
+test('git transport failure classification', () => {
+  for (const transient of [
+    "fatal: unable to access 'https://github.com/x/y.git/': Could not resolve hostname: github.com",
+    'git@github.com: Permission denied (publickey).\r\nfatal: Could not read from remote repository.',
+    'fatal: could not read Username for \'https://github.com\': Device not configured',
+    'fatal: unable to connect to github.com: Connection timed out',
+    'fatal: Authentication failed for \'https://github.com/x/y.git/\'',
+  ]) assert.equal(isTransientGitError(transient), true, transient);
+  for (const repo of ['error: failed to push some refs to \'github.com:x/y.git\'', 'fatal: refusing to merge unrelated histories', ''])
+    assert.equal(isTransientGitError(repo), false, repo);
+});
+
+test('transient fetch failure names the network and keeps the repository untouched', async t => {
+  const f = await fixture(t);
+  await fs.writeFile(path.join(f.vaultPath, 'note.md'), '---\npublish: true\n---\nnew');
+  await assert.rejects(publishNotes({ cwd: f.cwd, sourceIdentity: null, log() {}, run: (file, args) => {
+    if (file === 'git' && args[0] === 'fetch') throw new Error("fatal: unable to access 'https://github.com/x/y.git/': Could not resolve hostname: github.com");
+    if (file === 'npm') return '';
+    return f.git(...args);
+  } }), /网络或凭据/);
+  assert.equal(f.git('rev-list', '--count', 'origin/main..HEAD'), '0');
+});
+
+test('repository push failure demands manual handling and keeps the commit', async t => {
+  const f = await fixture(t);
+  await fs.writeFile(path.join(f.vaultPath, 'note.md'), '---\npublish: true\n---\nnew');
+  await assert.rejects(publishNotes({ cwd: f.cwd, sourceIdentity: null, log() {}, run: (file, args) => {
+    if (file === 'git' && args[0] === 'push') throw new Error('error: failed to push some refs');
+    if (file === 'npm') return '';
+    return f.git(...args);
+  } }), /需要手工处理/);
+  assert.equal(f.git('rev-list', '--count', 'origin/main..HEAD'), '1');
 });

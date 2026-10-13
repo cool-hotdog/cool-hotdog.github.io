@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
-import { exportVault, exportFingerprint } from '../scripts/sync-notes.mjs';
+import { exportVault, exportFingerprint, sourceFingerprint } from '../scripts/sync-notes.mjs';
 
 async function fixture(t, files) {
   const base = await fs.mkdtemp(path.join(os.tmpdir(), 'homepage-notes-test-'));
@@ -124,4 +124,18 @@ test('attachment content replacements change the public fingerprint even with a 
   await exportVault(f);
   await assert.rejects(fs.access(path.join(f.destination, '图.png')));
   assert.equal(await fs.readFile(path.join(f.destination, '新图.png'), 'utf8'), 'new image');
+});
+test('source fingerprint ignores mtime-only touches but tracks content changes', async t => {
+  const f = await fixture(t, { 'note.md': pub('original') });
+  const target = path.join(f.vaultPath, 'note.md');
+  const before = await sourceFingerprint(f.vaultPath);
+  const original = await fs.stat(target);
+  // iCloud and editors can retouch mtimes without changing bytes.
+  const future = new Date(Date.now() + 60 * 60 * 1000);
+  await fs.utimes(target, future, future);
+  assert.equal(await sourceFingerprint(f.vaultPath), before);
+  // A real change is caught even when the mtime is preserved (the iCloud replacement case).
+  await fs.writeFile(target, pub('replaced'));
+  await fs.utimes(target, original.atime, original.mtime);
+  assert.notEqual(await sourceFingerprint(f.vaultPath), before);
 });

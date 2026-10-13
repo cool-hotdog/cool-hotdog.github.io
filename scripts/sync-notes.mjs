@@ -39,13 +39,13 @@ async function inventory(dir, base = dir) {
   return files.sort();
 }
 
-// Hash actual bytes, not just mtimes: iCloud can preserve timestamps on replacement.
+// Hash actual bytes only: iCloud and editors can touch mtimes without changing
+// content, while real content changes always change the byte hash.
 export async function sourceFingerprint(directory) {
   const digest = createHash('sha256');
   for (const rel of await inventory(directory)) {
     const bytes = await fs.readFile(path.join(directory, rel));
-    const stat = await fs.stat(path.join(directory, rel));
-    digest.update(JSON.stringify([rel, hash(bytes), stat.mtimeMs]));
+    digest.update(JSON.stringify([rel, hash(bytes)]));
   }
   return digest.digest('hex');
 }

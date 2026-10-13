@@ -41,6 +41,7 @@ module.exports = class HomepagePublisher extends Plugin {
     this.settings = { sourceFolder: 'James-Vault', debounceSeconds: 15, reconcileSeconds: 60, ...(await this.loadData()) };
     this.running = false;
     this.pending = false;
+    this.child = null;
     this.failures = 0;
     this.stopped = false;
     this.timer = null;
@@ -138,6 +139,7 @@ module.exports = class HomepagePublisher extends Plugin {
       // Ignore candidate paths inherited from any parent process.
       delete env.HOMEPAGE_CONTENT_DIR; delete env.HOMEPAGE_DIST_DIR;
       const child = spawn('node', ['scripts/publish-notes.mjs'], { cwd: project, env });
+      this.child = child;
       const append = chunk => {
         const text = chunk.toString(); this.lastOutput = (this.lastOutput + text).slice(-150000);
         if (!this.stopped && /3\/4|4\/4/.test(text)) this.status.setText('公开笔记发布中…');
@@ -145,7 +147,7 @@ module.exports = class HomepagePublisher extends Plugin {
       child.stdout.on('data', append);
       child.stderr.on('data', append);
       child.on('error', error => append(error.message + '\n'));
-      child.on('close', code => this.finish(code));
+      child.on('close', code => { this.child = null; this.finish(code); });
     } catch (error) {
       this.lastOutput = error.message;
       this.finish(1, error.code === 'SOURCE_UNAVAILABLE');
@@ -155,5 +157,8 @@ module.exports = class HomepagePublisher extends Plugin {
     this.stopped = true;
     clearTimeout(this.timer);
     clearInterval(this.interval);
+    // Kill a publisher still running so it cannot outlive the plugin and hold
+    // the project lock; finish() sees stopped=true and only writes the log.
+    if (this.child) { try { this.child.kill('SIGTERM'); } catch (error) { console.error('停止发布子进程失败', error); } this.child = null; }
   }
 };

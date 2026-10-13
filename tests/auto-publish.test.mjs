@@ -27,7 +27,7 @@ async function fixture(t) {
   }
   const modules = {
     obsidian: { Plugin, PluginSettingTab: class {}, Setting: class {}, Modal: class {}, Notice: class { constructor(text) { notices.push(text); } } },
-    child_process: { spawn(...args) { const child = new EventEmitter(); child.stdout = new EventEmitter(); child.stderr = new EventEmitter(); children.push({ child, args }); return child; } },
+    child_process: { spawn(...args) { const child = new EventEmitter(); child.stdout = new EventEmitter(); child.stderr = new EventEmitter(); child.killed = []; child.kill = signal => { child.killed.push(signal); return true; }; children.push({ child, args }); return child; } },
     fs: fsSync, path, './source-root': sourceRoot,
   };
   const context = { module: { exports: {} }, require: name => name.endsWith('source-root.cjs') ? sourceRoot : modules[name], process: { env: {} }, console,
@@ -142,4 +142,28 @@ test('binding a copied source assigns a new identity without modifying note cont
   assert.equal(resolved.sourceFolder, 'Copy');
   assert.equal(await fs.readFile(path.join(resolved.vaultPath, 'note.md'), 'utf8'), 'private original');
   await assert.rejects(sourceRoot.bindSource(f.vaultRoot, '../Outside'));
+});
+
+test('unload kills a running publisher and its late close neither retries nor notifies', async t => {
+  const f = await fixture(t);
+  await f.plugin.publish();
+  assert.equal(f.children.length, 1);
+  assert.equal(f.plugin.child, f.children[0].child);
+  f.plugin.onunload();
+  assert.deepEqual(f.children[0].child.killed, ['SIGTERM']);
+  assert.equal(f.plugin.child, null);
+  f.children[0].child.emit('close', null);
+  assert.equal(f.timers.size, 0);
+  assert.equal(f.intervals.size, 0);
+  assert.equal(f.notices.length, 0);
+});
+
+test('child reference clears when the publisher exits; unload without a child is safe', async t => {
+  const f = await fixture(t);
+  assert.equal(f.plugin.child, null);
+  await f.plugin.publish();
+  f.children[0].child.emit('close', 0);
+  assert.equal(f.plugin.child, null);
+  f.plugin.onunload();
+  assert.deepEqual(f.children[0].child.killed, []);
 });
