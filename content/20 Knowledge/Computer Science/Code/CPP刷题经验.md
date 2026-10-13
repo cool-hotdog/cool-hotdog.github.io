@@ -4,8 +4,8 @@ publish: true
 tags:
   - cpp
   - CS
-created: 2026-10-13T06:02:22.820Z
-modified: 2026-10-13T06:02:22.820Z
+created: 2026-10-13T06:08:19.387Z
+modified: 2026-10-13T06:08:19.387Z
 description: 计算概论（A）做题时的遇到的实用tricks
 ---
 ### 如何处理带前导零的整数？
@@ -145,4 +145,20 @@ while (getline(cin, line)) {
 }
 
 //都不知道且无分割符
+string line, x;
+while (getline(cin, line)) {
+	<vector> row;
+	while (cin >> x);
+	row.push_back(x);
+}
+
+//都不知道且有分割符
+while (getline(cin, line)) {
+	<vector> row;
+	stringstream ss(line);
+	
+	while(getline(ss, x, ',')) {
+		row.push_back(x)
+	}
+}
 ```
