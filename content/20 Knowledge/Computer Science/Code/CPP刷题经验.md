@@ -4,8 +4,8 @@ publish: true
 tags:
   - cpp
   - CS
-created: 2026-10-13T05:05:19.429Z
-modified: 2026-10-13T05:05:19.429Z
+created: 2026-10-13T05:09:19.024Z
+modified: 2026-10-13T05:09:19.024Z
 description: 计算概论（A）做题时的遇到的实用tricks
 ---
 ### 如何处理带前导零的整数？
@@ -39,7 +39,6 @@ n是格式所需位数
 char key[4] = {'a', 'b', 'c', 'd'};
 int  value[4] = {a, b, c, d};
 ```
-
 
 例如我们要对 value 进行排序，同时希望输出 value 时能同时输出 key。我们需要在对value排序时同步key数组的 index。
 
