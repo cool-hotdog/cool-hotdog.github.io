@@ -41,7 +41,7 @@ npm run preview
 
 发布先在本机 `.local/` 创建候选快照，验证构建、公开范围和站内链接，确认源文件在处理期间没有变化后才替换正式公开导出、提交和推送。失败保留上一份有效导出与线上网站，网络失败自动退避重试；发布期间的新修改排队检查，不并发运行。无变化时不重复构建、提交或推送，之前未成功推送的提交仍会重试。可通过命令面板的「个人网站发布：查看自动发布结果」查看输出，日志保存在 `.local/auto-publish.log`。状态中的「已推送，等待网站部署」仅表示上传成功，网站在 GitHub Pages 部署完成后更新。
 
-插件源码在 `integrations/obsidian-homepage-publisher/`。将 `main.js`、`source-root.cjs` 和 `manifest.json` 安装到当前打开笔记库的 `.obsidian/plugins/homepage-publisher/` 后启用。`data.json` 的 `projectPath` 为网站项目绝对路径，`sourceFolder` 为源目录相对路径，`sourceId` 为自动生成的身份，`debounceSeconds` 默认为 15，`reconcileSeconds` 默认为 60。插件将当前源路径显式传入发布程序，并同步更新本机 `notes.local.json`。Mac 上的 Obsidian 需要保持运行，上传和部署需要网络。
+插件源码在 `integrations/obsidian-homepage-publisher/`。将 `main.js`、`source-root.cjs` 和 `manifest.json` 安装到当前打开笔记库的 `.obsidian/plugins/homepage-publisher/` 后启用；修改 `integrations/` 下的源码后必须重新复制这三个文件到安装位置并重载插件，否则 Obsidian 运行的仍是旧版本。网站项目必须放在 iCloud Drive 等云同步目录之外（如 `~/Developer/homepage`），否则 `.git`、依赖目录和发布锁会被云同步竞争破坏。`data.json` 的 `projectPath` 为网站项目绝对路径，`sourceFolder` 为源目录相对路径，`sourceId` 为自动生成的身份，`debounceSeconds` 默认为 15，`reconcileSeconds` 默认为 60。插件将当前源路径显式传入发布程序，并同步更新本机 `notes.local.json`。Mac 上的 Obsidian 需要保持运行，上传和部署需要网络。
 
 底层发布程序要求使用 `main` 分支、暂存区为空、网站代码没有未提交修改。只提交 `content/` 中经过验证的公开快照，其他未跟踪文件不会一起上传。可运行 `npm run notes:publish -- --check`，在临时目录完成验证后更新本机公开导出，不提交或推送。构建和验证程序支持 `HOMEPAGE_CONTENT_DIR` 与 `HOMEPAGE_DIST_DIR` 环境变量，用于检查候选快照，默认仍使用 `content/` 和 `dist/`。
 
