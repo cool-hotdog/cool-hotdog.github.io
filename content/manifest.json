@@ -1,6 +1,19 @@
 {
   "notes": [
     {
+      "path": "20 Knowledge/Computer Science/Code/CPP刷题经验.md",
+      "title": "CPP刷题经验",
+      "url": "/notes/20-knowledge/computer-science/code/cpp刷题经验.html",
+      "tags": [
+        "cpp",
+        "CS"
+      ],
+      "modified": "2026-10-13T05:05:19.429Z",
+      "featured": true,
+      "description": "计算概论（A）做题时的遇到的实用tricks",
+      "sha256": "02c80557044c35440c80d9c1b3ba94f25b4654004653f5ba36cc2d18b057c1f7"
+    },
+    {
       "path": "10 Courses/计概C.md",
       "title": "计概C",
       "url": "/notes/10-courses/计概c.html",
@@ -40,19 +53,6 @@
       "featured": false,
       "description": "机器学习的概念、教学大纲、一些总体性建议",
       "sha256": "7a4e563008c26926e007ab732c7c2b7f5e5f4898dcd04538062f92776b3befe4"
-    },
-    {
-      "path": "20 Knowledge/Computer Science/Code/CPP刷题经验.md",
-      "title": "CPP刷题经验",
-      "url": "/notes/20-knowledge/computer-science/code/cpp刷题经验.html",
-      "tags": [
-        "cpp",
-        "CS"
-      ],
-      "modified": "2026-10-08T16:08:20.634Z",
-      "featured": true,
-      "description": "计算概论（A）做题时的遇到的实用tricks",
-      "sha256": "13360d637fde323aca31d6c35999b20dc8f903e9eef387f01c3bd720912919b1"
     }
   ],
   "assets": [
