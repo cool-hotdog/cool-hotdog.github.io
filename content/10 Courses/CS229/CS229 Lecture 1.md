@@ -5,8 +5,8 @@ tags:
   - ML
   - Stanford
   - CS
-created: 2026-10-08T17:04:25.822Z
-modified: 2026-10-08T17:04:25.822Z
+created: 2026-10-13T09:50:20.357Z
+modified: 2026-10-13T09:50:20.357Z
 description: 机器学习的概念、教学大纲、一些总体性建议
 ---
 ## Key ideas
@@ -14,7 +14,7 @@ description: 机器学习的概念、教学大纲、一些总体性建议
 ### Most of the learning algorithms in a class rely on convex optimization algorithms.
 
 
-### What is ML?
+### What is ML
 
 1.让计算机在==无需明确编程==情况下具有学习能力（Arthur Samuel) 
 	
