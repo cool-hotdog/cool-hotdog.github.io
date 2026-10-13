@@ -4,8 +4,8 @@ publish: true
 tags:
   - cpp
   - CS
-created: 2026-10-13T06:14:16.615Z
-modified: 2026-10-13T06:14:16.615Z
+created: 2026-10-13T06:24:07.648Z
+modified: 2026-10-13T06:24:07.648Z
 description: 计算概论（A）做题时的遇到的实用tricks
 ---
 ### 如何处理带前导零的整数？
@@ -142,11 +142,16 @@ while (cin >> x) {
     }
 	        
 //只知道列数且有分割符
-string line;
-while (getline(cin, line)) {
-	stringstream ss(line);
-	
-	//然后使用刚刚分割的办法即可
+char comma;
+while (cin >> x) {
+    vector<int> row;
+    row.push_back(x);
+
+    for (int j = 1; j < n; j++) {
+        cin >> comma >> x;
+        row.push_back(x);
+    }
+
 }
 
 //都不知道且无分割符
@@ -172,3 +177,9 @@ while (getline(cin, line)) {
 	}
 }
 ```
+
+| 行列/是否有分割符 | 有                                      | 无                                 |
+| --------- | -------------------------------------- | --------------------------------- |
+| **已知行数**  | `for` + `getline` + `ss` + `getline`   | `for` + `getline` + `ss` + `>>`   |
+| **已知列数**  | `while` + `cin` + `comma` +`条件判断`      | `while` + `cin` + `条件判断`          |
+| **行列都未知** | `while` + `getline` + `ss` + `getline` | `while` + `getline` + `ss` + `>>` |
