@@ -4,8 +4,8 @@ publish: true
 tags:
   - cpp
   - CS
-created: 2026-10-13T05:24:26.802Z
-modified: 2026-10-13T05:24:26.802Z
+created: 2026-10-13T05:27:02.189Z
+modified: 2026-10-13T05:27:02.189Z
 description: 计算概论（A）做题时的遇到的实用tricks
 ---
 ### 如何处理带前导零的整数？
@@ -61,7 +61,9 @@ if (value[a] > value[a + 1] ||
 	)
 ```
 
+**sort()**
 
+比较简单粗暴，如果我们使用了pair，其默认按字典序来排序。
 
 ### 处理无终止输入
 
