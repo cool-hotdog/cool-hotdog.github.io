@@ -4,8 +4,8 @@ publish: true
 tags:
   - cpp
   - CS
-created: 2026-10-13T06:10:40.501Z
-modified: 2026-10-13T06:10:40.501Z
+created: 2026-10-13T06:14:16.615Z
+modified: 2026-10-13T06:14:16.615Z
 description: 计算概论（A）做题时的遇到的实用tricks
 ---
 ### 如何处理带前导零的整数？
@@ -109,9 +109,14 @@ getline(cin, line) //读入输入流，以换行符或EOF终止，输入被命�
 getline(cin, line, ',') //读入输入流，以EOF终止，以逗号作为分隔符，输入被命名为line
 
 //在处理只知道行数时且无分割符，我们直接用一维数组即可
-int a[k];
 for (int i = 0; i < k; i ++) {
-	cin >> a[i];
+	string line, x;
+	getline(cin, line);
+	stringstream ss(line);
+	vector<int> row;
+	while (ss >> x) {
+		row.push_back(stoi(x))
+	}
 }
 
 // 若有分隔符
@@ -145,13 +150,14 @@ while (getline(cin, line)) {
 }
 
 //都不知道且无分割符
-string line, x;
+string line;
+int x;
 while (getline(cin, line)) {
 	vector<int> row;
 	stringstream ss(line);
 	
 	while (ss >> x) {
-		row.push_back(x);
+		row.push_back(stoi(x));
 	}
 	
 }
@@ -162,7 +168,7 @@ while (getline(cin, line)) {
 	stringstream ss(line);
 	
 	while(getline(ss, x, ',')) {
-		row.push_back(x);
+		row.push_back(stoi(x));
 	}
 }
 ```
