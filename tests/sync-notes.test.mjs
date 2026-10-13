@@ -139,3 +139,12 @@ test('source fingerprint ignores mtime-only touches but tracks content changes',
   await fs.utimes(target, original.atime, original.mtime);
   assert.notEqual(await sourceFingerprint(f.vaultPath), before);
 });
+test('iCloud conflict copies of published notes are skipped with a warning', async t => {
+  const f = await fixture(t, { '笔记.md': pub('original'), '笔记 2.md': pub('conflict copy'), '续集 2.md': pub('real sequel'), '私有.md': 'plain', '私有 2.md': 'plain copy' });
+  const result = await exportVault(f);
+  assert.deepEqual(result.notes.map(n => n.path).sort(), ['笔记.md', '续集 2.md']);
+  assert.ok(result.warnings.some(w => w.includes('笔记 2.md')), JSON.stringify(result.warnings));
+  await fs.access(path.join(f.destination, '笔记.md'));
+  await fs.access(path.join(f.destination, '续集 2.md'));
+  await assert.rejects(fs.access(path.join(f.destination, '笔记 2.md')));
+});

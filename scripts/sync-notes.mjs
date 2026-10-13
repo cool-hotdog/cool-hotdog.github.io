@@ -101,9 +101,22 @@ export async function exportVault({ vaultPath, destination }) {
     const { data, body } = frontmatter(raw);
     notes.set(rel, { data, body, aliases: Array.isArray(data.aliases) ? data.aliases.map(String) : typeof data.alias === 'string' ? [data.alias] : [] });
   }
-  const selected = new Set([...notes].filter(([, n]) => n.data.publish === true && n.data.draft !== true).map(([rel]) => rel));
   const assets = new Set();
   const warnings = [];
+  // iCloud keeps both halves of a sync conflict as `name 2.md`; the copy
+  // inherits publish: true and would go live as a duplicate page. Only a copy
+  // whose original sibling exists is treated as a conflict, so genuine notes
+  // like `高等数学 2.md` without a `高等数学.md` still publish.
+  const conflictCopy = rel => {
+    const match = /^(.*) \d+\.md$/.exec(rel);
+    return match && files.includes(`${match[1]}.md`);
+  };
+  const selected = new Set();
+  for (const [rel, note] of notes) {
+    if (note.data.publish !== true || note.data.draft === true) continue;
+    if (conflictCopy(rel)) { warnings.push(`跳过疑似 iCloud 冲突副本：${rel}（若为正式笔记，请重命名，避免文件名以「空格+数字」结尾）`); continue; }
+    selected.add(rel);
+  }
   const exports = new Map();
   const metadata = [];
   const outputs = new Set(['index']);
