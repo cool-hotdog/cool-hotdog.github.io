@@ -4,8 +4,8 @@ publish: true
 tags:
   - cpp
   - CS
-created: 2026-10-13T06:24:07.648Z
-modified: 2026-10-13T06:24:07.648Z
+created: 2026-10-16T12:18:53.804Z
+modified: 2026-10-16T12:18:53.804Z
 description: 计算概论（A）做题时的遇到的实用tricks
 ---
 ### 如何处理带前导零的整数？
@@ -183,3 +183,27 @@ while (getline(cin, line)) {
 | **已知行数**  | `for` + `getline` + `ss` + `getline`   | `for` + `getline` + `ss` + `>>`   |
 | **已知列数**  | `while` + `cin` + `comma` +`条件判断`      | `while` + `cin` + `条件判断`          |
 | **行列都未知** | `while` + `getline` + `ss` + `getline` | `while` + `getline` + `ss` + `>>` |
+### 向量求交并
+
+我们主要用到set_intersection()和set_union两个方法。
+
+```cpp
+vector<int> a, b, intersection, union_set;
+a = {1,2,3,4};
+b = {4,5,6,7};
+// 需要先对两个向量排序
+sort(a.begin(), a.end());
+sort(b.begin(), b.end());
+
+set_intersection(
+	a.begin(), a.end(),
+	b.begin(), b.end(),
+	back_inserter(intersection)
+);
+
+set_union(
+	a.begin(), a.end(),
+	b.begin(), b.end(),
+	back_inserter(union_set)
+);
+```
