@@ -4,8 +4,8 @@ publish: true
 tags:
   - cpp
   - CS
-created: 2026-10-16T12:18:53.804Z
-modified: 2026-10-16T12:18:53.804Z
+created: 2026-10-25T14:38:18.425Z
+modified: 2026-10-25T14:38:18.425Z
 description: 计算概论（A）做题时的遇到的实用tricks
 ---
 ### 如何处理带前导零的整数？
@@ -207,3 +207,4 @@ set_union(
 	back_inserter(union_set)
 );
 ```
+
