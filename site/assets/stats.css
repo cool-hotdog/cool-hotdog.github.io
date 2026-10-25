@@ -7,6 +7,7 @@ footer .site-stats {
 }
 .site-stats > span { white-space: nowrap; }
 .site-stats span > span { font-variant-numeric: tabular-nums; }
-.site-stats:has(> span[style*="inline"]) { margin-top: 12px; }
+.site-stats { margin-top: 12px; }
+.site-stats[hidden], .site-stats [hidden] { display: none; }
 .site-footer { flex-wrap: wrap; }
 .site-footer > .site-stats { flex-basis: 100%; gap: 6px 20px; }

@@ -34,7 +34,8 @@ for (const file of outputs.filter(f => f.endsWith('.html'))) {
   let statsLoaders = 0, statsStyles = 0, redirects = false;
   const visit = node => {
     const attrs = Object.fromEntries((node.attrs || []).map(a => [a.name, a.value]));
-    if (attrs.id?.startsWith('busuanzi_')) statsIds.set(attrs.id, (statsIds.get(attrs.id) || 0) + 1);
+    if (attrs.id?.startsWith('goatcounter_')) statsIds.set(attrs.id, (statsIds.get(attrs.id) || 0) + 1);
+    if (attrs.id?.startsWith('busuanzi_')) errors.push(`${rel}: obsolete Busuanzi counter`);
     if (node.tagName === 'script' && attrs.src === '/assets/stats.js') statsLoaders++;
     if (node.tagName === 'link' && attrs.href === '/assets/stats.css') statsStyles++;
     if (node.tagName === 'meta' && attrs['http-equiv']?.toLowerCase() === 'refresh') redirects = true;
@@ -52,9 +53,9 @@ for (const file of outputs.filter(f => f.endsWith('.html'))) {
   visit(tree);
   const shouldCount = !redirects && !rel.endsWith('/404.html');
   if (statsLoaders !== Number(shouldCount) || statsStyles !== Number(shouldCount)) errors.push(`${rel}: incorrect statistics resources`);
-  for (const key of ['site_pv', 'site_uv', 'page_pv']) {
+  for (const key of ['site_count', 'page_count']) {
     for (const prefix of ['container', 'value']) {
-      if ((statsIds.get(`busuanzi_${prefix}_${key}`) || 0) !== Number(shouldCount)) errors.push(`${rel}: incorrect ${prefix} for ${key}`);
+      if ((statsIds.get(`goatcounter_${prefix}_${key}`) || 0) !== Number(shouldCount)) errors.push(`${rel}: incorrect ${prefix} for ${key}`);
     }
   }
 }
