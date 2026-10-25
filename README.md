@@ -93,11 +93,15 @@ npm run verify
 
 ### 访问统计
 
-主页、关于页和全部公开笔记及目录页共用[不蒜子](https://busuanzi.ibruce.info/)计数，页脚显示全站浏览量、访客数和当前页面阅读量，无需注册。全站数据按网站域名汇总，每页数据由服务根据页面网址分别计数。中文与英文地址分别统计本页阅读量，贡献到同一份全站数据。
+主页、关于页和全部公开笔记及目录页共用 [GoatCounter](https://www.goatcounter.com/) 统计，页脚显示全站访问与本页访问。账户地址由 `site/analytics.json` 的 `goatcounterEndpoint` 配置，目前为 `https://coolhotdog.goatcounter.com/count`。中文与英文地址分别统计本页访问，贡献到同一账户的全站总数；查询参数与锚点不拆分计数。
 
-统计仅在 `https://cool-hotdog.github.io` 上加载，本地预览、404 和旧地址跳转页不计数。外部服务不可用或被拦截时隐藏统计数字，不阻塞正文；不会用 0 或本地缓存伪装真实计数。计数从接入后开始，不能补回以前的浏览记录；访客数是服务识别口径的估算，并非实际人数，也不提供按日期、来源的后台报表。
+站长需在 GoatCounter 的 **Settings → Site settings** 中开启 **Allow adding visitor counts on your website**，公开计数接口才会返回数字；不需要公开整个统计后台。账户的登录、邮箱和密码不放入网站代码，公开计数无需 API 密钥。
 
-公共页面会加载不蒜子的第三方脚本，并由浏览器向服务发送页面地址及请求信息。公共计数不是审计数据，可能包含刷新、自动访问和测试访问。接入入口为 `site/stats.mjs`、`site/assets/stats.js`，笔记页由 `scripts/build.mjs` 在构建时插入同一套页脚。
+统计仅在 `https://cool-hotdog.github.io` 上启用，本地预览、其他域名、404 和旧地址跳转页不计数。加载中有文字提示，脚本失败、公开计数未开启、数据异常或超过 8 秒未响应时显示“统计暂不可用”，正文照常显示；有效的部分计数保留，不用 0 或本地缓存冒充成功返回的数字。不自动重试上报，以免重复记录访问。
+
+默认按 GoatCounter 的会话口径去重，同一会话刷新同页通常不会重复增加，不能将其称为逐次页面加载量或实际人数。公开计数最多缓存四小时，刷新后数字未立即增加不代表上报失败；核验上报应查看账户后台，正常处理约需 10 秒。后台可查看时间、页面与来源等报表。详见[会话说明](https://www.goatcounter.com/help/sessions)与[公开计数说明](https://www.goatcounter.com/help/visitor-counter)。
+
+GoatCounter 数据从新接入后开始，不继承不蒜子历史数字。公共页面向 GoatCounter 发送页面路径、标题、来源及其官方客户端收集的请求信息。官方客户端保存在 `site/assets/goatcounter-count.js`，与网站同源加载；来源、Git blob 标识及 ISC 授权见文件头与 `goatcounter-LICENSE.txt`，更新时一并核验。接入入口为 `site/stats.mjs`、`site/assets/stats.js`，笔记页由 `scripts/build.mjs` 在构建时插入同一套页脚。
 
 GitHub Pages 使用 `.github/workflows/deploy.yml`：拉取请求运行测试、构建与站内链接验证；合并至 `main` 后部署 `dist/`。Pages 设置中的 Source 应为 **GitHub Actions**。旧 `/about-cn.html` 自动跳转到中文关于页。
 
