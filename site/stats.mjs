@@ -2,10 +2,9 @@ import analytics from './analytics.json' with { type: 'json' };
 import { readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 
-// An empty endpoint is allowed while preparing an account, but sends no data.
 const endpoint = analytics.goatcounterEndpoint;
 const startDate = analytics.counterStartDate;
-if (typeof endpoint !== 'string' || (endpoint && !/^https:\/\/[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.goatcounter\.com\/count$/.test(endpoint))) {
+if (typeof endpoint !== 'string' || !/^https:\/\/[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.goatcounter\.com\/count$/.test(endpoint)) {
   throw new Error('GoatCounter 地址应为 https://账户名.goatcounter.com/count');
 }
 if (typeof startDate !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(startDate) || !Number.isFinite(Date.parse(startDate)) || new Date(startDate).toISOString().slice(0, 10) !== startDate) {
