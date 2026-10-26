@@ -2,6 +2,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { parse } from 'parse5';
 import { root } from './sync-notes.mjs';
+import analytics from '../site/analytics.json' with { type: 'json' };
 
 const dist = path.resolve(process.env.HOMEPAGE_DIST_DIR || path.join(root, 'dist'));
 const content = path.resolve(process.env.HOMEPAGE_CONTENT_DIR || path.join(root, 'content'));
@@ -31,13 +32,21 @@ for (const file of outputs.filter(f => f.endsWith('.html'))) {
   const rel = '/' + path.relative(dist, file).split(path.sep).join('/');
   const tree = parse(await fs.readFile(file, 'utf8'));
   const statsIds = new Map();
-  let statsLoaders = 0, statsStyles = 0, redirects = false;
+  let statsLoaders = 0, statsStyles = 0, statsEndpoints = 0, statsRanges = 0, redirects = false;
   const visit = node => {
     const attrs = Object.fromEntries((node.attrs || []).map(a => [a.name, a.value]));
     if (attrs.id?.startsWith('goatcounter_')) statsIds.set(attrs.id, (statsIds.get(attrs.id) || 0) + 1);
     if (attrs.id?.startsWith('busuanzi_')) errors.push(`${rel}: obsolete Busuanzi counter`);
-    if (node.tagName === 'script' && attrs.src === '/assets/stats.js') statsLoaders++;
+    if (node.tagName === 'script' && attrs.src?.split('?')[0] === '/assets/stats.js') statsLoaders++;
     if (node.tagName === 'link' && attrs.href === '/assets/stats.css') statsStyles++;
+    if (node.tagName === 'meta' && attrs.name === 'goatcounter-endpoint') {
+      statsEndpoints++;
+      if (attrs.content !== analytics.goatcounterEndpoint) errors.push(`${rel}: incorrect GoatCounter endpoint`);
+    }
+    if (node.tagName === 'meta' && attrs.name === 'goatcounter-start-date') {
+      statsRanges++;
+      if (attrs.content !== analytics.counterStartDate) errors.push(`${rel}: incorrect GoatCounter date range`);
+    }
     if (node.tagName === 'meta' && attrs['http-equiv']?.toLowerCase() === 'refresh') redirects = true;
     if (attrs.property === 'og:image') attrs.src = attrs.content;
     for (const key of ['href', 'src', 'poster']) {
@@ -53,6 +62,7 @@ for (const file of outputs.filter(f => f.endsWith('.html'))) {
   visit(tree);
   const shouldCount = !redirects && !rel.endsWith('/404.html');
   if (statsLoaders !== Number(shouldCount) || statsStyles !== Number(shouldCount)) errors.push(`${rel}: incorrect statistics resources`);
+  if (statsEndpoints !== Number(shouldCount) || statsRanges !== Number(shouldCount)) errors.push(`${rel}: incorrect statistics configuration`);
   for (const key of ['site_count', 'page_count']) {
     for (const prefix of ['container', 'value']) {
       if ((statsIds.get(`goatcounter_${prefix}_${key}`) || 0) !== Number(shouldCount)) errors.push(`${rel}: incorrect ${prefix} for ${key}`);

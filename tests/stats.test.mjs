@@ -19,6 +19,7 @@ function harness({ origin = 'https://cool-hotdog.github.io', path = '/notes/%E4%
     if (attrs.class === 'site-stats') {
       stats = element;
       stats.dataset.unavailable = attrs['data-unavailable'];
+      stats.dataset.pending = attrs['data-pending'];
     }
     if (attrs.class === 'site-stats-status') status = element;
     for (const child of node.childNodes || []) visit(child);
@@ -34,6 +35,7 @@ function harness({ origin = 'https://cool-hotdog.github.io', path = '/notes/%E4%
     querySelector(selector) {
       if (selector === '.site-stats') return stats;
       if (selector === 'meta[name="goatcounter-endpoint"]') return { content: endpoint };
+      if (selector === 'meta[name="goatcounter-start-date"]') return { content: '2026-10-25' };
       if (selector === 'script[data-goatcounter]') return scripts[0];
       return null;
     },
@@ -85,8 +87,9 @@ test('official client records once and public counters use exactly the same enco
   assert.equal(recorded.pathname, '/count');
   const countedPath = recorded.searchParams.get('p');
   assert.equal(countedPath, '/notes/%E4%B8%AD%E6%96%87.html');
-  assert.ok(h.requests.some(r => r.url.endsWith(`/counter/${encodeURIComponent(countedPath)}.json`)));
-  assert.ok(h.requests.some(r => r.url.endsWith('/counter/TOTAL.json')));
+  assert.ok(h.requests.some(r => new URL(r.url).pathname.endsWith(`/counter/${encodeURIComponent(countedPath)}.json`)));
+  assert.ok(h.requests.some(r => new URL(r.url).pathname.endsWith('/counter/TOTAL.json')));
+  assert.ok(h.requests.every(r => new URL(r.url).searchParams.get('start') === '2026-10-25'));
   assert.equal(h.ids.get('goatcounter_value_site_count').textContent, '1,234');
   assert.equal(h.ids.get('goatcounter_container_page_count').hidden, false);
   assert.equal(h.status.hidden, true);
@@ -127,16 +130,46 @@ test('disabled public counters fail visibly but do not block visit recording', a
   assert.equal(h.ids.get('goatcounter_value_site_count').textContent, '');
 });
 
-test('a new or unavailable page never becomes a fabricated zero; valid total stays visible', async () => {
+test('a page pending its first statistics record is not reported as a service failure', async () => {
   const h = harness({ respond: async url => url.includes('/TOTAL.')
     ? { ok: true, json: async () => ({ count: '12' }) }
-    : { ok: false, status: 404 } });
+    : { ok: false, status: 404, json: async () => ({ count: '0', count_unique: '0' }) } });
   h.loadClient();
   await flush();
   assert.equal(h.ids.get('goatcounter_value_site_count').textContent, '12');
   assert.equal(h.ids.get('goatcounter_container_site_count').hidden, false);
   assert.equal(h.ids.get('goatcounter_container_page_count').hidden, true);
-  assert.equal(h.status.textContent, '统计暂不可用');
+  assert.equal(h.status.textContent, '本页统计更新中');
+  assert.equal(h.status.hidden, false);
+  assert.equal(h.timers.size, 0);
+  assert.equal(h.beacons.length, 1);
+});
+
+test('missing-page handling does not hide real page service errors or invalid 404 bodies', async () => {
+  for (const response of [
+    { ok: false, status: 503 },
+    { ok: false, status: 404, json: async () => { throw new Error('HTML response'); } },
+    { ok: false, status: 404, json: async () => ({ count: '9' }) },
+    { ok: false, status: 404, json: async () => ({ error: 'not found' }) },
+  ]) {
+    const h = harness({ respond: async url => url.includes('/TOTAL.')
+      ? { ok: true, json: async () => ({ count: '12' }) } : response });
+    h.loadClient();
+    await flush();
+    assert.equal(h.status.textContent, '统计暂不可用');
+    assert.equal(h.ids.get('goatcounter_value_site_count').textContent, '12');
+    assert.equal(h.ids.get('goatcounter_container_page_count').hidden, true);
+  }
+});
+
+test('pending page is localized in English without replacing it with a zero', async () => {
+  const h = harness({ lang: 'en', respond: async url => url.includes('/TOTAL.')
+    ? { ok: true, json: async () => ({ count: '12' }) }
+    : { ok: false, status: 404, json: async () => ({ count: '0' }) } });
+  h.loadClient();
+  await flush();
+  assert.equal(h.status.textContent, 'Page statistics updating');
+  assert.equal(h.ids.get('goatcounter_value_page_count').textContent, '');
 });
 
 test('hung public requests are aborted at timeout without retrying recording', async () => {

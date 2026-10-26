@@ -1,3 +1,4 @@
 {
-  "goatcounterEndpoint": "https://coolhotdog.goatcounter.com/count"
+  "goatcounterEndpoint": "https://coolhotdog.goatcounter.com/count",
+  "counterStartDate": "2026-10-25"
 }

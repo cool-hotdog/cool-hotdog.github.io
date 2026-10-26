@@ -93,11 +93,13 @@ npm run verify
 
 ### 访问统计
 
-主页、关于页和全部公开笔记及目录页共用 [GoatCounter](https://www.goatcounter.com/) 统计，页脚显示全站访问与本页访问。账户地址由 `site/analytics.json` 的 `goatcounterEndpoint` 配置，目前为 `https://coolhotdog.goatcounter.com/count`。中文与英文地址分别统计本页访问，贡献到同一账户的全站总数；查询参数与锚点不拆分计数。
+主页、关于页和全部公开笔记及目录页共用 [GoatCounter](https://www.goatcounter.com/) 统计，页脚显示全站访问与本页访问。账户地址由 `site/analytics.json` 的 `goatcounterEndpoint` 配置，目前为 `https://coolhotdog.goatcounter.com/count`。公开计数统一使用固定的 `counterStartDate: "2026-10-25"`，对应此账户启用日，不使用滚动日期或随机参数规避服务缓存。中文与英文地址分别统计本页访问，贡献到同一账户的全站总数；查询参数与锚点不拆分计数。
 
 站长需在 GoatCounter 的 **Settings → Site settings** 中开启 **Allow adding visitor counts on your website**，公开计数接口才会返回数字；不需要公开整个统计后台。账户的登录、邮箱和密码不放入网站代码，公开计数无需 API 密钥。
 
 统计仅在 `https://cool-hotdog.github.io` 上启用，本地预览、其他域名、404 和旧地址跳转页不计数。加载中有文字提示，脚本失败、公开计数未开启、数据异常或超过 8 秒未响应时显示“统计暂不可用”，正文照常显示；有效的部分计数保留，不用 0 或本地缓存冒充成功返回的数字。不自动重试上报，以免重复记录访问。
+
+新页面的公开接口可能返回 HTTP 404 与零值 JSON，表示尚无可用的页面计数；即使后台随后记录了访问，这个结果也可能被服务缓存数小时。只在这种明确的响应下显示“本页统计更新中”，保留正常的全站数字，不伪造本页访问量。403、5xx、无效 JSON 和请求超时仍按真正故障处理。固定的启用日起始范围在全站和本页查询中保持一致，后台记录与公开计数的缓存更新是两个环节。
 
 默认按 GoatCounter 的会话口径去重，同一会话刷新同页通常不会重复增加，不能将其称为逐次页面加载量或实际人数。公开计数最多缓存四小时，刷新后数字未立即增加不代表上报失败；核验上报应查看账户后台，正常处理约需 10 秒。后台可查看时间、页面与来源等报表。详见[会话说明](https://www.goatcounter.com/help/sessions)与[公开计数说明](https://www.goatcounter.com/help/visitor-counter)。
 
