@@ -1,9 +1,9 @@
 {
   "notes": [
     {
-      "path": "10 Courses/线性代数/线性代数前三章杂谈.md",
-      "title": "线性代数前三章杂谈",
-      "url": "/notes/10-courses/线性代数/线性代数前三章杂谈.html",
+      "path": "10 Courses/线性代数/线性代数杂谈（一）.md",
+      "title": "线性代数杂谈（一）",
+      "url": "/notes/10-courses/线性代数/线性代数杂谈（一）.html",
       "tags": [
         "线代",
         "Math"
@@ -11,7 +11,7 @@
       "modified": "2026-10-26T09:59:30.158Z",
       "featured": false,
       "description": "试图对前三个章节的内容串起来，揭示线代诸多对象的本质联系。希望是一次成功的尝试）",
-      "sha256": "9c46bdc0411a9807a875af3da59ad709d6491c4a5a6fc449404c8ab790ce7541"
+      "sha256": "e1811a0eb8bab0de34c6a5754c678a94c2342ede7f717b238723d2defeaf3fdc"
     },
     {
       "path": "20 Knowledge/Computer Science/Code/CPP刷题经验.md",

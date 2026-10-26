@@ -7,7 +7,7 @@ publish: true
 
 - **10 Courses**
   - **线性代数**
-    - [[10 Courses/线性代数/线性代数前三章杂谈|线性代数前三章杂谈]]
+    - [[10 Courses/线性代数/线性代数杂谈（一）|线性代数杂谈（一）]]
   - **CS229**
     - [[10 Courses/CS229/CS229 Lecture 1|CS229 Lecture 1]]
     - [[10 Courses/CS229/CS229 Lecture2|CS229 Lecture2]]
