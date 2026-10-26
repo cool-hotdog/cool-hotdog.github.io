@@ -4,34 +4,16 @@ publish: true
 tags:
   - cpp
   - CS
-created: 2026-10-25T14:38:18.425Z
-modified: 2026-10-25T14:38:18.425Z
+created: 2026-10-26T08:45:45.281Z
+modified: 2026-10-26T08:45:45.281Z
 description: 计算概论（A）做题时的遇到的实用tricks
 ---
-### 如何处理带前导零的整数？
+### 如何处理带格式数字/长数字？
 
-**输入**  
-
-用 string 来获取整个数字
-```cpp
-#include <string>
-string number;
-cin >> number;
-```
-
-**输出**
-```cpp
-#include <iomanip>
-cout << setfill('0') << setw(n) << number << endl;
-```
-ps: setw = set width
-
-n是格式所需位数
+使用string即可！
 ###  排序问题
 
-接下来分别介绍使用/不使用sort()两种方法的排序
-
-**平行数组 + 冒泡/插入/归并排序**
+**平行数组 + 排序**
 
 建立多个平行的数组等同于将对象的不同要素分开储存，且同一个对象的各个要素在其对应数组中的 index 都相同。
 
@@ -63,7 +45,7 @@ if (value[a] > value[a + 1] ||
 
 **sort()**
 
-比较简单粗暴，如果我们使用了pair，其默认按字典序来排序。
+比较简单粗暴，如果我们使用了pair，其默认按字典序来排序。个人拙见是打包好了之后灵活性不如手搓，且也不一定记得住。
 
 ### 处理各类输入
 
@@ -208,3 +190,4 @@ set_union(
 );
 ```
 
+### 函数递归
