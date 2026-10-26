@@ -8,10 +8,10 @@
         "线代",
         "Math"
       ],
-      "modified": "2026-10-26T11:07:15.913Z",
+      "modified": "2026-10-26T11:13:29.023Z",
       "featured": false,
       "description": "试图对前三个章节的内容串起来，揭示线代诸多对象的本质联系。希望是一次成功的尝试）",
-      "sha256": "d04fa1ac2b798d6871e74a8a20b006dfcaa270e4cc41aa70d7bd7bb2f32f9359"
+      "sha256": "c5df3a22718f0134d5a96ef584f865fe023c9f179251dddbac4c3cd9a746260e"
     },
     {
       "path": "20 Knowledge/Computer Science/Code/CPP刷题经验.md",
