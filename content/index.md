@@ -11,6 +11,9 @@ publish: true
   - **CS229**
     - [[10 Courses/CS229/CS229 Lecture 1|CS229 Lecture 1]]
     - [[10 Courses/CS229/CS229 Lecture2|CS229 Lecture2]]
+  - **Financial Economics**
+    - [[10 Courses/Financial Economics/总览|总览]]
+    - [[10 Courses/Financial Economics/MPT推导|MPT推导]]
   - [[10 Courses/计概C|计概C]]
 - **20 Knowledge**
   - **Computer Science**

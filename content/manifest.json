@@ -1,6 +1,30 @@
 {
   "notes": [
     {
+      "path": "10 Courses/Financial Economics/总览.md",
+      "title": "总览",
+      "url": "/notes/10-courses/financial-economics/总览.html",
+      "tags": [
+        "金经导"
+      ],
+      "modified": "2026-11-08T15:29:44.756Z",
+      "featured": false,
+      "description": "",
+      "sha256": "06324a78f38f9638c9bc834aa2ac4cc51b4fbf472ab8fea2d56baf7bc3a440eb"
+    },
+    {
+      "path": "10 Courses/Financial Economics/MPT推导.md",
+      "title": "MPT推导",
+      "url": "/notes/10-courses/financial-economics/mpt推导.html",
+      "tags": [
+        "金经导"
+      ],
+      "modified": "2026-11-08T15:29:37.639Z",
+      "featured": false,
+      "description": "",
+      "sha256": "ac32a5abb03e1784a3f8bbcb6a7963d3bd7ce70a459703cefe966707276406e2"
+    },
+    {
       "path": "10 Courses/线性代数/线性代数杂谈（一）.md",
       "title": "线性代数杂谈（一）",
       "url": "/notes/10-courses/线性代数/线性代数杂谈（一）.html",
