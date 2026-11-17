@@ -11,6 +11,7 @@ publish: true
   - **CS229**
     - [[10 Courses/CS229/CS229 Lecture 1|CS229 Lecture 1]]
     - [[10 Courses/CS229/CS229 Lecture2|CS229 Lecture2]]
+    - [[10 Courses/CS229/CS229 Lecture3|CS229 Lecture3]]
   - **Financial Economics**
     - [[10 Courses/Financial Economics/总览|总览]]
     - [[10 Courses/Financial Economics/MPT推导|MPT推导]]
