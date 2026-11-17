@@ -5,8 +5,8 @@ tags:
   - ML
   - CS
   - Stanford
-created: 2026-11-17T16:54:34.813Z
-modified: 2026-11-17T16:54:34.813Z
+created: 2026-11-17T16:55:58.524Z
+modified: 2026-11-17T16:55:58.524Z
 description: Locally weighted Reg  & Logistic Reg
 ---
 ## Key ideas
