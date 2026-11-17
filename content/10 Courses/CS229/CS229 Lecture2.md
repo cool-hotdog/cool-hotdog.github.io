@@ -5,8 +5,8 @@ tags:
   - ML
   - CS
   - Stanford
-created: 2026-10-10T06:22:01.104Z
-modified: 2026-10-10T06:22:01.104Z
+created: 2026-11-17T16:05:18.481Z
+modified: 2026-11-17T16:05:18.481Z
 description: Linear Regression and Gradient Descent
 ---
 ## Key ideas

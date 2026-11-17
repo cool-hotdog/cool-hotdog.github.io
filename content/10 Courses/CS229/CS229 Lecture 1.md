@@ -5,8 +5,8 @@ tags:
   - ML
   - Stanford
   - CS
-created: 2026-10-13T09:51:07.227Z
-modified: 2026-10-13T09:51:07.227Z
+created: 2026-11-17T16:05:13.442Z
+modified: 2026-11-17T16:05:13.442Z
 description: 机器学习的概念、教学大纲、一些总体性建议
 ---
 ## Key ideas

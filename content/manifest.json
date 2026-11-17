@@ -1,6 +1,34 @@
 {
   "notes": [
     {
+      "path": "10 Courses/CS229/CS229 Lecture2.md",
+      "title": "CS229 Lecture2",
+      "url": "/notes/10-courses/cs229/cs229-lecture2.html",
+      "tags": [
+        "ML",
+        "CS",
+        "Stanford"
+      ],
+      "modified": "2026-11-17T16:05:18.481Z",
+      "featured": false,
+      "description": "Linear Regression and Gradient Descent",
+      "sha256": "c37babb82a6bb59afe78a0079418caff771578aec3c9d6e3380f36d4fb439d6e"
+    },
+    {
+      "path": "10 Courses/CS229/CS229 Lecture 1.md",
+      "title": "CS229 Lecture 1",
+      "url": "/notes/10-courses/cs229/cs229-lecture-1.html",
+      "tags": [
+        "ML",
+        "Stanford",
+        "CS"
+      ],
+      "modified": "2026-11-17T16:05:13.442Z",
+      "featured": false,
+      "description": "机器学习的概念、教学大纲、一些总体性建议",
+      "sha256": "957c3e048bda6b81992b928267e6e670bd266474a5b1c6d2786f73322c62d6ff"
+    },
+    {
       "path": "10 Courses/Financial Economics/总览.md",
       "title": "总览",
       "url": "/notes/10-courses/financial-economics/总览.html",
@@ -51,20 +79,6 @@
       "sha256": "3576b0aedea69572d538b5d41772079182ece385894f8f680b08605dde053c41"
     },
     {
-      "path": "10 Courses/CS229/CS229 Lecture 1.md",
-      "title": "CS229 Lecture 1",
-      "url": "/notes/10-courses/cs229/cs229-lecture-1.html",
-      "tags": [
-        "ML",
-        "Stanford",
-        "CS"
-      ],
-      "modified": "2026-10-13T09:51:07.227Z",
-      "featured": false,
-      "description": "机器学习的概念、教学大纲、一些总体性建议",
-      "sha256": "abcfe97787edee69f12ba0e8fef0a2cfc0bc7fb727a357d1ebb275aa64c51558"
-    },
-    {
       "path": "10 Courses/计概C.md",
       "title": "计概C",
       "url": "/notes/10-courses/计概c.html",
@@ -76,20 +90,6 @@
       "featured": false,
       "description": "Some tips which probably are useful in the course",
       "sha256": "629676186b1620b3e4bcb698edf1126bd6f1fafff9360bc78eee1a968dac2798"
-    },
-    {
-      "path": "10 Courses/CS229/CS229 Lecture2.md",
-      "title": "CS229 Lecture2",
-      "url": "/notes/10-courses/cs229/cs229-lecture2.html",
-      "tags": [
-        "ML",
-        "CS",
-        "Stanford"
-      ],
-      "modified": "2026-10-10T06:22:01.104Z",
-      "featured": false,
-      "description": "Linear Regression and Gradient Descent",
-      "sha256": "e5aa6915f3fbd035ff8aa72d44695a607368891961a333614b1afa3f4ba22eac"
     }
   ],
   "assets": [
