@@ -5,8 +5,8 @@ tags:
   - ML
   - CS
   - Stanford
-created: 2026-11-18T17:04:43.964Z
-modified: 2026-11-18T17:04:43.964Z
+created: 2026-11-18T17:08:56.146Z
+modified: 2026-11-18T17:08:56.146Z
 description: Locally weighted Reg  & Logistic Reg
 ---
 ## Key ideas
@@ -44,7 +44,4 @@ L(\theta)=\prod^{m}_{i=1}p(y^i|x^i;\theta)
 =\prod^{m}_{i=1}\frac{1}{\sqrt{2\pi}\sigma}\exp({-\frac{(y^i-\theta^{\top}x^i)^2}{2\sigma^2}})
 $$
 
-技术上，我们采用取对数的方式来求最大值，即求
-$$
-\max_{\theta}(y^i-\theta^{\top}x^i)^{2}
-$$
+技术上，我们采用取对数的方式来求最大值，即求$\theta$使得$(y^i-\theta^{\top}x^i)^{2}$最大
