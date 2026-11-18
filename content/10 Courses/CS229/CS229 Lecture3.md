@@ -5,8 +5,8 @@ tags:
   - ML
   - CS
   - Stanford
-created: 2026-11-17T16:55:58.524Z
-modified: 2026-11-17T16:55:58.524Z
+created: 2026-11-17T16:57:51.216Z
+modified: 2026-11-17T16:57:51.216Z
 description: Locally weighted Reg  & Logistic Reg
 ---
 ## Key ideas
@@ -24,7 +24,7 @@ Loss = \sum^{m}_{i=1}\omega^{(i)}(y^{i}-\theta^{\top}x^{i})^2
 $$
 其中
 $$
-\omega = e^{-\frac{(x-x^i)^2}{2\tau^2}}
+\omega = \exp({-\frac{(x-x^i)^2}{2\tau^2}})
 $$
 权重把$x$和$x^i$的距离压缩到$[0,1]$之间，给距离较近的点更大的权重。
 $\tau$是带宽参数（bandwidth）决定了观察窗口，其越大，观察窗口就越大，拟合的曲线也就越平滑，反之会呈现锯齿状。
@@ -41,6 +41,6 @@ $\tau$是带宽参数（bandwidth）决定了观察窗口，其越大，观察�
 
 $$
 L(\theta)=\prod^{m}_{i=1}p(y^i|x^i;\theta)
-=\prod^{m}_{i=1}\frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{(y^i-\theta^{\top}x^i)^2}{2\sigma^2}}
+=\prod^{m}_{i=1}\frac{1}{\sqrt{2\pi}\sigma}\exp({-\frac{(y^i-\theta^{\top}x^i)^2}{2\sigma^2}})
 $$
 
